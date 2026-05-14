@@ -1,0 +1,11 @@
+El usuario busca: "{{ user_query }}"
+
+Propiedades disponibles en la base de datos ({{ count }} resultado{{ 's' if count != 1 else '' }}):
+{% for p in properties %}
+- **{{ p.title }}** | {{ p.zone }}, {{ p.municipality.value }} | {{ p.type.value }}
+  Precio: ${{ "{:,.0f}".format(p.price_usd) }} USD | {{ p.bedrooms }}h/{{ p.bathrooms }}b | {{ p.area_m2 }}m²
+  Descripción: {{ p.description }}
+  Características: {{ ', '.join(p.features) if p.features else 'N/A' }}
+{% endfor %}
+
+Instrucción: Presenta estos resultados de forma natural y atractiva. Menciona que los precios son referenciales y que puede agendar una visita. No inventes datos que no estén en la lista.
