@@ -1,0 +1,10 @@
+El usuario busca: "{{ user_query }}"
+
+No encontré coincidencias exactas con los filtros, pero estas propiedades son semánticamente similares ({{ count }} resultado{{ 's' if count != 1 else '' }}):
+{% for p in properties %}
+- **{{ p.title }}** | {{ p.zone }}, {{ p.municipality.value }} | {{ p.type.value }}
+  Precio: ${{ "{:,.0f}".format(p.price_usd) }} USD | {{ p.bedrooms }}h/{{ p.bathrooms }}b | {{ p.area_m2 }}m²
+  Descripción: {{ p.description }}
+{% endfor %}
+
+Instrucción: Presenta estos resultados como alternativas relacionadas. Sé transparente: di que son opciones similares, no exactas. No inventes datos.
