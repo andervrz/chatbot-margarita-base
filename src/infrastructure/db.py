@@ -93,13 +93,13 @@ CREATE INDEX IF NOT EXISTS idx_cache_hash ON cache_exact(query_hash);
 -- TABLAS VECTORIALES (sqlite-vec)
 -- ============================================
 CREATE VIRTUAL TABLE IF NOT EXISTS cache_semantic USING vec0(
-    query_embedding float[1536],
+    query_embedding float[384],
     +response TEXT,
     +intent_type TEXT
 );
 
 CREATE VIRTUAL TABLE IF NOT EXISTS property_embeddings USING vec0(
-    description_embedding float[1536],
+    description_embedding float[384],
     +property_id INTEGER
 );
 """
