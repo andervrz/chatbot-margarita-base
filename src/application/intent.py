@@ -40,17 +40,32 @@ class IntentDetector:
     """
 
     # ---------- Patrones de intención ----------
+    # ORDEN CRÍTICO: de más específico (FAQ/saludos) a más general (búsqueda).
+    # SEARCH_PROPERTY es muy amplio ("en X", "cerca de Y") y debe ir al final.
 
     _INTENT_PATTERNS: dict[IntentType, list[str]] = {
-        IntentType.SEARCH_PROPERTY: [
-            r"(busco|quiero|necesito|estoy buscando|me interesa|dónde hay|hay algún|hay alguna)",
-            r"(casa|apartamento|terreno|local|penthouse|anexo|townhouse)",
-            r"(en\s+\w+|cerca de\s+\w+|zona\s+\w+)",
+        # 1. Saludos y despedidas (muy específicos)
+        IntentType.GREETING: [
+            r"^hola[!\s]*",
+            r"^buenos\s+días",
+            r"^buenas\s+tardes",
+            r"^buenas\s+noches",
+            r"^saludos",
         ],
+        IntentType.GOODBYE: [
+            r"^gracias(\s+.*)?$",           # gracias, gracias por la info, gracias!
+            r"^adiós",
+            r"^hasta\s+luego",
+            r"^nos\s+vemos",
+            r"^chao",
+        ],
+
+        # 2. FAQs (patrones muy definidos)
         IntentType.FAQ_PRICE_M2: [
             r"precio\s+(por\s+)?m²",
             r"precio\s+(por\s+)?metro\s+cuadrado",
             r"cuánto\s+cuesta\s+(el\s+)?m²",
+            r"cuánto\s+cuesta\s+(el\s+)?metro\s+cuadrado",
             r"valor\s+(del\s+)?metro\s+cuadrado",
         ],
         IntentType.FAQ_FOREIGN_BUY: [
@@ -74,6 +89,8 @@ class IntentDetector:
             r"escritura",
             r"registro\s+de\s+la\s+propiedad",
         ],
+
+        # 3. Captura de lead
         IntentType.CAPTURE_LEAD: [
             r"mi\s+nombre\s+es\s+([a-záéíóúñ\s]+)",
             r"me\s+llamo\s+([a-záéíóúñ\s]+)",
@@ -81,19 +98,12 @@ class IntentDetector:
             r"contactenme",
             r"quiero\s+que\s+me\s+llamen",
         ],
-        IntentType.GREETING: [
-            r"^hola[!\s]*",
-            r"^buenos\s+días",
-            r"^buenas\s+tardes",
-            r"^buenas\s+noches",
-            r"^saludos",
-        ],
-        IntentType.GOODBYE: [
-            r"gracias[!\s]*$",
-            r"^adiós",
-            r"^hasta\s+luego",
-            r"^nos\s+vemos",
-            r"^chao",
+
+        # 4. Búsqueda de propiedad (más general, va al final)
+        IntentType.SEARCH_PROPERTY: [
+            r"(busco|quiero|necesito|estoy buscando|me interesa|dónde hay|hay algún|hay alguna)",
+            r"(casa|apartamento|terreno|local|penthouse|anexo|townhouse)",
+            r"(en\s+\w+|cerca de\s+\w+|zona\s+\w+)",
         ],
     }
 
@@ -205,7 +215,6 @@ class IntentDetector:
                 break
 
         # --- Precio (regex simple) ---
-        # "hasta 50000", "menos de 80000", "entre 30000 y 60000"
         price_patterns = [
             r"(?:hasta|menos\s+de|máximo|maximo)\s+[\$]?\s*(\d[\d\.,]*)",
             r"(?:entre|de)\s+[\$]?\s*(\d[\d\.,]*)\s+y\s+[\$]?\s*(\d[\d\.,]*)",

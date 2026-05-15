@@ -5,7 +5,7 @@ Usan TestClient con base de datos en memoria inyectada.
 
 import pytest
 from fastapi.testclient import TestClient
-
+from pathlib import Path
 from src.interface.api import app
 from src.interface.dependencies import app_state, init_dependencies, close_dependencies
 
@@ -19,7 +19,7 @@ async def client():
     # Sobrescribir DB path a memoria antes de init
     from src.config import settings
     original_path = settings.database_path
-    settings.database_path = ":memory:"
+    settings.database_path = Path(":memory:")
 
     await init_dependencies()
 

@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS cache_exact (
 CREATE INDEX IF NOT EXISTS idx_cache_hash ON cache_exact(query_hash);
 
 -- ============================================
--- TABLAS VECTORIALES (sqlite-vec)
+-- TABLAS VECTORIALES (sqlite-vec) - 384 dims para all-MiniLM-L6-v2
 -- ============================================
 CREATE VIRTUAL TABLE IF NOT EXISTS cache_semantic USING vec0(
     query_embedding float[384],
@@ -117,9 +117,10 @@ class Database:
         self._connection = await aiosqlite.connect(self.db_path)
         self._connection.row_factory = aiosqlite.Row
 
-        # Cargar extensión C de sqlite-vec en la conexión subyacente
+        # FIX: Cargar extensión sqlite-vec usando el método async de aiosqlite
+        # en lugar de sqlite_vec.load() que rompe por threading
         await self._connection.enable_load_extension(True)
-        sqlite_vec.load(self._connection._connection)
+        await self._connection.load_extension(str(sqlite_vec.loadable_path()))
         await self._connection.enable_load_extension(False)
 
         await self._connection.executescript(SCHEMA_SQL)

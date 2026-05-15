@@ -55,8 +55,8 @@ def mock_llm() -> LLMClient:
     # Mock: chat siempre retorna una respuesta fija
     llm.chat = AsyncMock(return_value="Respuesta mockeada del asistente")
 
-    # Mock: embed retorna un vector de 1536 dimensiones (tamaño estándar)
-    llm.embed = AsyncMock(return_value=[0.01] * 1536)
+    # Mock: embed retorna un vector de 384 dimensiones (tamaño estándar)
+    llm.embed = AsyncMock(return_value=[0.01] * 384)
 
     return llm
 

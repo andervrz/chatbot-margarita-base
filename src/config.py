@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     )
 
     # --- LLM (LiteLLM + Groq) ---
-    llm_model: str = Field(default="groq/llama-3.3-70b-versatile", alias="LLM_MODEL")
+    llm_model: str = Field(default="groq/llama-3.1-8b-instant", alias="LLM_MODEL")
     llm_temperature: float = Field(default=0.7, alias="LLM_TEMPERATURE")
     llm_max_tokens: int = Field(default=500, alias="LLM_MAX_TOKENS")
     groq_api_key: str = Field(alias="GROQ_API_KEY")

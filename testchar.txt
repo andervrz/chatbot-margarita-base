@@ -1,0 +1,472 @@
+👤 Tú: hola
+🤖 Bot:
+¡Hola! Soy tu asesor inmobiliario de Margarita. ¿En qué puedo ayudarte hoy?
+
+⏱ 45ms | sesión: cli-1715731200...
+
+👤 Tú: precio por metro cuadrado en pampatar
+🤖 Bot:
+Los precios por m² en Isla de Margarita varían según la zona:
+• Maneiro (Pampatar, Playa El Ángel): $1,000 – $1,500/m²
+...
+
+⏱ 12ms | sesión: cli-1715731200...   <-- 0 LLM calls (FAQ directa)
+
+👤 Tú: busco apartamento en porlamar hasta 70000
+🤖 Bot:
+Encontré estas opciones en Porlamar:
+• Apartamento Ejecutivo Porlamar | Porlamar Centro | $65,000 | 2h/2b | 75m²
+...
+
+⏱ 890ms | sesión: cli-1715731200...   <-- 1 LLM call (formateo)
+
+👤 Tú: /history
+─────────────────────────────────────────
+Historial de sesión: cli-1715731200
+─────────────────────────────────────────
+👤 user: hola
+🤖 assistant: ¡Hola! Soy tu asesor...
+👤 user: precio por metro cuadrado en pampatar
+🤖 assistant: Los precios por m²...
+👤 user: busco apartamento en porlamar hasta 70000
+🤖 assistant: Encontré estas opciones...
+─────────────────────────────────────────
+
+👤 Tú: /quit
+👋 Saliendo...
+✓ Desconectado.
+
+
+(chatbot-margarita-base) andervrz5@cloudshell:~/chatbot-margarita-base$ uv run python scripts/chat_cli.py --no-banner
+✓ Conectado a: data/margarita_bot.db
+✓ LLM: groq/llama-3.1-8b-instant
+✓ Sesión: cli-1778812053
+
+Escribe tu mensaje o /help para ver comandos. Ctrl+C para salir.
+
+👤 Tú: hola
+
+🤖 Bot:
+¡Hola! Soy tu asesor inmobiliario de Margarita. ¿En qué puedo ayudarte hoy?     
+Puedo buscarte propiedades, informarte precios por zona o ayudarte con trámites 
+de compra.                                                                      
+⏱ 23ms | sesión: cli-1778812053...
+
+👤 Tú: precio por metro cuadrado en pampatar
+
+🤖 Bot:
+En Pampatar, el precio por metro cuadrado puede variar dependiendo del tipo de  
+propiedad y su ubicación. Sin embargo, puedo darte una idea general de los      
+precios en la zona.                                                             
+
+Según nuestra base de datos, en Pampatar, el precio por metro cuadrado puede    
+oscilar entre $1,000 y $1,500 USD. Esto puede variar dependiendo de la          
+ubicación, la calidad de la propiedad y otros factores.                         
+
+Si estás interesado en comprar o alquilar una propiedad en Pampatar, te         
+recomiendo que te acerques a mí para que pueda mostrarte algunas opciones que se
+ajusten a tus necesidades y presupuesto.                                        
+
+¿Te gustaría ver algunas propiedades en Pampatar?                               
+⏱ 861ms | sesión: cli-1778812053...
+
+👤 Tú: busco apartamento en porlamar hasta 70000
+
+🤖 Bot:
+Porlamar es una zona muy atractiva en Isla de Margarita. Tenemos algunas        
+propiedades que podrían interesarte.                                            
+
+En nuestra base de datos, encontramos un apartamento ejecutivo en Porlamar      
+Centro, en la zona de Mariño, que podría ser lo que estás buscando. Se trata de 
+un apartamento de 2 habitaciones y 2 baños, con una superficie de 75 metros     
+cuadrados.                                                                      
+
+El precio de este apartamento es de $65,000 USD, lo que se ajusta a tu          
+presupuesto. Está ubicado cerca de Sambil Margarita, bancos y restaurantes, lo  
+que lo hace ideal para residencia o inversión de alquiler largo plazo.          
+
+¿Te gustaría saber más sobre este apartamento o agendar una visita para verlo en
+persona?                                                                        
+⏱ 802ms | sesión: cli-1778812053...
+
+👤 Tú: /history
+───────────────────── Historial de sesión: cli-1778812053 ──────────────────────
+👤 user: hola
+🤖 assistant: ¡Hola! Soy tu asesor inmobiliario de Margarita. ¿En qué puedo 
+ayudarte hoy? Puedo buscarte propiedades, informarte precios por zona o ayudarte
+con trámites de compra.
+👤 user: precio por metro cuadrado en pampatar
+🤖 assistant: En Pampatar, el precio por metro cuadrado puede variar dependiendo
+del tipo de propiedad y su ubicación. Sin embargo, puedo darte una idea general 
+de los precios en la zona.
+
+Según nuestra base de dat
+👤 user: busco apartamento en porlamar hasta 70000
+🤖 assistant: Porlamar es una zona muy atractiva en Isla de Margarita. Tenemos 
+algunas propiedades que podrían interesarte.
+
+En nuestra base de datos, encontramos un apartamento ejecutivo en Porlamar 
+Centro, en la 
+────────────────────────────────────────────────────────────────────────────────
+👤 Tú: /quit
+✓ Desconectado
+
+primer test:
+
+(chatbot-margarita-base) andervrz5@cloudshell:~/chatbot-margarita-base$ uv run pytest -v --tb=short
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0 -- /home/andervrz5/chatbot-margarita-base/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/andervrz5/chatbot-margarita-base
+configfile: pyproject.toml
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 33 items                                                             
+
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_faq ERROR  [  3%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search ERROR [  6%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_invalid_body ERROR [  9%]
+src/test/integration/test_api.py::TestChatEndpoint::test_health ERROR    [ 12%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[hola, buenos d\xedas-greeting] PASSED [ 15%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[HOLA!-greeting] PASSED [ 18%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[busco una casa en pampatar-search_property] PASSED [ 21%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 24%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 27%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] FAILED [ 30%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 33%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 36%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[gracias por la info-goodbye] FAILED [ 39%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[adi\xf3s-goodbye] PASSED [ 42%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 45%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 48%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [ 51%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_returns_text PASSED [ 54%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_none_for_unknown PASSED [ 57%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_pampatar PASSED [ 60%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_porlamar PASSED [ 63%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_property_type PASSED [ 66%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_range PASSED [ 69%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_bedrooms PASSED [ 72%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_multiple_filters PASSED [ 75%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_no_filters PASSED [ 78%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_faq_returns_zero_llm_calls FAILED [ 81%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_greeting_returns_zero_llm_calls PASSED [ 84%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat PASSED [ 87%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_sql_exact_triggers_llm_when_results_exist PASSED [ 90%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere FAILED [ 93%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_session_memory_persists PASSED [ 96%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_used_when_sql_empty FAILED [100%]
+
+==================================== ERRORS ====================================
+_______________ ERROR at setup of TestChatEndpoint.test_chat_faq _______________
+src/test/integration/test_api.py:24: in client
+    await init_dependencies()
+src/interface/dependencies.py:53: in init_dependencies
+    await app_state.db.connect()
+src/infrastructure/db.py:116: in connect
+    self.db_path.parent.mkdir(parents=True, exist_ok=True)
+    ^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'str' object has no attribute 'parent'
+---------------------------- Captured stdout setup -----------------------------
+2026-05-15T02:37:14.864463Z [info     ] init_dependencies_start       
+_________ ERROR at setup of TestChatEndpoint.test_chat_property_search _________
+src/test/integration/test_api.py:24: in client
+    await init_dependencies()
+src/interface/dependencies.py:53: in init_dependencies
+    await app_state.db.connect()
+src/infrastructure/db.py:116: in connect
+    self.db_path.parent.mkdir(parents=True, exist_ok=True)
+    ^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'str' object has no attribute 'parent'
+__________ ERROR at setup of TestChatEndpoint.test_chat_invalid_body ___________
+src/test/integration/test_api.py:24: in client
+    await init_dependencies()
+src/interface/dependencies.py:53: in init_dependencies
+    await app_state.db.connect()
+src/infrastructure/db.py:116: in connect
+    self.db_path.parent.mkdir(parents=True, exist_ok=True)
+    ^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'str' object has no attribute 'parent'
+________________ ERROR at setup of TestChatEndpoint.test_health ________________
+src/test/integration/test_api.py:24: in client
+    await init_dependencies()
+src/interface/dependencies.py:53: in init_dependencies
+    await app_state.db.connect()
+src/infrastructure/db.py:116: in connect
+    self.db_path.parent.mkdir(parents=True, exist_ok=True)
+    ^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'str' object has no attribute 'parent'
+=================================== FAILURES ===================================
+_ TestIntentDetection.test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] _
+src/test/test_intent_detector.py:35: in test_detect
+    assert self.detector.detect(message) == expected
+E   AssertionError: assert <IntentType.S...rch_property'> == <IntentType.F...faq_price_m2'>
+E     
+E     - faq_price_m2
+E     + search_property
+_________ TestIntentDetection.test_detect[gracias por la info-goodbye] _________
+src/test/test_intent_detector.py:35: in test_detect
+    assert self.detector.detect(message) == expected
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.G...YE: 'goodbye'>
+E     
+E     - goodbye
+E     + unknown
+_____________ TestChatServiceFlow.test_faq_returns_zero_llm_calls ______________
+src/test/unit/test_chat_service.py:20: in test_faq_returns_zero_llm_calls
+    response = await chat_service.handle(
+src/application/chat.py:68: in handle
+    response = await self._handle_property_search(
+src/application/chat.py:122: in _handle_property_search
+    properties = await self.property_repo.search_vector(embedding, limit=5)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/infrastructure/repositories.py:80: in search_vector
+    rows = await self.db.vec_search(
+src/infrastructure/db.py:191: in vec_search
+    rows = await self.fetchall(sql, (vec_blob, limit))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/infrastructure/db.py:146: in fetchall
+    cursor = await self.execute(sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/infrastructure/db.py:139: in execute
+    return await self._connection.execute(sql, parameters)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:223: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:160: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:63: in _connection_worker_thread
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: Dimension mismatch for query vector for the "description_embedding" column. Expected 384 dimensions but received 1536.
+---------------------------- Captured stdout setup -----------------------------
+2026-05-15T02:37:15.118366Z [info     ] db_connected                   path=:memory:
+----------------------------- Captured stdout call -----------------------------
+2026-05-15T02:37:15.120337Z [info     ] chat_handle                    msg_preview='cuánto cuesta el metro cuadrado' session_id=test-001
+2026-05-15T02:37:15.121497Z [warning  ] cache_semantic_lookup_error    error='Dimension mismatch for query vector for the "query_embedding" column. Expected 384 dimensions but received 1536.'
+2026-05-15T02:37:15.122312Z [info     ] sql_no_results                 filters=ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None) session_id=test-001
+--------------------------- Captured stdout teardown ---------------------------
+2026-05-15T02:37:15.156945Z [info     ] db_closed                     
+___________ TestChatServiceFlow.test_fallback_when_no_data_anywhere ____________
+src/test/unit/test_chat_service.py:97: in test_fallback_when_no_data_anywhere
+    response = await chat_service.handle(
+src/application/chat.py:68: in handle
+    response = await self._handle_property_search(
+src/application/chat.py:122: in _handle_property_search
+    properties = await self.property_repo.search_vector(embedding, limit=5)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/infrastructure/repositories.py:80: in search_vector
+    rows = await self.db.vec_search(
+src/infrastructure/db.py:191: in vec_search
+    rows = await self.fetchall(sql, (vec_blob, limit))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/infrastructure/db.py:146: in fetchall
+    cursor = await self.execute(sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/infrastructure/db.py:139: in execute
+    return await self._connection.execute(sql, parameters)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:223: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:160: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:63: in _connection_worker_thread
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: Dimension mismatch for query vector for the "description_embedding" column. Expected 384 dimensions but received 1536.
+---------------------------- Captured stdout setup -----------------------------
+2026-05-15T02:37:15.221848Z [info     ] db_connected                   path=:memory:
+----------------------------- Captured stdout call -----------------------------
+2026-05-15T02:37:15.224302Z [info     ] chat_handle                    msg_preview='castillo en la luna' session_id=test-006
+2026-05-15T02:37:15.225320Z [warning  ] cache_semantic_lookup_error    error='Dimension mismatch for query vector for the "query_embedding" column. Expected 384 dimensions but received 1536.'
+2026-05-15T02:37:15.226132Z [info     ] sql_no_results                 filters=ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None) session_id=test-006
+--------------------------- Captured stdout teardown ---------------------------
+2026-05-15T02:37:15.259807Z [info     ] db_closed                     
+_________ TestChatServiceFlow.test_vector_fallback_used_when_sql_empty _________
+src/test/unit/test_chat_service.py:140: in test_vector_fallback_used_when_sql_empty
+    await db.vec_insert(
+src/infrastructure/db.py:168: in vec_insert
+    await self.execute(sql, params)
+src/infrastructure/db.py:139: in execute
+    return await self._connection.execute(sql, parameters)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:223: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:160: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:63: in _connection_worker_thread
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: Dimension mismatch for inserted vector for the "description_embedding" column. Expected 384 dimensions but received 1536.
+---------------------------- Captured stdout setup -----------------------------
+2026-05-15T02:37:15.277938Z [info     ] db_connected                   path=:memory:
+--------------------------- Captured stdout teardown ---------------------------
+2026-05-15T02:37:15.306415Z [info     ] db_closed                     
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581
+  /home/andervrz5/chatbot-margarita-base/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581: PytestConfigWarning: No files were found in testpaths; consider removing or adjusting your testpaths configuration. Searching recursively from the current directory instead.
+    self.args, self.args_source = self._decide_args(
+
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_sql_exact_triggers_llm_when_results_exist
+  /home/andervrz5/chatbot-margarita-base/src/infrastructure/cache.py:108: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    (hash_key, response, intent_type, datetime.utcnow().isoformat()),
+
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat
+  /home/andervrz5/chatbot-margarita-base/src/infrastructure/cache.py:62: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    (datetime.utcnow().isoformat(), hash_key),
+nto cuesta el m\xb2 en playa el agua-faq_price_m2] - AssertionError: assert <IntentType.S...rch_property'> == <IntentType.F...fa...
+FAILED src/test/test_intent_detector.py::TestIntentDetection::test_detect[gracias por la info-goodbye] - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.G...YE...
+FAILED src/test/unit/test_chat_service.py::TestChatServiceFlow::test_faq_returns_zero_llm_calls - sqlite3.OperationalError: Dimension mismatch for query vector for the "desc...
+FAILED src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere - sqlite3.OperationalError: Dimension mismatch for query vector for the "desc...
+FAILED src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_used_when_sql_empty - sqlite3.OperationalError: Dimension mismatch for inserted vector for the "d...
+ERROR src/test/integration/test_api.py::TestChatEndpoint::test_chat_faq - AttributeError: 'str' object has no attribute 'parent'
+ERROR src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search - AttributeError: 'str' object has no attribute 'parent'
+ERROR src/test/integration/test_api.py::TestChatEndpoint::test_chat_invalid_body - AttributeError: 'str' object has no attribute 'parent'
+ERROR src/test/integration/test_api.py::TestChatEndpoint::test_health - AttributeError: 'str' object has no attribute 'parent'
+============== 5 failed, 24 passed, 4 warnings, 4 errors in 5.03s ==============
+
+
+2 test:
+(chatbot-margarita-base) andervrz5@cloudshell:~/chatbot-margarita-base$ uv run pytest -v --tb=short
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0 -- /home/andervrz5/chatbot-margarita-base/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/andervrz5/chatbot-margarita-base
+configfile: pyproject.toml
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 33 items                                                             
+
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_faq PASSED [  3%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search PASSED [  6%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_invalid_body PASSED [  9%]
+src/test/integration/test_api.py::TestChatEndpoint::test_health PASSED   [ 12%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[hola, buenos d\xedas-greeting] PASSED [ 15%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[HOLA!-greeting] PASSED [ 18%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[busco una casa en pampatar-search_property] PASSED [ 21%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 24%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 27%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] PASSED [ 30%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 33%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 36%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[gracias por la info-goodbye] PASSED [ 39%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[adi\xf3s-goodbye] PASSED [ 42%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 45%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 48%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [ 51%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_returns_text PASSED [ 54%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_none_for_unknown PASSED [ 57%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_pampatar PASSED [ 60%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_porlamar PASSED [ 63%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_property_type PASSED [ 66%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_range PASSED [ 69%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_bedrooms PASSED [ 72%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_multiple_filters PASSED [ 75%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_no_filters PASSED [ 78%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_faq_returns_zero_llm_calls FAILED [ 81%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_greeting_returns_zero_llm_calls PASSED [ 84%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat PASSED [ 87%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_sql_exact_triggers_llm_when_results_exist PASSED [ 90%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere PASSED [ 93%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_session_memory_persists PASSED [ 96%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_used_when_sql_empty PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________ TestChatServiceFlow.test_faq_returns_zero_llm_calls ______________
+src/test/unit/test_chat_service.py:24: in test_faq_returns_zero_llm_calls
+    assert "Maneiro" in response
+E   AssertionError: assert 'Maneiro' in 'No tengo propiedades registradas con esas características en este momento. \n\n¿Te gustaría que un asesor humano te contacte? Puedo tomar tu nombre y teléfono para que te llamen con opciones personalizadas.'
+---------------------------- Captured stdout setup -----------------------------
+2026-05-15T03:01:25.292484Z [info     ] db_connected                   path=:memory:
+----------------------------- Captured stdout call -----------------------------
+2026-05-15T03:01:25.294350Z [info     ] chat_handle                    msg_preview='cuánto cuesta el metro cuadrado' session_id=test-001
+2026-05-15T03:01:25.298370Z [info     ] sql_no_results                 filters=ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None) session_id=test-001
+--------------------------- Captured stdout teardown ---------------------------
+2026-05-15T03:01:25.429850Z [info     ] db_closed                     
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581
+  /home/andervrz5/chatbot-margarita-base/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581: PytestConfigWarning: No files were found in testpaths; consider removing or adjusting your testpaths configuration. Searching recursively from the current directory instead.
+    self.args, self.args_source = self._decide_args(
+
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_faq_returns_zero_llm_calls
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_sql_exact_triggers_llm_when_results_exist
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_used_when_sql_empty
+  /home/andervrz5/chatbot-margarita-base/src/infrastructure/cache.py:108: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    (hash_key, response, intent_type, datetime.utcnow().isoformat()),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED src/test/unit/test_chat_service.py::TestChatServiceFlow::test_faq_returns_zero_llm_calls - AssertionError: assert 'Maneiro' in 'No tengo propiedades registradas con e...
+=================== 1 failed, 32 passed, 7 warnings in 4.94s ===================
+
+
+3 test de prueba corto:
+
+(chatbot-margarita-base) andervrz5@cloudshell:~/chatbot-margarita-base$ uv run pytest -v --tb=short
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0 -- /home/andervrz5/chatbot-margarita-base/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/andervrz5/chatbot-margarita-base
+configfile: pyproject.toml
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 33 items                                                             
+
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_faq PASSED [  3%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search PASSED [  6%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_invalid_body PASSED [  9%]
+src/test/integration/test_api.py::TestChatEndpoint::test_health PASSED   [ 12%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[hola, buenos d\xedas-greeting] PASSED [ 15%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[HOLA!-greeting] PASSED [ 18%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[busco una casa en pampatar-search_property] PASSED [ 21%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 24%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 27%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] PASSED [ 30%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 33%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 36%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[gracias por la info-goodbye] PASSED [ 39%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[adi\xf3s-goodbye] PASSED [ 42%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 45%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 48%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [ 51%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_returns_text PASSED [ 54%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_none_for_unknown PASSED [ 57%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_pampatar PASSED [ 60%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_porlamar PASSED [ 63%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_property_type PASSED [ 66%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_range PASSED [ 69%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_bedrooms PASSED [ 72%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_multiple_filters PASSED [ 75%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_no_filters PASSED [ 78%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_faq_returns_zero_llm_calls PASSED [ 81%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_greeting_returns_zero_llm_calls PASSED [ 84%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat PASSED [ 87%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_sql_exact_triggers_llm_when_results_exist PASSED [ 90%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere PASSED [ 93%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_session_memory_persists PASSED [ 96%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_used_when_sql_empty PASSED [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581
+  /home/andervrz5/chatbot-margarita-base/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581: PytestConfigWarning: No files were found in testpaths; consider removing or adjusting your testpaths configuration. Searching recursively from the current directory instead.
+    self.args, self.args_source = self._decide_args(
+
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_sql_exact_triggers_llm_when_results_exist
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_used_when_sql_empty
+  /home/andervrz5/chatbot-margarita-base/src/infrastructure/cache.py:108: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    (hash_key, response, intent_type, datetime.utcnow().isoformat()),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 33 passed, 6 warnings in 5.24s ========================

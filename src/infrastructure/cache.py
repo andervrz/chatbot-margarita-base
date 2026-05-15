@@ -6,7 +6,7 @@ Nivel 2: Similitud semántica (sqlite-vec) con embeddings.
 
 import hashlib
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 
 import structlog
 
@@ -59,7 +59,7 @@ class CacheManager:
                 SET hit_count = hit_count + 1, last_hit_at = ?
                 WHERE query_hash = ?
                 """,
-                (datetime.utcnow().isoformat(), hash_key),
+                (datetime.now(timezone.utc).isoformat(), hash_key),
             )
             await self.db.commit()
             logger.debug("cache_exact_hit", hash_prefix=hash_key[:8], hits=row["hit_count"] + 1)
