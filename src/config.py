@@ -23,8 +23,8 @@ class Settings(BaseSettings):
     groq_api_key: str = Field(alias="GROQ_API_KEY")
 
     # --- Embeddings ---
-    embedding_model: str = Field(default="openai/text-embedding-3-small", alias="EMBEDDING_MODEL")
-    openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
+    embedding_model: str = Field(default="huggingface/sentence-transformers/all-MiniLM-L6-v2", alias="EMBEDDING_MODEL")
+    hf_api_key: str | None = Field(default=None, alias="HF_API_KEY")
 
     # --- Database ---
     database_path: Path = Field(default=Path("./data/margarita_bot.db"), alias="DATABASE_PATH")
