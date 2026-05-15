@@ -67,9 +67,10 @@ class LLMClient:
         try:
             # LiteLLM detecta el proveedor por el prefijo del modelo
             api_key = (
-                settings.openai_api_key
-                if self.embedding_model.startswith("openai")
-                else settings.groq_api_key
+                if self.embedding_model.startswith("huggingface"):
+                    api_key = settings.hf_api_key
+                elif self.embedding_model.startswith("openai")
+                    api_key = settings.openai_api_key
             )
 
             response = await aembedding(
