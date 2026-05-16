@@ -27,14 +27,15 @@ class AppState:
     Contenedor de estado de la aplicación.
     Mantiene una sola instancia de cada dependencia durante el lifecycle.
     """
-    db: Database | None = None
-    llm: LLMClient | None = None
-    property_repo: PropertyRepository | None = None
-    cache: CacheManager | None = None
-    conv_store: ConversationStore | None = None
-    enricher: PromptEnricher | None = None
-    intent_detector: IntentDetector | None = None
-    chat_service: ChatService | None = None
+    def __init__(self):
+        self.db: Database | None = None
+        self.llm: LLMClient | None = None
+        self.property_repo: PropertyRepository | None = None
+        self.cache: CacheManager | None = None
+        self.conv_store: ConversationStore | None = None
+        self.enricher: PromptEnricher | None = None
+        self.intent_detector: IntentDetector | None = None
+        self.chat_service: ChatService | None = None
 
 
 # Singleton global del estado
@@ -48,12 +49,15 @@ async def init_dependencies() -> None:
     """
     logger.info("init_dependencies_start")
 
-    # 1. Base de datos (fuente de verdad)
-    app_state.db = Database(settings.database_path)
-    await app_state.db.connect()
-
-    # 2. LLM (LiteLLM + Groq para chat, OpenAI para embeddings)
+    # 1. LLM (necesario para saber embedding_dim de la DB)
     app_state.llm = LLMClient()
+
+    # 2. Base de datos (fuente de verdad, con dimensión de embeddings del LLM)
+    app_state.db = Database(
+        settings.database_path,
+        embedding_dim=app_state.llm.embedding_dim,
+    )
+    await app_state.db.connect()
 
     # 3. Repositorios (dependen de DB)
     app_state.property_repo = PropertyRepository(app_state.db)
@@ -85,7 +89,9 @@ async def close_dependencies() -> None:
     """Limpieza ordenada al apagar."""
     if app_state.db:
         await app_state.db.close()
-        logger.info("dependencies_closed")
+    # Nota: LLMClient no tiene recursos que liberar en fase 0.
+    # Si se agrega pool de conexiones HTTP, cerrar aquí.
+    logger.info("dependencies_closed")
 
 
 @asynccontextmanager
