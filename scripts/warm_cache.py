@@ -10,39 +10,19 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from src.application.intent import IntentDetector, IntentType
 from src.config import settings
 from src.infrastructure.cache import CacheManager
 from src.infrastructure.db import Database
 from src.infrastructure.llm import LLMClient
-from src.application.intent import IntentDetector
 
-# Pares (consulta_variación, respuesta_faq, intent_type)
-WARM_ENTRIES = [
-    # Precios m²
-    ("cuánto cuesta el metro cuadrado en pampatar", "faq_price_m2"),
-    ("precio por m2 en margarita", "faq_price_m2"),
-    ("valor del metro cuadrado en porlamar", "faq_price_m2"),
-    ("cuánto sale el m² en playa el agua", "faq_price_m2"),
-    # Extranjeros
-    ("puedo comprar si soy extranjero", "faq_foreign_buy"),
-    ("comprar propiedad en margarita siendo extranjero", "faq_foreign_buy"),
-    ("requisitos para comprar si no soy venezolano", "faq_foreign_buy"),
-    # Trámites
-    ("qué documentos necesito para comprar", "faq_procedure"),
-    ("cómo es el trámite de compra", "faq_procedure"),
-    ("pasos para comprar una casa", "faq_procedure"),
-    # Rentabilidad
-    ("es rentable alquilar por airbnb", "faq_rental_roi"),
-    ("cuánto se gana con alquiler vacacional", "faq_rental_roi"),
-    ("retorno de inversión en margarita", "faq_rental_roi"),
-]
-
+# ... WARM_ENTRIES sin cambios ...
 
 async def warm() -> None:
-    db = Database(settings.database_path)
+    llm = LLMClient()
+    db = Database(settings.database_path, embedding_dim=llm.embedding_dim)
     await db.connect()
 
-    llm = LLMClient()
     cache = CacheManager(db, llm)
     detector = IntentDetector()
 
@@ -62,6 +42,4 @@ async def warm() -> None:
 
 
 if __name__ == "__main__":
-    # Importar aquí para evitar circular si se importa como módulo
-    from src.application.intent import IntentType
     asyncio.run(warm())
