@@ -37,11 +37,15 @@ class IntentDetector:
     """
     Clasifica el mensaje del usuario y extrae filtros estructurados.
     Todo se resuelve con regex; no hay magia, no hay LLM involucrado.
+
+    ORDEN DE PRECEDENCIA (crítico para no falsear búsquedas):
+    1. Saludos y despedidas (muy específicos)
+    2. FAQs (keywords temáticos; tienen prioridad sobre búsqueda incluso si hay zona)
+    3. Captura de lead
+    4. Búsqueda de propiedad (más general, va al final)
     """
 
     # ---------- Patrones de intención ----------
-    # ORDEN CRÍTICO: de más específico (FAQ/saludos) a más general (búsqueda).
-    # SEARCH_PROPERTY es muy amplio ("en X", "cerca de Y") y debe ir al final.
 
     _INTENT_PATTERNS: dict[IntentType, list[str]] = {
         # 1. Saludos y despedidas (muy específicos)
@@ -53,20 +57,22 @@ class IntentDetector:
             r"^saludos",
         ],
         IntentType.GOODBYE: [
-            r"^gracias(\s+.*)?$",           # gracias, gracias por la info, gracias!
+            r"^gracias(\s+.*)?$",
             r"^adiós",
             r"^hasta\s+luego",
             r"^nos\s+vemos",
             r"^chao",
         ],
 
-        # 2. FAQs (patrones muy definidos)
+        # 2. FAQs (patrones muy definidos; prioridad sobre SEARCH_PROPERTY)
+        # Incluimos variantes ASCII (m2) y Unicode (m²) para precios
         IntentType.FAQ_PRICE_M2: [
-            r"precio\s+(por\s+)?m²",
+            r"precio\s+(por\s+)?m[2²]",
             r"precio\s+(por\s+)?metro\s+cuadrado",
-            r"cuánto\s+cuesta\s+(el\s+)?m²",
+            r"cuánto\s+cuesta\s+(el\s+)?m[2²]",
             r"cuánto\s+cuesta\s+(el\s+)?metro\s+cuadrado",
             r"valor\s+(del\s+)?metro\s+cuadrado",
+            r"costo\s+por\s+m[2²]",
         ],
         IntentType.FAQ_FOREIGN_BUY: [
             r"extranjero\s+(puede\s+)?comprar",
@@ -100,10 +106,12 @@ class IntentDetector:
         ],
 
         # 4. Búsqueda de propiedad (más general, va al final)
+        # Requiere presencia de VERBO de búsqueda + sustantivo de propiedad,
+        # o verbo de búsqueda + preposición de ubicación.
         IntentType.SEARCH_PROPERTY: [
-            r"(busco|quiero|necesito|estoy buscando|me interesa|dónde hay|hay algún|hay alguna)",
-            r"(casa|apartamento|terreno|local|penthouse|anexo|townhouse)",
-            r"(en\s+\w+|cerca de\s+\w+|zona\s+\w+)",
+            r"(busco|quiero|necesito|estoy buscando|me interesa)\s+(?:una\s+)?(casa|apartamento|apto|terreno|local|penthouse)",
+            r"(busco|quiero|necesito|estoy buscando|me interesa)\s+(?:algo\s+)?en\s+\w+",
+            r"(dónde\s+hay|hay\s+algún|hay\s+alguna)\s+(casa|apartamento|apto|terreno|local|penthouse)",
         ],
     }
 
@@ -214,11 +222,11 @@ class IntentDetector:
                 filters.property_type = value
                 break
 
-        # --- Precio (regex simple) ---
+        # --- Precio (regex con soporte para 'k' y 'mil') ---
         price_patterns = [
-            r"(?:hasta|menos\s+de|máximo|maximo)\s+[\$]?\s*(\d[\d\.,]*)",
-            r"(?:entre|de)\s+[\$]?\s*(\d[\d\.,]*)\s+y\s+[\$]?\s*(\d[\d\.,]*)",
-            r"[\$]?\s*(\d[\d\.,]*)\s*(?:usd|dólares|dolares)?",
+            r"(?:hasta|menos\s+de|máximo|maximo)\s+[\$]?\s*(\d[\d\.,]*)\s*(?:k|mil)?",
+            r"(?:entre|de)\s+[\$]?\s*(\d[\d\.,]*)\s*(?:k|mil)?\s+y\s+[\$]?\s*(\d[\d\.,]*)\s*(?:k|mil)?",
+            r"[\$]?\s*(\d[\d\.,]*)\s*(?:k|mil)?\s*(?:usd|dólares|dolares)?",
         ]
         for pattern in price_patterns:
             match = re.search(pattern, text_lower)
@@ -242,9 +250,26 @@ class IntentDetector:
 
     @staticmethod
     def _parse_price(text: str) -> float | None:
-        """Limpia y convierte un string de precio a float."""
+        """Limpia y convierte un string de precio a float.
+        
+        Soporta:
+        - Separadores de miles: 95.000, 95,000
+        - Sufijo 'k' o 'mil': 70k → 70000, 60 mil → 60000
+        - Moneda: $, usd, dólares
+        
+        Limitación: asume que no hay centavos (precios inmobiliarios en Margarita).
+        """
         try:
-            clean = text.replace(".", "").replace(",", "").replace("$", "").strip()
+            clean = text.lower().strip().replace("$", "").replace("usd", "").replace("dólares", "").replace("dolares", "")
+            
+            # Normalizar 'k' y 'mil'
+            if clean.endswith("k"):
+                clean = clean[:-1] + "000"
+            clean = clean.replace(" mil", "000")
+            
+            # Eliminar separadores de miles (punto o coma)
+            clean = clean.replace(".", "").replace(",", "").strip()
+            
             return float(clean)
         except (ValueError, AttributeError):
             return None
