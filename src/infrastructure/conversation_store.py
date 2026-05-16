@@ -57,14 +57,24 @@ class ConversationStore:
         )
 
         messages: list[Message] = []
-        for row in reversed(rows):  # invertimos para orden cronológico
-            messages.append(
-                Message(
-                    role=MessageRole(row["role"]),
-                    content=row["content"],
-                    metadata=json.loads(row["metadata"]) if row["metadata"] else {},
+        for row in reversed(rows):
+            try:
+                messages.append(
+                    Message(
+                        role=MessageRole(row["role"]),
+                        content=row["content"],
+                        metadata=json.loads(row["metadata"]) if row["metadata"] else {},
+                    )
                 )
-            )
+            except (ValueError, json.JSONDecodeError) as exc:
+                logger.warning(
+                    "conversation_row_corrupt",
+                    session_id=session_id,
+                    error=str(exc),
+                    role_raw=row.get("role"),
+                )
+                continue
+
         return messages
 
     async def get_session(self, session_id: str) -> ConversationSession:
