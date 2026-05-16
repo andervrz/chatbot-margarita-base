@@ -19,6 +19,8 @@ class LLMClient:
         self.embedding_model = settings.embedding_model
         self.default_temperature = settings.llm_temperature
         self.default_max_tokens = settings.llm_max_tokens
+        # Exponer dimensión para que DB y tests no asuman
+        self.embedding_dim = settings.embedding_dimensions
 
     async def chat(
         self,
@@ -85,8 +87,18 @@ class LLMClient:
     async def _embed_hf_direct(self, text: str) -> list[float]:
         """
         Llama directamente a Hugging Face Inference API vía router.
-        Endpoint actualizado: router.huggingface.co/hf-inference/models/{model}/pipeline/feature-extraction
+        Endpoint: router.huggingface.co/hf-inference/models/{model}/pipeline/feature-extraction
+        
+        Nota: HF Inference API gratuita tiene cold start de 20-40s en el primer request.
+        El timeout de 30s puede no ser suficiente para el primer embedding; en ese caso
+        el llamador debe manejar el retry o usar warm_cache.py para "despertar" el modelo.
         """
+        if not settings.hf_api_key:
+            raise LLMError(
+                "HF_API_KEY no configurada pero embedding_model usa huggingface/. "
+                "Configura HF_API_KEY en .env o cambia el modelo de embeddings."
+            )
+
         model_id = self.embedding_model.replace("huggingface/", "")
         url = (
             f"https://router.huggingface.co/hf-inference/models/"
