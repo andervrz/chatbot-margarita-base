@@ -91,19 +91,29 @@ class PropertyRepository:
         placeholders = ",".join("?" for _ in property_ids)
         sql = f"""
             SELECT * FROM properties
-            WHERE id IN ({placeholders}) AND status = 'available'
+            WHERE id IN ({placeholders}) AND status = ?
         """
-        prop_rows = await self.db.fetchall(sql, property_ids)
+        prop_rows = await self.db.fetchall(sql, property_ids + [PropertyStatus.AVAILABLE.value])
 
         # Mantener orden de relevancia vectorial
         props_by_id = {r["id"]: self._row_to_property(r) for r in prop_rows}
         results = []
+        missing_ids = []
         for r in rows:
             pid = r["property_id"]
             if pid in props_by_id:
                 results.append(props_by_id[pid])
+            else:
+                missing_ids.append(pid)
 
-        logger.debug("property_search_vector", count=len(results))
+        if missing_ids:
+            logger.warning(
+                "property_vector_orphans",
+                missing_ids=missing_ids,
+                hint="Desincronización entre property_embeddings y properties",
+            )
+
+        logger.debug("property_search_vector", count=len(results), requested=len(rows))
         return results
 
     # ---------- CRUD básico ----------
@@ -145,7 +155,11 @@ class PropertyRepository:
 
     # ---------- Helpers ----------
 
-    def _row_to_property(self, row) -> Property:
+    def _row_to_property(self, row) -> Property | None:
+        """
+        Convierte una fila de SQLite a Property.
+        Retorna None si los datos están corruptos (enum inválido, etc.).
+        """
         features = []
         if row["features"]:
             try:
@@ -153,19 +167,28 @@ class PropertyRepository:
             except json.JSONDecodeError:
                 features = []
 
-        return Property(
-            id=row["id"],
-            title=row["title"],
-            municipality=Municipality(row["municipality"]),
-            zone=row["zone"],
-            type=PropertyType(row["type"]),
-            price_usd=row["price_usd"],
-            bedrooms=row["bedrooms"],
-            bathrooms=row["bathrooms"],
-            area_m2=row["area_m2"],
-            description=row["description"],
-            features=features,
-            status=PropertyStatus(row["status"]),
-            contact_phone=row["contact_phone"],
-            contact_email=row["contact_email"],
-        )
+        try:
+            return Property(
+                id=row["id"],
+                title=row["title"],
+                municipality=Municipality(row["municipality"]),
+                zone=row["zone"],
+                type=PropertyType(row["type"]),
+                price_usd=row["price_usd"],
+                bedrooms=row["bedrooms"],
+                bathrooms=row["bathrooms"],
+                area_m2=row["area_m2"],
+                description=row["description"],
+                features=features,
+                status=PropertyStatus(row["status"]),
+                contact_phone=row["contact_phone"],
+                contact_email=row["contact_email"],
+            )
+        except (ValueError, KeyError) as exc:
+            logger.warning(
+                "property_row_corrupt",
+                property_id=row.get("id"),
+                error=str(exc),
+                row_keys=list(row.keys()),
+            )
+            return None
