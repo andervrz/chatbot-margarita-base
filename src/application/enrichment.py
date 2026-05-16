@@ -5,7 +5,7 @@ Toma datos reales de la base de datos y los inyecta en templates Jinja2.
 
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
 
 
 class PromptEnricher:
@@ -17,9 +17,16 @@ class PromptEnricher:
     def __init__(self) -> None:
         # Subir dos niveles desde src/application/ hasta la raíz del proyecto
         prompts_dir = Path(__file__).resolve().parent.parent.parent / "prompts"
+
+        if not prompts_dir.exists():
+            raise FileNotFoundError(
+                f"Directorio de prompts no encontrado: {prompts_dir}. "
+                "Asegúrate de que existe la carpeta 'prompts/' en la raíz del proyecto."
+            )
+
         self.env = Environment(
             loader=FileSystemLoader(str(prompts_dir)),
-            autoescape=select_autoescape(),
+            autoescape=False,  # Los prompts son texto plano, no HTML
         )
 
     def build_search_context(
