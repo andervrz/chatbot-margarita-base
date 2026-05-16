@@ -11,7 +11,10 @@ import structlog
 
 logger = structlog.get_logger()
 
-SCHEMA_SQL = """
+
+def _build_schema(embedding_dim: int) -> str:
+    """Genera el schema SQL con la dimensión de embeddings configurada."""
+    return f"""
 -- ============================================
 -- PROPIEDADES (Fuente de verdad absoluta)
 -- ============================================
@@ -35,6 +38,7 @@ CREATE TABLE IF NOT EXISTS properties (
 );
 
 CREATE INDEX IF NOT EXISTS idx_properties_municipality ON properties(municipality);
+CREATE INDEX IF NOT EXISTS idx_properties_zone ON properties(zone);
 CREATE INDEX IF NOT EXISTS idx_properties_type ON properties(type);
 CREATE INDEX IF NOT EXISTS idx_properties_status ON properties(status);
 CREATE INDEX IF NOT EXISTS idx_properties_price ON properties(price_usd);
@@ -48,7 +52,7 @@ CREATE TABLE IF NOT EXISTS conversations (
     user_id TEXT,
     role TEXT NOT NULL CHECK(role IN ('system','user','assistant')),
     content TEXT NOT NULL,
-    metadata TEXT NOT NULL DEFAULT '{}',
+    metadata TEXT NOT NULL DEFAULT '{{}}',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -90,16 +94,16 @@ CREATE TABLE IF NOT EXISTS cache_exact (
 CREATE INDEX IF NOT EXISTS idx_cache_hash ON cache_exact(query_hash);
 
 -- ============================================
--- TABLAS VECTORIALES (sqlite-vec) - 384 dims para all-MiniLM-L6-v2
+-- TABLAS VECTORIALES (sqlite-vec) - {embedding_dim} dims
 -- ============================================
 CREATE VIRTUAL TABLE IF NOT EXISTS cache_semantic USING vec0(
-    query_embedding float[384],
+    query_embedding float[{embedding_dim}],
     +response TEXT,
     +intent_type TEXT
 );
 
 CREATE VIRTUAL TABLE IF NOT EXISTS property_embeddings USING vec0(
-    description_embedding float[384],
+    description_embedding float[{embedding_dim}],
     +property_id INTEGER
 );
 """
@@ -108,8 +112,9 @@ CREATE VIRTUAL TABLE IF NOT EXISTS property_embeddings USING vec0(
 class Database:
     """Wrapper async sobre SQLite. Carga sqlite-vec automáticamente."""
 
-    def __init__(self, db_path: Path):
+    def __init__(self, db_path: Path, embedding_dim: int = 384):
         self.db_path = db_path
+        self.embedding_dim = embedding_dim
         self._connection: aiosqlite.Connection | None = None
 
     async def connect(self) -> None:
@@ -117,15 +122,15 @@ class Database:
         self._connection = await aiosqlite.connect(self.db_path)
         self._connection.row_factory = aiosqlite.Row
 
-        # FIX: Cargar extensión sqlite-vec usando el método async de aiosqlite
-        # en lugar de sqlite_vec.load() que rompe por threading
+        # Cargar extensión sqlite-vec usando el método async de aiosqlite
         await self._connection.enable_load_extension(True)
         await self._connection.load_extension(str(sqlite_vec.loadable_path()))
         await self._connection.enable_load_extension(False)
 
-        await self._connection.executescript(SCHEMA_SQL)
+        schema = _build_schema(self.embedding_dim)
+        await self._connection.executescript(schema)
         await self._connection.commit()
-        logger.info("db_connected", path=str(self.db_path))
+        logger.info("db_connected", path=str(self.db_path), embedding_dim=self.embedding_dim)
 
     async def close(self) -> None:
         if self._connection:
@@ -159,14 +164,17 @@ class Database:
         vector_column: str = "embedding",
         **metadata,
     ) -> None:
-        """Inserta un vector + metadatos en una tabla vec0."""
+        """Inserta un vector + metadatos en una tabla vec0.
+        
+        NOTA: No hace commit. El llamador debe llamar a commit() para
+        mantener atomicidad en transacciones de nivel superior.
+        """
         vec_blob = sqlite_vec.serialize_float32(vector)
         cols = [vector_column] + list(metadata.keys())
         placeholders = ", ".join("?" for _ in cols)
         sql = f"INSERT INTO {table} ({', '.join(cols)}) VALUES ({placeholders})"
         params = [vec_blob] + list(metadata.values())
         await self.execute(sql, params)
-        await self.commit()
 
     async def vec_search(
         self,
