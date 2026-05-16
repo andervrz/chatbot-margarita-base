@@ -6,7 +6,7 @@ Nivel 2: Similitud semántica (sqlite-vec) con embeddings.
 
 import hashlib
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 import structlog
 
@@ -44,26 +44,32 @@ class CacheManager:
         # --- Nivel 1: Exacta ---
         row = await self.db.fetchone(
             """
-            SELECT response, hit_count
+            SELECT response, hit_count, ttl_hours, last_hit_at
             FROM cache_exact
             WHERE query_hash = ?
-              AND (last_hit_at > datetime('now', '-' || ttl_hours || ' hours')
-                   OR last_hit_at IS NULL)
             """,
             (hash_key,),
         )
         if row:
-            await self.db.execute(
-                """
-                UPDATE cache_exact
-                SET hit_count = hit_count + 1, last_hit_at = ?
-                WHERE query_hash = ?
-                """,
-                (datetime.now(timezone.utc).isoformat(), hash_key),
-            )
-            await self.db.commit()
-            logger.debug("cache_exact_hit", hash_prefix=hash_key[:8], hits=row["hit_count"] + 1)
-            return row["response"]
+            ttl_hours = row["ttl_hours"] if row["ttl_hours"] is not None else 168
+            cutoff = (datetime.now(timezone.utc) - timedelta(hours=ttl_hours)).isoformat()
+
+            if row["last_hit_at"] is None or row["last_hit_at"] > cutoff:
+                await self.db.execute(
+                    """
+                    UPDATE cache_exact
+                    SET hit_count = hit_count + 1, last_hit_at = ?
+                    WHERE query_hash = ?
+                    """,
+                    (datetime.now(timezone.utc).isoformat(), hash_key),
+                )
+                await self.db.commit()
+                logger.debug(
+                    "cache_exact_hit",
+                    hash_prefix=hash_key[:8],
+                    hits=row["hit_count"] + 1,
+                )
+                return row["response"]
 
         # --- Nivel 2: Semántica ---
         try:
@@ -73,7 +79,7 @@ class CacheManager:
                 vector=embedding,
                 vector_column="query_embedding",
                 limit=1,
-                max_distance=0.40,  # ~cosine similarity > 0.92 para vectores normalizados
+                max_distance=0.40,
             )
             if rows:
                 result = rows[0]
@@ -94,6 +100,7 @@ class CacheManager:
         """Almacena la respuesta en ambas caches."""
         normalized = _normalize(query)
         hash_key = hashlib.sha256(normalized.encode()).hexdigest()
+        now = datetime.now(timezone.utc).isoformat()
 
         # Guardar cache exacta
         await self.db.execute(
@@ -105,7 +112,7 @@ class CacheManager:
                 last_hit_at = excluded.last_hit_at,
                 hit_count = hit_count + 1
             """,
-            (hash_key, response, intent_type, datetime.utcnow().isoformat()),
+            (hash_key, response, intent_type, now),
         )
 
         # Guardar cache semántica
