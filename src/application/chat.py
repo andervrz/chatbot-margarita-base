@@ -1,7 +1,7 @@
 """
 Orquestador principal del chat.
 Flujo de defensa en profundidad para minimizar llamadas al LLM:
-Intent → FAQ directa → Cache → SQL exacta → Vectorial → LLM (solo si hay datos) → Fallback controlado.
+Intent → FAQ directa → Cache → SQL exacta → Vectorial (solo si hay filtros) → LLM (solo si hay datos) → Fallback controlado.
 """
 
 import structlog
@@ -64,6 +64,7 @@ class ChatService:
 
         # 5. Búsqueda de propiedades
         response: str
+        is_fallback = False
         try:
             response = await self._handle_property_search(
                 session_id=session_id,
@@ -74,12 +75,14 @@ class ChatService:
         except NoDataError:
             # 8. Fallback controlado (0 LLM calls)
             response = self.enricher.build_fallback_message()
+            is_fallback = True
 
         # 9. Persistir conversación
         await self._persist(session_id, user_message, response)
 
-        # 10. Guardar en cache para futuras consultas similares
-        await self.cache.set(user_message, response, intent.value)
+        # 10. Guardar en cache para futuras consultas similares (excepto fallbacks)
+        if not is_fallback:
+            await self.cache.set(user_message, response, intent.value)
 
         return response
 
@@ -94,7 +97,7 @@ class ChatService:
     ) -> str:
         """
         Intenta resolver una búsqueda de propiedades.
-        SQL exacta primero; vectorial como fallback.
+        SQL exacta primero; vectorial como fallback SOLO si hay filtros extraídos.
         Si hay resultados, 1 LLM call para formatear.
         Si no hay, lanza NoDataError → fallback controlado.
         """
@@ -115,15 +118,18 @@ class ChatService:
         search_type = "sql_exact"
         context = None
 
-        # 5b. Si no hay resultados SQL → fallback vectorial
+        # 5b. Si no hay resultados SQL → fallback vectorial (solo si hay filtros semánticos)
         if not properties:
             logger.info("sql_no_results", session_id=session_id, filters=filters)
-            embedding = await self.llm.embed(user_message)
-            properties = await self.property_repo.search_vector(embedding, limit=5)
+            
+            # No gastar embedding si no hay nada que buscar semánticamente
+            if self._has_meaningful_filters(filters):
+                embedding = await self.llm.embed(user_message)
+                properties = await self.property_repo.search_vector(embedding, limit=5)
 
-            if properties:
-                search_type = "vector_fallback"
-                context = self.enricher.build_vector_context(properties, user_message)
+                if properties:
+                    search_type = "vector_fallback"
+                    context = self.enricher.build_vector_context(properties, user_message)
 
         # 6. Si hay propiedades (de cualquier fuente) → enriquecer prompt y 1 LLM call
         if properties:
@@ -143,6 +149,18 @@ class ChatService:
         # 7. Sin resultados en ningún lado
         raise NoDataError("No hay propiedades en SQL ni en vectorial")
 
+    @staticmethod
+    def _has_meaningful_filters(filters: ExtractedFilters) -> bool:
+        """Determina si los filtros extraídos tienen valor semántico para búsqueda vectorial."""
+        return any([
+            filters.municipality,
+            filters.zone,
+            filters.property_type,
+            filters.min_price is not None,
+            filters.max_price is not None,
+            filters.min_bedrooms is not None,
+        ])
+
     def _build_messages(
         self,
         history: list[Message],
@@ -152,9 +170,11 @@ class ChatService:
         """Construye el payload de mensajes para LiteLLM."""
         system_prompt = self.enricher.build_system_prompt()
 
+        # Un solo mensaje system para compatibilidad con Llama y otros modelos
+        system_content = f"{system_prompt}\n\n---\n\n{context}"
+
         messages: list[dict[str, str]] = [
-            {"role": "system", "content": system_prompt},
-            {"role": "system", "content": context},
+            {"role": "system", "content": system_content},
         ]
 
         # Historial reciente (últimos 10 mensajes)
@@ -163,10 +183,3 @@ class ChatService:
 
         # Mensaje actual del usuario
         messages.append({"role": "user", "content": user_message})
-
-        return messages
-
-    async def _persist(self, session_id: str, user_msg: str, assistant_msg: str) -> None:
-        """Guarda el par mensaje/respuesta en la base de datos."""
-        await self.conv_store.append(session_id, MessageRole.USER, user_msg)
-        await self.conv_store.append(session_id, MessageRole.ASSISTANT, assistant_msg)
