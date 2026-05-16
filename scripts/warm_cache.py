@@ -16,7 +16,45 @@ from src.infrastructure.cache import CacheManager
 from src.infrastructure.db import Database
 from src.infrastructure.llm import LLMClient
 
-# ... WARM_ENTRIES sin cambios ...
+# ============================================
+# PREGUNTAS FRECUENTES PARA PRE-CACHE
+# ============================================
+WARM_ENTRIES: list[tuple[str, str]] = [
+    # Saludos
+    ("hola", "greeting"),
+    ("buenos días", "greeting"),
+    ("buenas tardes", "greeting"),
+    
+    # Precios por m²
+    ("precio por metro cuadrado", "faq_price_m2"),
+    ("cuánto cuesta el m2", "faq_price_m2"),
+    ("valor del metro cuadrado en pampatar", "faq_price_m2"),
+    ("precio por m² en playa el agua", "faq_price_m2"),
+    ("cuánto cuesta el metro cuadrado en porlamar", "faq_price_m2"),
+    
+    # Extranjeros
+    ("extranjero puede comprar", "faq_foreign_buy"),
+    ("no soy venezolano puedo comprar", "faq_foreign_buy"),
+    ("cómo compra un extranjero en margarita", "faq_foreign_buy"),
+    ("visa de inversionista", "faq_foreign_buy"),
+    
+    # Rentabilidad
+    ("rentabilidad alquiler vacacional", "faq_rental_roi"),
+    ("roi de inversión en margarita", "faq_rental_roi"),
+    ("cuánto se gana con alquiler vacacional", "faq_rental_roi"),
+    
+    # Trámites
+    ("documentos necesarios para comprar", "faq_procedure"),
+    ("trámites de compra", "faq_procedure"),
+    ("pasos para comprar una casa", "faq_procedure"),
+    ("escritura y registro", "faq_procedure"),
+    
+    # Despedidas
+    ("gracias", "goodbye"),
+    ("adiós", "goodbye"),
+    ("hasta luego", "goodbye"),
+]
+
 
 async def warm() -> None:
     llm = LLMClient()
