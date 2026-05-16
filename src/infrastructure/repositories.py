@@ -197,4 +197,4 @@ class PropertyRepository:
                 error=str(exc),
                 row_keys=keys,
             )
-    
+            return None
