@@ -21,6 +21,10 @@ async def client():
     original_path = settings.database_path
     settings.database_path = Path(":memory:")
 
+    # Limpiar app_state por si quedó sucio de tests anteriores
+    for attr in list(vars(app_state).keys()):
+        setattr(app_state, attr, None)
+
     await init_dependencies()
 
     with TestClient(app) as c:
@@ -43,7 +47,7 @@ class TestChatEndpoint:
         assert "Hola" in data["response"]
 
     def test_chat_property_search(self, client):
-        """POST /chat con búsqueda de propiedad."""
+        """POST /chat con búsqueda de propiedad retorna respuesta con datos."""
         response = client.post(
             "/chat",
             json={"session_id": "int-002", "message": "busco casa en pampatar"},
@@ -52,6 +56,8 @@ class TestChatEndpoint:
         data = response.json()
         assert "session_id" in data
         assert "response" in data
+        # No debe ser fallback si hay propiedades en seed_db
+        assert "No tengo propiedades registradas" not in data["response"]
 
     def test_chat_invalid_body(self, client):
         """Validación Pydantic rechaza body inválido."""
@@ -62,9 +68,10 @@ class TestChatEndpoint:
         assert response.status_code == 422
 
     def test_health(self, client):
-        """GET /health retorna ok."""
+        """GET /health retorna ok con DB conectada."""
         response = client.get("/health")
         assert response.status_code == 200
         data = response.json()
         assert data["status"] == "ok"
+        assert data["database"] == "connected"
         assert data["llm_provider"] == "groq"
