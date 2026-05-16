@@ -470,3 +470,114 @@ src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_us
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 ======================== 33 passed, 6 warnings in 5.24s ========================
+
+
+
+andervrz5@cloudshell:~/chatbot-margarita-base$ uv run scripts/chat_cli.py
+✓ Sesión: cli-1778948631
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│     ┌─────────────────────────────────────────┐                              │
+│     │   🏝️  MARGARITA REALTY BOT  🤖         │                               │
+│     │   Asesor Inmobiliario de Margarita      │                              │
+│     │   CLI de desarrollo v0.1.0              │                              │
+│     └─────────────────────────────────────────┘                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Escribe tu mensaje o /help para ver comandos. Ctrl+C para salir.
+
+👤 Tú: hola
+
+🤖 Bot:
+¡Hola! Soy tu asesor inmobiliario de Margarita. ¿En qué puedo ayudarte hoy?     
+Puedo buscarte propiedades, informarte precios por zona o ayudarte con trámites 
+de compra.                                                                      
+⏱ 21ms | sesión: cli-1778948631...
+
+👤 Tú: busco propiedad en 40k
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedo tomar tu nombre y teléfono 
+para que te llamen con opciones personalizadas.                                 
+⏱ 373ms | sesión: cli-1778948631...
+
+👤 Tú: quiero decir 40 k
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedo tomar tu nombre y teléfono 
+para que te llamen con opciones personalizadas.                                 
+⏱ 326ms | sesión: cli-1778948631...
+
+👤 Tú: 40 mil
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedo tomar tu nombre y teléfono 
+para que te llamen con opciones personalizadas.                                 
+⏱ 330ms | sesión: cli-1778948631...
+
+👤 Tú: entre 30 y 40 mil
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedo tomar tu nombre y teléfono 
+para que te llamen con opciones personalizadas.                                 
+⏱ 428ms | sesión: cli-1778948631...
+
+👤 Tú: busco propiedades en la ciudad de Porlamar
+
+🤖 Bot:
+Porlamar es una ciudad linda en la isla de Margarita. Tenemos algunas           
+propiedades interesantes en la zona.                                            
+
+Aquí te presento algunas opciones que podrían interesarte:                      
+
+ • Apartamento Ejecutivo Porlamar | Porlamar Centro, Mariño | apartamento       
+   Precio: $65,000 USD | 2h/2b | 75.0m² Descripción: Apartamento en zona        
+   comercial de Porlamar. Cerca de Sambil Margarita, bancos y restaurantes.     
+   Perfecto para residencia o inversión de alquiler largo plazo.                
+ • Apartamento Ejecutivo Porlamar Centro | Porlamar Centro, Mariño | apartamento
+   Precio: $65,000 USD | 2h/2b | 75.0m² Descripción: Apartamento ejecutivo en el
+   corazón de Porlamar.                                                         
+⏱ 961ms | sesión: cli-1778948631...
+
+👤 Tú: que otras propiedades tienes diposnibles en el porlamar 
+
+🤖 Bot:
+En Porlamar tenemos varias propiedades interesantes. Aquí te presento algunas   
+opciones adicionales:                                                           
+
+ • Apartamento Carimar Club 56m² Sabanamar | Sabanamar, Mariño | apartamento    
+   Precio: $51,000 USD | 1h/1b | 56.0m² Descripción: Acogedor apartamento de    
+   56m² en Edificio Carimar Club, Sabanamar. 1 habitación, 1 baño, cocina       
+   americana, balcón con vista a áreas verdes.                                  
+ • Apartamento Playa Moreno 84m² Primer Piso | Playa Moreno, Mariño |           
+   apartamento Precio: $120,000 USD | 2h/2b | 84.0m² Descripción: Hermoso       
+   apartamento de 84m² en primer piso, Playa Moreno. Cocina moderna con to      
+⏱ 1162ms | sesión: cli-1778948631...
+
+👤 Tú: en la ciudad de pampatar no tienes propieades
+
+🤖 Bot:
+En Pampatar tenemos varias propiedades interesantes. Aquí te presento algunas   
+   americana, balcón con vista a áreas verdes.                                  
+ • Apartamento Playa Moreno 84m² Primer Piso | Playa Moreno, Mariño |           
+   apartamento Precio: $120,000 USD | 2h/2b | 84.0m² Descripción: Hermoso       
+   apartamento de 84m² en primer piso, Playa Moreno. Cocina moderna con to      
+⏱ 1162ms | sesión: cli-1778948631...
+
+👤 Tú: en la ciudad de pampatar no tienes propieades
+
+🤖 Bot:
+En Pampatar tenemos varias propiedades interesantes. Aquí te presento algunas   
+opciones:                                                                       
+
+ • Apartamento Vista al Mar Pampatar | Pampatar, Maneiro | apartamento Precio:  
+⏱ 1346ms | sesión: cli-1778948631...
