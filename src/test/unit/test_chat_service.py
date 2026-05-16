@@ -1,7 +1,7 @@
 """
 Tests del ChatService.
 Verifica el flujo de defensa en profundidad:
-FAQ directa → Cache → SQL exacta → Vectorial → LLM → Fallback.
+FAQ directa → Cache → SQL exacta → Vectorial (solo con filtros) → LLM → Fallback.
 """
 
 import pytest
@@ -16,7 +16,7 @@ class TestChatServiceFlow:
     async def test_faq_returns_zero_llm_calls(
         self, chat_service, mock_llm
     ):
-        """Una FAQ debe responder directamente sin tocar el LLM."""
+        """Una FAQ debe responder directamente sin tocar el LLM ni embeddings."""
         response = await chat_service.handle(
             session_id="test-001",
             user_message="cuánto cuesta el metro cuadrado",
@@ -24,6 +24,7 @@ class TestChatServiceFlow:
         assert "Maneiro" in response
         assert "$1,000" in response
         mock_llm.chat.assert_not_called()
+        mock_llm.embed.assert_not_called()
 
     async def test_greeting_returns_zero_llm_calls(
         self, chat_service, mock_llm
@@ -34,12 +35,12 @@ class TestChatServiceFlow:
         )
         assert "Hola" in response
         mock_llm.chat.assert_not_called()
+        mock_llm.embed.assert_not_called()
 
     async def test_cache_avoids_llm_on_repeat(
         self, chat_service, mock_llm, property_repo
     ):
         """Si el usuario repite la pregunta, la cache debe interceptar."""
-        # Primera vez: seed una propiedad para que SQL retorne algo
         prop = Property(
             title="Casa Test",
             municipality=Municipality.MANEIRO,
@@ -93,13 +94,14 @@ class TestChatServiceFlow:
     async def test_fallback_when_no_data_anywhere(
         self, chat_service, mock_llm
     ):
-        """Si no hay propiedades en SQL ni vectorial, fallback controlado. 0 LLM calls."""
+        """Si no hay propiedades ni filtros semánticos, fallback controlado. 0 LLM calls, 0 embed calls."""
         response = await chat_service.handle(
             session_id="test-006",
             user_message="castillo en la luna",
         )
         assert "No tengo propiedades registradas" in response
         mock_llm.chat.assert_not_called()
+        mock_llm.embed.assert_not_called()
 
     async def test_session_memory_persists(
         self, chat_service, conv_store
@@ -143,6 +145,7 @@ class TestChatServiceFlow:
             vector_column="description_embedding",
             property_id=created.id,
         )
+        await db.commit()  # Commit explícito tras vec_insert
 
         # Consulta que no matchea SQL exacto pero sí semánticamente
         response = await chat_service.handle(
