@@ -1,6 +1,10 @@
 """
 Schemas Pydantic para la API REST.
 Separan la interfaz HTTP de la lógica de dominio.
+
+Nota: ChatResponse define campos enriquecidos (intent_type, properties_found, cached)
+que en fase 0 no se llenan desde el endpoint. Se activarán en fase 1 cuando
+ChatService retorne metadatos además de la respuesta de texto.
 """
 
 from pydantic import BaseModel, Field
