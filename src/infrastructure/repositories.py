@@ -183,6 +183,9 @@ class PropertyRepository:
                 status=PropertyStatus(row["status"]),
                 contact_phone=row["contact_phone"],
                 contact_email=row["contact_email"],
+                # Campos de auditoría opcionales (pueden ser None en filas antiguas)
+                created_at=row.get("created_at"),
+                updated_at=row.get("updated_at"),
             )
         except (ValueError, KeyError) as exc:
             logger.warning(
