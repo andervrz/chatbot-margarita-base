@@ -168,6 +168,9 @@ class PropertyRepository:
                 features = []
 
         try:
+            # sqlite3.Row no tiene .get(), usar acceso directo con verificación
+            keys = list(row.keys())
+            
             return Property(
                 id=row["id"],
                 title=row["title"],
@@ -183,15 +186,15 @@ class PropertyRepository:
                 status=PropertyStatus(row["status"]),
                 contact_phone=row["contact_phone"],
                 contact_email=row["contact_email"],
-                # Campos de auditoría opcionales (pueden ser None en filas antiguas)
-                created_at=row.get("created_at"),
-                updated_at=row.get("updated_at"),
+                # Campos de auditoría opcionales
+                created_at=row["created_at"] if "created_at" in keys else None,
+                updated_at=row["updated_at"] if "updated_at" in keys else None,
             )
         except (ValueError, KeyError) as exc:
             logger.warning(
                 "property_row_corrupt",
-                property_id=row.get("id"),
+                property_id=row.get("id") if hasattr(row, "get") else row["id"],
                 error=str(exc),
-                row_keys=list(row.keys()),
+                row_keys=keys,
             )
-            return None
+    
