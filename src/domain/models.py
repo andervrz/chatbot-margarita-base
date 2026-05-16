@@ -2,7 +2,7 @@
 Entidades del dominio. Solo datos, sin lógica de infraestructura.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 
 from pydantic import BaseModel, Field
@@ -51,6 +51,9 @@ class Property(BaseModel):
     status: PropertyStatus = PropertyStatus.AVAILABLE
     contact_phone: str | None = None
     contact_email: str | None = None
+    # Campos de auditoría; SQLite los setea automáticamente
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
 
 
 class MessageRole(str, Enum):
@@ -99,4 +102,4 @@ class Lead(BaseModel):
     preferred_zone: str | None = None
     preferred_type: PropertyType | None = None
     urgency: LeadUrgency | None = None
-    captured_at: datetime = Field(default_factory=datetime.utcnow)
+    captured_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
