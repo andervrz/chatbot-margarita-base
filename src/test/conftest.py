@@ -13,7 +13,6 @@ import pytest_asyncio
 from src.application.chat import ChatService
 from src.application.enrichment import PromptEnricher
 from src.application.intent import IntentDetector
-from src.config import Settings
 from src.infrastructure.cache import CacheManager
 from src.infrastructure.conversation_store import ConversationStore
 from src.infrastructure.db import Database
@@ -30,9 +29,12 @@ def event_loop():
 
 
 @pytest_asyncio.fixture
-async def db() -> Database:
-    """Base de datos SQLite en memoria, limpia para cada test."""
-    db = Database(Path(":memory:"))
+async def db(mock_llm: LLMClient) -> Database:
+    """Base de datos SQLite en memoria, limpia para cada test.
+    
+    Usa embedding_dim del LLM mockeado para evitar mismatch de dimensiones.
+    """
+    db = Database(Path(":memory:"), embedding_dim=mock_llm.embedding_dim)
     await db.connect()
     yield db
     await db.close()
@@ -48,14 +50,16 @@ def mock_llm() -> LLMClient:
     """LLMClient con métodos mockeados. Nunca llama a la red."""
     llm = LLMClient.__new__(LLMClient)
     llm.chat_model = "groq/llama-3.3-70b-versatile"
-    llm.embedding_model = "openai/text-embedding-3-small"
+    llm.embedding_model = "huggingface/sentence-transformers/all-MiniLM-L6-v2"
     llm.default_temperature = 0.7
     llm.default_max_tokens = 500
+    # Dimensión explícita, coherente con el mock de embed()
+    llm.embedding_dim = 384
 
     # Mock: chat siempre retorna una respuesta fija
     llm.chat = AsyncMock(return_value="Respuesta mockeada del asistente")
 
-    # Mock: embed retorna un vector de 384 dimensiones (tamaño estándar)
+    # Mock: embed retorna un vector de 384 dimensiones
     llm.embed = AsyncMock(return_value=[0.01] * 384)
 
     return llm
