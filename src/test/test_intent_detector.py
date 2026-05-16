@@ -79,3 +79,19 @@ class TestFilterExtraction:
     def test_no_filters(self):
         filters = self.detector.extract_filters("hola")
         assert filters == ExtractedFilters()
+
+    def test_extract_price_with_k_suffix(self):
+        filters = self.detector.extract_filters("hasta 70k")
+        assert filters.max_price == 70000
+
+    def test_extract_price_with_mil(self):
+        filters = self.detector.extract_filters("60 mil dólares")
+        assert filters.max_price == 60000
+
+    def test_extract_price_venezuelan_separator(self):
+        filters = self.detector.extract_filters("hasta 95.000")
+        assert filters.max_price == 95000
+
+    def test_detect_m2_ascii(self):
+        """Variante ASCII de m² debe clasificar como FAQ de precios."""
+        assert self.detector.detect("cuanto cuesta el m2 en pampatar") == IntentType.FAQ_PRICE_M2
