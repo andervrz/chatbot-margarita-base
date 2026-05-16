@@ -183,3 +183,10 @@ class ChatService:
 
         # Mensaje actual del usuario
         messages.append({"role": "user", "content": user_message})
+
+        return messages
+
+    async def _persist(self, session_id: str, user_msg: str, assistant_msg: str) -> None:
+        """Guarda el par mensaje/respuesta en la base de datos."""
+        await self.conv_store.append(session_id, MessageRole.USER, user_msg)
+        await self.conv_store.append(session_id, MessageRole.ASSISTANT, assistant_msg)
