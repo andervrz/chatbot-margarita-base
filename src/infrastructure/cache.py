@@ -52,7 +52,9 @@ class CacheManager:
         )
         if row:
             ttl_hours = row["ttl_hours"] if row["ttl_hours"] is not None else 168
-            cutoff = (datetime.now(timezone.utc) - timedelta(hours=ttl_hours)).isoformat()
+            # Usar formato consistente con SQLite CURRENT_TIMESTAMP (sin T, sin timezone)
+            cutoff_dt = datetime.now(timezone.utc) - timedelta(hours=ttl_hours)
+            cutoff = cutoff_dt.strftime("%Y-%m-%d %H:%M:%S")
 
             if row["last_hit_at"] is None or row["last_hit_at"] > cutoff:
                 await self.db.execute(
@@ -61,7 +63,7 @@ class CacheManager:
                     SET hit_count = hit_count + 1, last_hit_at = ?
                     WHERE query_hash = ?
                     """,
-                    (datetime.now(timezone.utc).isoformat(), hash_key),
+                    (datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"), hash_key),
                 )
                 await self.db.commit()
                 logger.debug(
@@ -100,7 +102,8 @@ class CacheManager:
         """Almacena la respuesta en ambas caches."""
         normalized = _normalize(query)
         hash_key = hashlib.sha256(normalized.encode()).hexdigest()
-        now = datetime.now(timezone.utc).isoformat()
+        # Formato consistente con SQLite CURRENT_TIMESTAMP
+        now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
         # Guardar cache exacta
         await self.db.execute(
