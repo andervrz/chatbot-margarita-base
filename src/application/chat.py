@@ -7,7 +7,7 @@ Intent → FAQ directa → Cache → SQL exacta → Vectorial (solo si hay filtr
 import structlog
 
 from src.application.enrichment import PromptEnricher
-from src.application.intent import ExtractedFilters, IntentDetector, IntentType
+from src.application.intent import ExtractedFilters, IntentDetector, IntentType, PartialLead
 from src.domain.models import Message, MessageRole
 from src.domain.exceptions import NoDataError
 from src.infrastructure.cache import CacheManager
@@ -54,15 +54,21 @@ class ChatService:
             await self._persist(session_id, user_message, faq_response)
             return faq_response
 
-        # 3. Cache lookup (exacta + semántica)
+        # 3. Captura de lead (detectado por regex, no FAQ)
+        if intent == IntentType.CAPTURE_LEAD:
+            response = await self._handle_capture_lead(session_id, user_message)
+            await self._persist(session_id, user_message, response)
+            return response
+
+        # 4. Cache lookup (exacta + semántica)
         if cached := await self.cache.get(user_message):
             await self._persist(session_id, user_message, cached)
             return cached
 
-        # 4. Recuperar historial de la sesión
+        # 5. Recuperar historial de la sesión
         history = await self.conv_store.get_history(session_id, limit=10)
 
-        # 5. Búsqueda de propiedades
+        # 6. Búsqueda de propiedades
         response: str
         is_fallback = False
         try:
@@ -73,20 +79,52 @@ class ChatService:
                 history=history,
             )
         except NoDataError:
-            # 8. Fallback controlado (0 LLM calls)
+            # 9. Fallback controlado (0 LLM calls)
             response = self.enricher.build_fallback_message()
             is_fallback = True
 
-        # 9. Persistir conversación
+        # 10. Persistir conversación
         await self._persist(session_id, user_message, response)
 
-        # 10. Guardar en cache para futuras consultas similares (excepto fallbacks)
+        # 11. Guardar en cache para futuras consultas similares (excepto fallbacks)
         if not is_fallback:
             await self.cache.set(user_message, response, intent.value)
 
         return response
 
     # ---------- Flujo interno ----------
+
+    async def _handle_capture_lead(
+        self,
+        session_id: str,
+        user_message: str,
+    ) -> str:
+        """
+        Procesa un mensaje de captura de lead.
+        Extrae datos de contacto y persiste en la base de datos.
+        """
+        lead_info = self.intent.extract_lead_info(user_message)
+
+        # Persistir lead en la base de datos
+        await self._persist_lead(session_id, lead_info)
+
+        # Respuesta personalizada según datos capturados
+        if lead_info.name and lead_info.phone:
+            return (
+                f"Gracias {lead_info.name}, he registrado tus datos "
+                f"(teléfono: {lead_info.phone}). Un asesor te contactará "
+                f"en las próximas 24-48 horas con opciones personalizadas."
+            )
+        elif lead_info.name:
+            return (
+                f"Gracias {lead_info.name}, he registrado tu interés. "
+                f"¿Podrías compartirme tu teléfono para que un asesor te contacte?"
+            )
+        else:
+            return (
+                "Gracias por tu interés. Para que un asesor te contacte, "
+                "¿podrías decirme tu nombre y teléfono?"
+            )
 
     async def _handle_property_search(
         self,
@@ -105,7 +143,7 @@ class ChatService:
         # Extraer filtros del mensaje (regex, sin LLM)
         filters = self.intent.extract_filters(user_message)
 
-        # 5a. Búsqueda SQL exacta
+        # 6a. Búsqueda SQL exacta
         properties = await self.property_repo.search_exact(
             municipality=filters.municipality,
             zone=filters.zone,
@@ -118,10 +156,10 @@ class ChatService:
         search_type = "sql_exact"
         context = None
 
-        # 5b. Si no hay resultados SQL → fallback vectorial (solo si hay filtros semánticos)
+        # 6b. Si no hay resultados SQL → fallback vectorial (solo si hay filtros semánticos)
         if not properties:
             logger.info("sql_no_results", session_id=session_id, filters=filters)
-            
+
             # No gastar embedding si no hay nada que buscar semánticamente
             if self._has_meaningful_filters(filters):
                 embedding = await self.llm.embed(user_message)
@@ -131,7 +169,7 @@ class ChatService:
                     search_type = "vector_fallback"
                     context = self.enricher.build_vector_context(properties, user_message)
 
-        # 6. Si hay propiedades (de cualquier fuente) → enriquecer prompt y 1 LLM call
+        # 7. Si hay propiedades (de cualquier fuente) → enriquecer prompt y 1 LLM call
         if properties:
             if not context:
                 context = self.enricher.build_search_context(properties, user_message)
@@ -146,7 +184,7 @@ class ChatService:
             )
             return response
 
-        # 7. Sin resultados en ningún lado
+        # 8. Sin resultados en ningún lado
         raise NoDataError("No hay propiedades en SQL ni en vectorial")
 
     @staticmethod
@@ -190,3 +228,40 @@ class ChatService:
         """Guarda el par mensaje/respuesta en la base de datos."""
         await self.conv_store.append(session_id, MessageRole.USER, user_msg)
         await self.conv_store.append(session_id, MessageRole.ASSISTANT, assistant_msg)
+
+    async def _persist_lead(self, session_id: str, lead_info: PartialLead) -> None:
+        """Guarda datos de lead en la tabla leads.
+
+        Nota: En fase 0 se inserta un nuevo registro por mensaje.
+        En fase 1 se puede implementar upsert por session_id.
+        """
+        # Construir INSERT dinámico según datos disponibles
+        columns = ["session_id"]
+        values = [session_id]
+        placeholders = ["?"]
+
+        if lead_info.name:
+            columns.append("name")
+            values.append(lead_info.name)
+            placeholders.append("?")
+        if lead_info.phone:
+            columns.append("phone")
+            values.append(lead_info.phone)
+            placeholders.append("?")
+        if lead_info.email:
+            columns.append("email")
+            values.append(lead_info.email)
+            placeholders.append("?")
+
+        sql = f"INSERT INTO leads ({', '.join(columns)}) VALUES ({', '.join(placeholders)})"
+
+        await self.property_repo.db.execute(sql, values)
+        await self.property_repo.db.commit()
+
+        logger.info(
+            "lead_persisted",
+            session_id=session_id,
+            name=lead_info.name,
+            phone=lead_info.phone is not None,
+            email=lead_info.email is not None,
+        )
