@@ -1,3 +1,8 @@
 No tengo propiedades registradas con esas características en este momento. 
 
-¿Te gustaría que un asesor humano te contacte? Puedo tomar tu nombre y teléfono para que te llamen con opciones personalizadas.
+¿Te gustaría que un asesor humano te contacte? Puedes decirme:
+- Tu nombre
+- Teléfono o correo
+- Zona de interés y presupuesto aproximado
+
+Te contactarán en 24-48 horas con opciones personalizadas.
