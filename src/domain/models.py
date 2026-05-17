@@ -102,4 +102,8 @@ class Lead(BaseModel):
     preferred_zone: str | None = None
     preferred_type: PropertyType | None = None
     urgency: LeadUrgency | None = None
+    # Campos de calificación para diáspora / mercado actual
+    has_rif: bool | None = None
+    visit_planned: bool | None = None
+    funding_source: str | None = None  # ej: "transferencia", "usdt", "efectivo"
     captured_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
