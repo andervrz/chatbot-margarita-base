@@ -1,0 +1,1320 @@
+rc/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_playa_moreno PASSED [ 65%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_juan_griego PASSED [ 66%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_la_asuncion PASSED [ 66%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_el_tirano PASSED [ 66%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_la_guardia PASSED [ 66%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_san_lorenzo FAILED [ 67%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_apostadero FAILED [ 67%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_altos_de_maneiro FAILED [ 67%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_guatamare FAILED [ 68%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_macanao PASSED [ 68%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_playa_el_yaque PASSED [ 68%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_typo_pampatar PASSED [ 68%]
+src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_typo_porlamar PASSED [ 69%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_casa PASSED [ 69%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_apartamento PASSED [ 69%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_apto_abbreviation PASSED [ 70%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_penthouse PASSED [ 70%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_terreno PASSED [ 70%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_local PASSED [ 70%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_townhouse_not_supported PASSED [ 71%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_condo_not_supported PASSED [ 71%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_villa_not_supported PASSED [ 71%]
+src/test/unit/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_hotel_not_supported PASSED [ 71%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_pampatar_casa_150k_3hab FAILED [ 72%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_el_agua_apartamento_80_120k_2hab FAILED [ 72%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_porlamar_local_70k FAILED [ 72%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_sabanamar_apartamento_90k_3hab_2banos FAILED [ 73%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_guacuco_terreno_25k FAILED [ 73%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_costa_azul_penthouse_400k FAILED [ 73%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_la_caranta_condo_not_supported FAILED [ 73%]
+src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_parguito_villa_not_supported FAILED [ 74%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy FAILED [ 74%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_visa FAILED [ 74%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_from_usa FAILED [ 75%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_passport PASSED [ 75%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_power_of_attorney PASSED [ 75%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_documents PASSED [ 75%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_escritura PASSED [ 76%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_registry PASSED [ 76%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_price_m2 PASSED [ 76%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_rental_roi PASSED [ 77%]
+src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_rental_roi_airbnb FAILED [ 77%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_water PASSED [ 77%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_generator FAILED [ 77%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_fiber FAILED [ 78%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_pool FAILED [ 78%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_parking FAILED [ 78%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_furnished FAILED [ 78%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_white_work FAILED [ 79%]
+src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_ocean_view FAILED [ 79%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_full_name PASSED [ 79%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_venezuelan_phone_mobile PASSED [ 80%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_venezuelan_phone_landline PASSED [ 80%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_phone_with_country_code FAILED [ 80%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_email_gmail PASSED [ 80%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_email_corporate PASSED [ 81%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_complete_message PASSED [ 81%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_name_only PASSED [ 81%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_phone_only FAILED [ 82%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_email_only PASSED [ 82%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_colloquial_contact PASSED [ 82%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_whatsapp FAILED [ 82%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_interest_in_property FAILED [ 83%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_request_callback PASSED [ 83%]
+src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_request_contact PASSED [ 83%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_empty_message PASSED [ 84%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_whitespace_only PASSED [ 84%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_greeting_with_question PASSED [ 84%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_goodbye_with_thanks PASSED [ 84%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_price_with_extra_spaces FAILED [ 85%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_price_mixed_separators PASSED [ 85%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_zone_case_insensitive PASSED [ 85%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_zone_with_accents PASSED [ 85%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_multiple_zones_mentioned PASSED [ 86%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_mixed_spanish_english FAILED [ 86%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_abbreviated_question PASSED [ 86%]
+src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_number_as_word PASSED [ 87%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[hola, buenos d\xedas-greeting] PASSED [ 87%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[HOLA!-greeting] PASSED [ 87%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[busco una casa en pampatar-search_property] PASSED [ 87%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 88%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 88%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] PASSED [ 88%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 89%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 89%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[gracias por la info-goodbye] PASSED [ 89%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[adi\xf3s-goodbye] PASSED [ 89%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 90%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 90%]
+src/test/unit/test_comprehensive.py::TestOriginalRegression::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [ 90%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_40k_without_prefix FAILED [ 91%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_40_k_with_space FAILED [ 91%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_40_mil FAILED [ 91%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_range_30_y_40_mil FAILED [ 91%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_range_both_with_mil FAILED [ 92%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_70k_suffix FAILED [ 92%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_60_mil FAILED [ 92%]
+src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_venezuelan_separator PASSED [ 92%]
+src/test/unit/test_regression.py::TestZoneExtractionRegression::test_extract_zone_pampatar PASSED [ 93%]
+src/test/unit/test_regression.py::TestZoneExtractionRegression::test_extract_zone_porlamar_centro FAILED [ 93%]
+src/test/unit/test_regression.py::TestZoneExtractionRegression::test_extract_zone_playa_el_agua PASSED [ 93%]
+src/test/unit/test_regression.py::TestZoneExtractionRegression::test_extract_zone_sabanamar PASSED [ 94%]
+src/test/unit/test_regression.py::TestZoneExtractionRegression::test_multiple_filters_with_zone PASSED [ 94%]
+src/test/unit/test_regression.py::TestLeadExtractionRegression::test_detect_capture_lead_intent PASSED [ 94%]
+src/test/unit/test_regression.py::TestLeadExtractionRegression::test_extract_lead_name PASSED [ 94%]
+src/test/unit/test_regression.py::TestLeadExtractionRegression::test_extract_lead_name_me_llamo PASSED [ 95%]
+src/test/unit/test_regression.py::TestLeadExtractionRegression::test_extract_lead_phone PASSED [ 95%]
+src/test/unit/test_regression.py::TestLeadExtractionRegression::test_extract_lead_email PASSED [ 95%]
+src/test/unit/test_regression.py::TestLeadExtractionRegression::test_extract_lead_complete PASSED [ 96%]
+src/test/unit/test_regression.py::TestLeadExtractionRegression::test_extract_lead_partial PASSED [ 96%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[hola, buenos d\xedas-greeting] PASSED [ 96%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[HOLA!-greeting] PASSED [ 96%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[busco una casa en pampatar-search_property] PASSED [ 97%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 97%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 97%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] PASSED [ 98%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 98%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 98%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[gracias por la info-goodbye] PASSED [ 98%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[adi\xf3s-goodbye] PASSED [ 99%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 99%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 99%]
+src/test/unit/test_regression.py::TestIntentDetectionRegression::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [100%]
+
+=================================== FAILURES ===================================
+__________________ TestChatEndpoint.test_chat_property_search __________________
+src/test/integration/test_api.py:60: in test_chat_property_search
+    assert "No tengo propiedades registradas" not in data["response"]
+E   AssertionError: assert 'No tengo pr... registradas' not in 'No tengo pr...sonalizadas.'
+E     
+E     'No tengo propiedades registradas' is contained here:
+E       No tengo propiedades registradas con esas características en este momento. 
+E       
+E       ¿Te gustaría que un asesor humano te contacte? Puedes decirme:
+E       - Tu nombre
+E       - Teléfono o correo...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+----------------------------- Captured stdout call -----------------------------
+2026-05-18 20:33:58 [info     ] chat_request                   msg_preview='busco casa en pampatar' request_id=008b1151 session_id=int-002 user_id=None
+2026-05-18 20:33:58 [info     ] chat_handle                    msg_preview='busco casa en pampatar' request_id=008b1151 session_id=int-002
+2026-05-18 20:33:58 [debug    ] hf_embed_success               dimensions=384 model=sentence-transformers/all-MiniLM-L6-v2 request_id=008b1151
+2026-05-18 20:33:58 [debug    ] cache_miss                     request_id=008b1151
+2026-05-18 20:33:58 [debug    ] property_search_sql            count=0 filters=3 request_id=008b1151
+2026-05-18 20:33:58 [info     ] sql_no_results                 filters=ExtractedFilters(municipality=<Municipality.MANEIRO: 'Maneiro'>, zone='Pampatar', property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None) request_id=008b1151 session_id=int-002
+2026-05-18 20:33:58 [debug    ] hf_embed_success               dimensions=384 model=sentence-transformers/all-MiniLM-L6-v2 request_id=008b1151
+2026-05-18 20:33:58 [info     ] chat_response                  request_id=008b1151 session_id=int-002
+__________________ TestPriceParsingRealMarket.test_price_35k ___________________
+src/test/test_comprehensive.py:59: in test_price_35k
+    assert filters.max_price == 35000
+E   AssertionError: assert None == 35000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________________ TestPriceParsingRealMarket.test_price_51_k __________________
+src/test/test_comprehensive.py:63: in test_price_51_k
+    assert filters.max_price == 51000
+E   assert None == 51000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRealMarket.test_price_85_mil _________________
+src/test/test_comprehensive.py:67: in test_price_85_mil
+    assert filters.max_price == 85000
+E   AssertionError: assert None == 85000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_96_mil_dolares _____________
+src/test/test_comprehensive.py:71: in test_price_96_mil_dolares
+    assert filters.max_price == 96000
+E   AssertionError: assert None == 96000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+________________ TestPriceParsingRealMarket.test_price_135k_usd ________________
+src/test/test_comprehensive.py:75: in test_price_135k_usd
+    assert filters.max_price == 135000
+E   assert None == 135000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_170k_pampatar ______________
+src/test/test_comprehensive.py:79: in test_price_170k_pampatar
+    assert filters.max_price == 170000
+E   AssertionError: assert None == 170000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MANEIRO: 'Maneiro'>, zone='Pampatar', property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+______________ TestPriceParsingRealMarket.test_price_192k_terreno ______________
+src/test/test_comprehensive.py:84: in test_price_192k_terreno
+    assert filters.max_price == 192000
+E   AssertionError: assert None == 192000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.TERRENO: 'terreno'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________ TestPriceParsingRealMarket.test_price_210k_playa_el_angel ___________
+src/test/test_comprehensive.py:89: in test_price_210k_playa_el_angel
+    assert filters.max_price == 210000
+E   AssertionError: assert None == 210000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MANEIRO: 'Maneiro'>, zone='Playa El Ángel', property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_275k_penthouse _____________
+src/test/test_comprehensive.py:94: in test_price_275k_penthouse
+    assert filters.max_price == 275000
+E   AssertionError: assert None == 275000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.PENTHOUSE: 'penthouse'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_______________ TestPriceParsingRealMarket.test_price_400k_lujo ________________
+src/test/test_comprehensive.py:99: in test_price_400k_lujo
+    assert filters.max_price == 400000
+E   AssertionError: assert None == 400000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_______________ TestPriceParsingRealMarket.test_price_600k_hotel _______________
+src/test/test_comprehensive.py:103: in test_price_600k_hotel
+    assert filters.max_price == 600000
+E   assert None == 600000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestPriceParsingRealMarket.test_price_range_50_80_mil _____________
+src/test/test_comprehensive.py:109: in test_price_range_50_80_mil
+    assert filters.max_price == 80000
+E   assert None == 80000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=50000.0, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_range_100_150k _____________
+src/test/test_comprehensive.py:113: in test_price_range_100_150k
+    assert filters.min_price == 100000
+E   assert None == 100000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).min_price
+___________ TestPriceParsingRealMarket.test_price_range_200_300_mil ____________
+src/test/test_comprehensive.py:118: in test_price_range_200_300_mil
+    assert filters.min_price == 200000
+E   assert None == 200000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=200000.0, min_bedrooms=None).min_price
+_____________ TestPriceParsingRealMarket.test_price_range_500k_1m ______________
+src/test/test_comprehensive.py:123: in test_price_range_500k_1m
+    assert filters.min_price == 500000
+E   assert None == 500000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).min_price
+_______________ TestPriceParsingRealMarket.test_price_hasta_40k ________________
+src/test/test_comprehensive.py:128: in test_price_hasta_40k
+    assert filters.max_price == 40000
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_maximo_150_mil _____________
+src/test/test_comprehensive.py:132: in test_price_maximo_150_mil
+    assert filters.max_price == 150000
+E   assert None == 150000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_menos_de_100k ______________
+src/test/test_comprehensive.py:136: in test_price_menos_de_100k
+    assert filters.max_price == 100000
+E   assert None == 100000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestPriceParsingRealMarket.test_price_punto_y_k_135_5k ____________
+src/test/test_comprehensive.py:149: in test_price_punto_y_k_135_5k
+    assert filters.max_price == 135500
+E   assert None == 135500
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_ TestPriceParsingRealMarket.test_price_solo_numero_pequeno_contexto_inmobiliario _
+src/test/test_comprehensive.py:156: in test_price_solo_numero_pequeno_contexto_inmobiliario
+    assert filters.max_price == 40000
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=30000.0, max_price=None, min_bedrooms=None).max_price
+________ TestPriceParsingRealMarket.test_price_numero_con_mil_explicito ________
+src/test/test_comprehensive.py:160: in test_price_numero_con_mil_explicito
+    assert filters.max_price == 30000
+E   assert None == 30000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRealMarket.test_price_solo_k _________________
+src/test/test_comprehensive.py:164: in test_price_solo_k
+    assert filters.max_price == 80000
+E   assert None == 80000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+___________ TestPriceParsingRealMarket.test_price_con_simbolo_dolar ____________
+src/test/test_comprehensive.py:168: in test_price_con_simbolo_dolar
+    assert filters.max_price == 120000
+E   AssertionError: assert None == 120000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+________________ TestPriceParsingRealMarket.test_price_con_usd _________________
+src/test/test_comprehensive.py:172: in test_price_con_usd
+    assert filters.max_price == 95000
+E   AssertionError: assert None == 95000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestZoneExtractionRealMarket.test_zone_porlamar_centro ____________
+src/test/test_comprehensive.py:211: in test_zone_porlamar_centro
+    assert filters.zone == "Porlamar Centro"
+E   AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+E     
+E     - Porlamar Centro
+E     + Porlamar
+______________ TestZoneExtractionRealMarket.test_zone_san_lorenzo ______________
+src/test/test_comprehensive.py:278: in test_zone_san_lorenzo
+    assert filters.zone == "San Lorenzo"
+E   AssertionError: assert None == 'San Lorenzo'
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.TERRENO: 'terreno'>, min_price=None, max_price=None, min_bedrooms=None).zone
+______________ TestZoneExtractionRealMarket.test_zone_apostadero _______________
+src/test/test_comprehensive.py:283: in test_zone_apostadero
+    assert filters.zone == "Apostadero"
+E   AssertionError: assert None == 'Apostadero'
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.LOCAL: 'local'>, min_price=None, max_price=None, min_bedrooms=None).zone
+___________ TestZoneExtractionRealMarket.test_zone_altos_de_maneiro ____________
+src/test/test_comprehensive.py:288: in test_zone_altos_de_maneiro
+    assert filters.zone == "Altos de Maneiro"
+E   AssertionError: assert 'Pampatar' == 'Altos de Maneiro'
+E     
+E     - Altos de Maneiro
+E     + Pampatar
+_______________ TestZoneExtractionRealMarket.test_zone_guatamare _______________
+src/test/test_comprehensive.py:293: in test_zone_guatamare
+    assert filters.zone == "Guatamare"
+E   AssertionError: assert None == 'Guatamare'
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).zone
+_____ TestCombinedFiltersRealMarket.test_combined_pampatar_casa_150k_3hab ______
+src/test/test_comprehensive.py:396: in test_combined_pampatar_casa_150k_3hab
+    assert filters.max_price == 150000
+E   AssertionError: assert None == 150000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MANEIRO: 'Maneiro'>, zone='Pampatar', property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=3).max_price
+_ TestCombinedFiltersRealMarket.test_combined_playa_el_agua_apartamento_80_120k_2hab _
+src/test/test_comprehensive.py:406: in test_combined_playa_el_agua_apartamento_80_120k_2hab
+    assert filters.max_price == 120000
+E   AssertionError: assert None == 120000
+E    +  where None = ExtractedFilters(municipality=<Municipality.ANTOLIN_DEL_CAMPO: 'Antolín del Campo'>, zone='Playa El Agua', property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=80000.0, max_price=None, min_bedrooms=2).max_price
+________ TestCombinedFiltersRealMarket.test_combined_porlamar_local_70k ________
+src/test/test_comprehensive.py:413: in test_combined_porlamar_local_70k
+    assert filters.zone == "Porlamar Centro"
+E   AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+E     
+E     - Porlamar Centro
+E     + Porlamar
+_ TestCombinedFiltersRealMarket.test_combined_sabanamar_apartamento_90k_3hab_2banos _
+src/test/test_comprehensive.py:423: in test_combined_sabanamar_apartamento_90k_3hab_2banos
+    assert filters.max_price == 90000
+E   AssertionError: assert None == 90000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARINO: 'Mariño'>, zone='Sabanamar', property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=3).max_price
+_______ TestCombinedFiltersRealMarket.test_combined_guacuco_terreno_25k ________
+src/test/test_comprehensive.py:431: in test_combined_guacuco_terreno_25k
+    assert filters.max_price == 25000
+E   AssertionError: assert None == 25000
+E    +  where None = ExtractedFilters(municipality=<Municipality.GOMEZ: 'Gómez'>, zone='Guacuco', property_type=<PropertyType.TERRENO: 'terreno'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+____ TestCombinedFiltersRealMarket.test_combined_costa_azul_penthouse_400k _____
+src/test/test_comprehensive.py:439: in test_combined_costa_azul_penthouse_400k
+    assert filters.max_price == 400000
+E   AssertionError: assert None == 400000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARINO: 'Mariño'>, zone='Costa Azul', property_type=<PropertyType.PENTHOUSE: 'penthouse'>, min_price=None, max_price=None, min_bedrooms=4).max_price
+__ TestCombinedFiltersRealMarket.test_combined_la_caranta_condo_not_supported __
+src/test/test_comprehensive.py:446: in test_combined_la_caranta_condo_not_supported
+    assert filters.max_price == 60000
+E   AssertionError: assert None == 60000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARCANO: 'Marcano'>, zone='La Caranta', property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_ TestCombinedFiltersRealMarket.test_combined_playa_parguito_villa_not_supported _
+src/test/test_comprehensive.py:453: in test_combined_playa_parguito_villa_not_supported
+    assert filters.max_price == 500000
+E   AssertionError: assert None == 500000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARCANO: 'Marcano'>, zone='Playa Parguito', property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________ TestDiasporaQueriesRealMarket.test_detect_faq_foreign_buy ___________
+src/test/test_comprehensive.py:475: in test_detect_faq_foreign_buy
+    assert intent == IntentType.FAQ_FOREIGN_BUY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._foreign_buy'>
+E     
+E     - faq_foreign_buy
+E     + unknown
+________ TestDiasporaQueriesRealMarket.test_detect_faq_foreign_buy_visa ________
+src/test/test_comprehensive.py:479: in test_detect_faq_foreign_buy_visa
+    assert intent == IntentType.FAQ_FOREIGN_BUY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._foreign_buy'>
+E     
+E     - faq_foreign_buy
+E     + unknown
+______ TestDiasporaQueriesRealMarket.test_detect_faq_foreign_buy_from_usa ______
+src/test/test_comprehensive.py:483: in test_detect_faq_foreign_buy_from_usa
+    assert intent == IntentType.FAQ_FOREIGN_BUY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._foreign_buy'>
+E     
+E     - faq_foreign_buy
+E     + unknown
+_______ TestDiasporaQueriesRealMarket.test_detect_faq_rental_roi_airbnb ________
+src/test/test_comprehensive.py:523: in test_detect_faq_rental_roi_airbnb
+    assert intent == IntentType.UNKNOWN
+E   AssertionError: assert <IntentType.F...q_rental_roi'> == <IntentType.U...WN: 'unknown'>
+E     
+E     - unknown
+E     + faq_rental_roi
+_ TestInfrastructureQueriesRealMarket.test_detect_search_with_infrastructure_generator _
+src/test/test_comprehensive.py:547: in test_detect_search_with_infrastructure_generator
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_ TestInfrastructureQueriesRealMarket.test_detect_search_with_infrastructure_fiber _
+src/test/test_comprehensive.py:551: in test_detect_search_with_infrastructure_fiber
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_______ TestInfrastructureQueriesRealMarket.test_detect_search_with_pool _______
+src/test/test_comprehensive.py:555: in test_detect_search_with_pool
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_____ TestInfrastructureQueriesRealMarket.test_detect_search_with_parking ______
+src/test/test_comprehensive.py:559: in test_detect_search_with_parking
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_______ TestInfrastructureQueriesRealMarket.test_detect_search_furnished _______
+src/test/test_comprehensive.py:563: in test_detect_search_furnished
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+______ TestInfrastructureQueriesRealMarket.test_detect_search_white_work _______
+src/test/test_comprehensive.py:568: in test_detect_search_white_work
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+______ TestInfrastructureQueriesRealMarket.test_detect_search_ocean_view _______
+src/test/test_comprehensive.py:572: in test_detect_search_ocean_view
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_____ TestLeadCaptureRealMarket.test_extract_lead_phone_with_country_code ______
+src/test/test_comprehensive.py:604: in test_extract_lead_phone_with_country_code
+    assert lead.phone == "584149876543"
+E   AssertionError: assert None == '584149876543'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+________ TestLeadCaptureRealMarket.test_extract_lead_partial_phone_only ________
+src/test/test_comprehensive.py:633: in test_extract_lead_partial_phone_only
+    assert lead.phone == "04169990000"
+E   AssertionError: assert None == '04169990000'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+_____________ TestLeadCaptureRealMarket.test_extract_lead_whatsapp _____________
+src/test/test_comprehensive.py:647: in test_extract_lead_whatsapp
+    assert lead.phone == "584241112233"
+E   AssertionError: assert None == '584241112233'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+_______ TestLeadCaptureRealMarket.test_extract_lead_interest_in_property _______
+src/test/test_comprehensive.py:657: in test_extract_lead_interest_in_property
+    assert lead.phone == "04127778888"
+E   AssertionError: assert None == '04127778888'
+E    +  where None = PartialLead(name='Luis Martínez', phone=None, email=None).phone
+_________ TestEdgeCasesAndTyposRealMarket.test_price_with_extra_spaces _________
+src/test/test_comprehensive.py:697: in test_price_with_extra_spaces
+    assert filters.max_price == 100000
+E   AssertionError: assert None == 100000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________ TestEdgeCasesAndTyposRealMarket.test_mixed_spanish_english __________
+src/test/test_comprehensive.py:723: in test_mixed_spanish_english
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+____________ TestFilterExtraction.test_extract_price_with_k_suffix _____________
+src/test/test_intent_detector.py:85: in test_extract_price_with_k_suffix
+    assert filters.max_price == 70000
+E   assert None == 70000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_______________ TestFilterExtraction.test_extract_price_with_mil _______________
+src/test/test_intent_detector.py:89: in test_extract_price_with_mil
+    assert filters.max_price == 60000
+E   assert None == 60000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________________ TestFilterExtraction.test_detect_m2_ascii ___________________
+src/test/test_intent_detector.py:97: in test_detect_m2_ascii
+    assert self.detector.detect("cuanto cuesta el m2 en pampatar") == IntentType.FAQ_PRICE_M2
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F...faq_price_m2'>
+E     
+E     - faq_price_m2
+E     + unknown
+___________ TestPriceParsingRegression.test_price_40k_without_prefix ___________
+src/test/test_regression.py:21: in test_price_40k_without_prefix
+    assert filters.max_price == 40000, f"Expected 40000, got {filters.max_price}"
+E   AssertionError: Expected 40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestPriceParsingRegression.test_price_40_k_with_space _____________
+src/test/test_regression.py:26: in test_price_40_k_with_space
+    assert filters.max_price == 40000, f"Expected 40000, got {filters.max_price}"
+E   AssertionError: Expected 40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRegression.test_price_40_mil _________________
+src/test/test_regression.py:31: in test_price_40_mil
+    assert filters.max_price == 40000, f"Expected 40000, got {filters.max_price}"
+E   AssertionError: Expected 40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+___________ TestPriceParsingRegression.test_price_range_30_y_40_mil ____________
+src/test/test_regression.py:37: in test_price_range_30_y_40_mil
+    assert filters.max_price == 40000, f"Expected max=40000, got {filters.max_price}"
+E   AssertionError: Expected max=40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=30000.0, max_price=None, min_bedrooms=None).max_price
+__________ TestPriceParsingRegression.test_price_range_both_with_mil ___________
+src/test/test_regression.py:42: in test_price_range_both_with_mil
+    assert filters.min_price == 30000
+E   assert None == 30000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).min_price
+_______________ TestPriceParsingRegression.test_price_70k_suffix _______________
+src/test/test_regression.py:48: in test_price_70k_suffix
+    assert filters.max_price == 70000
+E   assert None == 70000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRegression.test_price_60_mil _________________
+src/test/test_regression.py:53: in test_price_60_mil
+    assert filters.max_price == 60000
+E   assert None == 60000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+________ TestZoneExtractionRegression.test_extract_zone_porlamar_centro ________
+src/test/test_regression.py:76: in test_extract_zone_porlamar_centro
+    assert filters.zone == "Porlamar Centro"
+E   AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+E     
+E     - Porlamar Centro
+E     + Porlamar
+___________ TestChatServiceFlow.test_fallback_when_no_data_anywhere ____________
+src/test/unit/test_chat_service.py:104: in test_fallback_when_no_data_anywhere
+    mock_llm.embed.assert_not_called()
+/usr/lib/python3.12/unittest/mock.py:905: in assert_not_called
+    raise AssertionError(msg)
+E   AssertionError: Expected 'mock' to not have been called. Called 1 times.
+E   Calls: [call('castillo en la luna')].
+---------------------------- Captured stdout setup -----------------------------
+2026-05-18 20:34:00 [info     ] db_connected                   embedding_dim=384 path=:memory:
+----------------------------- Captured stdout call -----------------------------
+2026-05-18 20:34:00 [info     ] chat_handle                    msg_preview='castillo en la luna' session_id=test-006
+2026-05-18 20:34:00 [debug    ] cache_miss                    
+2026-05-18 20:34:00 [debug    ] property_search_sql            count=0 filters=0
+2026-05-18 20:34:00 [info     ] sql_no_results                 filters=ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None) session_id=test-006
+--------------------------- Captured stdout teardown ---------------------------
+2026-05-18 20:34:00 [info     ] db_closed                     
+__________________ TestPriceParsingRealMarket.test_price_35k ___________________
+src/test/unit/test_comprehensive.py:59: in test_price_35k
+    assert filters.max_price == 35000
+E   AssertionError: assert None == 35000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________________ TestPriceParsingRealMarket.test_price_51_k __________________
+src/test/unit/test_comprehensive.py:63: in test_price_51_k
+    assert filters.max_price == 51000
+E   assert None == 51000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRealMarket.test_price_85_mil _________________
+src/test/unit/test_comprehensive.py:67: in test_price_85_mil
+    assert filters.max_price == 85000
+E   AssertionError: assert None == 85000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_96_mil_dolares _____________
+src/test/unit/test_comprehensive.py:71: in test_price_96_mil_dolares
+    assert filters.max_price == 96000
+E   AssertionError: assert None == 96000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+________________ TestPriceParsingRealMarket.test_price_135k_usd ________________
+src/test/unit/test_comprehensive.py:75: in test_price_135k_usd
+    assert filters.max_price == 135000
+E   assert None == 135000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_170k_pampatar ______________
+src/test/unit/test_comprehensive.py:79: in test_price_170k_pampatar
+    assert filters.max_price == 170000
+E   AssertionError: assert None == 170000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MANEIRO: 'Maneiro'>, zone='Pampatar', property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+______________ TestPriceParsingRealMarket.test_price_192k_terreno ______________
+src/test/unit/test_comprehensive.py:84: in test_price_192k_terreno
+    assert filters.max_price == 192000
+E   AssertionError: assert None == 192000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.TERRENO: 'terreno'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________ TestPriceParsingRealMarket.test_price_210k_playa_el_angel ___________
+src/test/unit/test_comprehensive.py:89: in test_price_210k_playa_el_angel
+    assert filters.max_price == 210000
+E   AssertionError: assert None == 210000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MANEIRO: 'Maneiro'>, zone='Playa El Ángel', property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_275k_penthouse _____________
+src/test/unit/test_comprehensive.py:94: in test_price_275k_penthouse
+    assert filters.max_price == 275000
+E   AssertionError: assert None == 275000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.PENTHOUSE: 'penthouse'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_______________ TestPriceParsingRealMarket.test_price_400k_lujo ________________
+src/test/unit/test_comprehensive.py:99: in test_price_400k_lujo
+    assert filters.max_price == 400000
+E   AssertionError: assert None == 400000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+_______________ TestPriceParsingRealMarket.test_price_600k_hotel _______________
+src/test/unit/test_comprehensive.py:103: in test_price_600k_hotel
+    assert filters.max_price == 600000
+E   assert None == 600000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestPriceParsingRealMarket.test_price_range_50_80_mil _____________
+src/test/unit/test_comprehensive.py:109: in test_price_range_50_80_mil
+    assert filters.max_price == 80000
+E   assert None == 80000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=50000.0, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_range_100_150k _____________
+src/test/unit/test_comprehensive.py:113: in test_price_range_100_150k
+    assert filters.min_price == 100000
+E   assert None == 100000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).min_price
+___________ TestPriceParsingRealMarket.test_price_range_200_300_mil ____________
+src/test/unit/test_comprehensive.py:118: in test_price_range_200_300_mil
+    assert filters.min_price == 200000
+E   assert None == 200000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=200000.0, min_bedrooms=None).min_price
+_____________ TestPriceParsingRealMarket.test_price_range_500k_1m ______________
+src/test/unit/test_comprehensive.py:123: in test_price_range_500k_1m
+    assert filters.min_price == 500000
+E   assert None == 500000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).min_price
+_______________ TestPriceParsingRealMarket.test_price_hasta_40k ________________
+src/test/unit/test_comprehensive.py:128: in test_price_hasta_40k
+    assert filters.max_price == 40000
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_maximo_150_mil _____________
+src/test/unit/test_comprehensive.py:132: in test_price_maximo_150_mil
+    assert filters.max_price == 150000
+E   assert None == 150000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_____________ TestPriceParsingRealMarket.test_price_menos_de_100k ______________
+src/test/unit/test_comprehensive.py:136: in test_price_menos_de_100k
+    assert filters.max_price == 100000
+E   assert None == 100000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestPriceParsingRealMarket.test_price_punto_y_k_135_5k ____________
+src/test/unit/test_comprehensive.py:149: in test_price_punto_y_k_135_5k
+    assert filters.max_price == 135500
+E   assert None == 135500
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_ TestPriceParsingRealMarket.test_price_solo_numero_pequeno_contexto_inmobiliario _
+src/test/unit/test_comprehensive.py:156: in test_price_solo_numero_pequeno_contexto_inmobiliario
+    assert filters.max_price == 40000
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=30000.0, max_price=None, min_bedrooms=None).max_price
+________ TestPriceParsingRealMarket.test_price_numero_con_mil_explicito ________
+src/test/unit/test_comprehensive.py:160: in test_price_numero_con_mil_explicito
+    assert filters.max_price == 30000
+E   assert None == 30000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRealMarket.test_price_solo_k _________________
+src/test/unit/test_comprehensive.py:164: in test_price_solo_k
+    assert filters.max_price == 80000
+E   assert None == 80000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+___________ TestPriceParsingRealMarket.test_price_con_simbolo_dolar ____________
+src/test/unit/test_comprehensive.py:168: in test_price_con_simbolo_dolar
+    assert filters.max_price == 120000
+E   AssertionError: assert None == 120000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+________________ TestPriceParsingRealMarket.test_price_con_usd _________________
+src/test/unit/test_comprehensive.py:172: in test_price_con_usd
+    assert filters.max_price == 95000
+E   AssertionError: assert None == 95000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestZoneExtractionRealMarket.test_zone_porlamar_centro ____________
+src/test/unit/test_comprehensive.py:211: in test_zone_porlamar_centro
+    assert filters.zone == "Porlamar Centro"
+E   AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+E     
+E     - Porlamar Centro
+E     + Porlamar
+______________ TestZoneExtractionRealMarket.test_zone_san_lorenzo ______________
+src/test/unit/test_comprehensive.py:278: in test_zone_san_lorenzo
+    assert filters.zone == "San Lorenzo"
+E   AssertionError: assert None == 'San Lorenzo'
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.TERRENO: 'terreno'>, min_price=None, max_price=None, min_bedrooms=None).zone
+______________ TestZoneExtractionRealMarket.test_zone_apostadero _______________
+src/test/unit/test_comprehensive.py:283: in test_zone_apostadero
+    assert filters.zone == "Apostadero"
+E   AssertionError: assert None == 'Apostadero'
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.LOCAL: 'local'>, min_price=None, max_price=None, min_bedrooms=None).zone
+___________ TestZoneExtractionRealMarket.test_zone_altos_de_maneiro ____________
+src/test/unit/test_comprehensive.py:288: in test_zone_altos_de_maneiro
+    assert filters.zone == "Altos de Maneiro"
+E   AssertionError: assert 'Pampatar' == 'Altos de Maneiro'
+E     
+E     - Altos de Maneiro
+E     + Pampatar
+_______________ TestZoneExtractionRealMarket.test_zone_guatamare _______________
+src/test/unit/test_comprehensive.py:293: in test_zone_guatamare
+    assert filters.zone == "Guatamare"
+E   AssertionError: assert None == 'Guatamare'
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).zone
+_____ TestCombinedFiltersRealMarket.test_combined_pampatar_casa_150k_3hab ______
+src/test/unit/test_comprehensive.py:396: in test_combined_pampatar_casa_150k_3hab
+    assert filters.max_price == 150000
+E   AssertionError: assert None == 150000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MANEIRO: 'Maneiro'>, zone='Pampatar', property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=3).max_price
+_ TestCombinedFiltersRealMarket.test_combined_playa_el_agua_apartamento_80_120k_2hab _
+src/test/unit/test_comprehensive.py:406: in test_combined_playa_el_agua_apartamento_80_120k_2hab
+    assert filters.max_price == 120000
+E   AssertionError: assert None == 120000
+E    +  where None = ExtractedFilters(municipality=<Municipality.ANTOLIN_DEL_CAMPO: 'Antolín del Campo'>, zone='Playa El Agua', property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=80000.0, max_price=None, min_bedrooms=2).max_price
+________ TestCombinedFiltersRealMarket.test_combined_porlamar_local_70k ________
+src/test/unit/test_comprehensive.py:413: in test_combined_porlamar_local_70k
+    assert filters.zone == "Porlamar Centro"
+E   AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+E     
+E     - Porlamar Centro
+E     + Porlamar
+_ TestCombinedFiltersRealMarket.test_combined_sabanamar_apartamento_90k_3hab_2banos _
+src/test/unit/test_comprehensive.py:423: in test_combined_sabanamar_apartamento_90k_3hab_2banos
+    assert filters.max_price == 90000
+E   AssertionError: assert None == 90000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARINO: 'Mariño'>, zone='Sabanamar', property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=3).max_price
+_______ TestCombinedFiltersRealMarket.test_combined_guacuco_terreno_25k ________
+src/test/unit/test_comprehensive.py:431: in test_combined_guacuco_terreno_25k
+    assert filters.max_price == 25000
+E   AssertionError: assert None == 25000
+E    +  where None = ExtractedFilters(municipality=<Municipality.GOMEZ: 'Gómez'>, zone='Guacuco', property_type=<PropertyType.TERRENO: 'terreno'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+____ TestCombinedFiltersRealMarket.test_combined_costa_azul_penthouse_400k _____
+src/test/unit/test_comprehensive.py:439: in test_combined_costa_azul_penthouse_400k
+    assert filters.max_price == 400000
+E   AssertionError: assert None == 400000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARINO: 'Mariño'>, zone='Costa Azul', property_type=<PropertyType.PENTHOUSE: 'penthouse'>, min_price=None, max_price=None, min_bedrooms=4).max_price
+__ TestCombinedFiltersRealMarket.test_combined_la_caranta_condo_not_supported __
+src/test/unit/test_comprehensive.py:446: in test_combined_la_caranta_condo_not_supported
+    assert filters.max_price == 60000
+E   AssertionError: assert None == 60000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARCANO: 'Marcano'>, zone='La Caranta', property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_ TestCombinedFiltersRealMarket.test_combined_playa_parguito_villa_not_supported _
+src/test/unit/test_comprehensive.py:453: in test_combined_playa_parguito_villa_not_supported
+    assert filters.max_price == 500000
+E   AssertionError: assert None == 500000
+E    +  where None = ExtractedFilters(municipality=<Municipality.MARCANO: 'Marcano'>, zone='Playa Parguito', property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________ TestDiasporaQueriesRealMarket.test_detect_faq_foreign_buy ___________
+src/test/unit/test_comprehensive.py:475: in test_detect_faq_foreign_buy
+    assert intent == IntentType.FAQ_FOREIGN_BUY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._foreign_buy'>
+E     
+E     - faq_foreign_buy
+E     + unknown
+________ TestDiasporaQueriesRealMarket.test_detect_faq_foreign_buy_visa ________
+src/test/unit/test_comprehensive.py:479: in test_detect_faq_foreign_buy_visa
+    assert intent == IntentType.FAQ_FOREIGN_BUY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._foreign_buy'>
+E     
+E     - faq_foreign_buy
+E     + unknown
+______ TestDiasporaQueriesRealMarket.test_detect_faq_foreign_buy_from_usa ______
+src/test/unit/test_comprehensive.py:483: in test_detect_faq_foreign_buy_from_usa
+    assert intent == IntentType.FAQ_FOREIGN_BUY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._foreign_buy'>
+E     
+E     - faq_foreign_buy
+E     + unknown
+_______ TestDiasporaQueriesRealMarket.test_detect_faq_rental_roi_airbnb ________
+src/test/unit/test_comprehensive.py:523: in test_detect_faq_rental_roi_airbnb
+    assert intent == IntentType.UNKNOWN
+E   AssertionError: assert <IntentType.F...q_rental_roi'> == <IntentType.U...WN: 'unknown'>
+E     
+E     - unknown
+E     + faq_rental_roi
+_ TestInfrastructureQueriesRealMarket.test_detect_search_with_infrastructure_generator _
+src/test/unit/test_comprehensive.py:547: in test_detect_search_with_infrastructure_generator
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_ TestInfrastructureQueriesRealMarket.test_detect_search_with_infrastructure_fiber _
+src/test/unit/test_comprehensive.py:551: in test_detect_search_with_infrastructure_fiber
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_______ TestInfrastructureQueriesRealMarket.test_detect_search_with_pool _______
+src/test/unit/test_comprehensive.py:555: in test_detect_search_with_pool
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_____ TestInfrastructureQueriesRealMarket.test_detect_search_with_parking ______
+src/test/unit/test_comprehensive.py:559: in test_detect_search_with_parking
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_______ TestInfrastructureQueriesRealMarket.test_detect_search_furnished _______
+src/test/unit/test_comprehensive.py:563: in test_detect_search_furnished
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+______ TestInfrastructureQueriesRealMarket.test_detect_search_white_work _______
+src/test/unit/test_comprehensive.py:568: in test_detect_search_white_work
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+______ TestInfrastructureQueriesRealMarket.test_detect_search_ocean_view _______
+src/test/unit/test_comprehensive.py:572: in test_detect_search_ocean_view
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+_____ TestLeadCaptureRealMarket.test_extract_lead_phone_with_country_code ______
+src/test/unit/test_comprehensive.py:604: in test_extract_lead_phone_with_country_code
+    assert lead.phone == "584149876543"
+E   AssertionError: assert None == '584149876543'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+________ TestLeadCaptureRealMarket.test_extract_lead_partial_phone_only ________
+src/test/unit/test_comprehensive.py:633: in test_extract_lead_partial_phone_only
+    assert lead.phone == "04169990000"
+E   AssertionError: assert None == '04169990000'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+_____________ TestLeadCaptureRealMarket.test_extract_lead_whatsapp _____________
+src/test/unit/test_comprehensive.py:647: in test_extract_lead_whatsapp
+    assert lead.phone == "584241112233"
+E   AssertionError: assert None == '584241112233'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+_______ TestLeadCaptureRealMarket.test_extract_lead_interest_in_property _______
+src/test/unit/test_comprehensive.py:657: in test_extract_lead_interest_in_property
+    assert lead.phone == "04127778888"
+E   AssertionError: assert None == '04127778888'
+E    +  where None = PartialLead(name='Luis Martínez', phone=None, email=None).phone
+_________ TestEdgeCasesAndTyposRealMarket.test_price_with_extra_spaces _________
+src/test/unit/test_comprehensive.py:697: in test_price_with_extra_spaces
+    assert filters.max_price == 100000
+E   AssertionError: assert None == 100000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.CASA: 'casa'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________ TestEdgeCasesAndTyposRealMarket.test_mixed_spanish_english __________
+src/test/unit/test_comprehensive.py:723: in test_mixed_spanish_english
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+___________ TestPriceParsingRegression.test_price_40k_without_prefix ___________
+src/test/unit/test_regression.py:21: in test_price_40k_without_prefix
+    assert filters.max_price == 40000, f"Expected 40000, got {filters.max_price}"
+E   AssertionError: Expected 40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestPriceParsingRegression.test_price_40_k_with_space _____________
+src/test/unit/test_regression.py:26: in test_price_40_k_with_space
+    assert filters.max_price == 40000, f"Expected 40000, got {filters.max_price}"
+E   AssertionError: Expected 40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRegression.test_price_40_mil _________________
+src/test/unit/test_regression.py:31: in test_price_40_mil
+    assert filters.max_price == 40000, f"Expected 40000, got {filters.max_price}"
+E   AssertionError: Expected 40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+___________ TestPriceParsingRegression.test_price_range_30_y_40_mil ____________
+src/test/unit/test_regression.py:37: in test_price_range_30_y_40_mil
+    assert filters.max_price == 40000, f"Expected max=40000, got {filters.max_price}"
+E   AssertionError: Expected max=40000, got None
+E   assert None == 40000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=30000.0, max_price=None, min_bedrooms=None).max_price
+__________ TestPriceParsingRegression.test_price_range_both_with_mil ___________
+src/test/unit/test_regression.py:42: in test_price_range_both_with_mil
+    assert filters.min_price == 30000
+E   assert None == 30000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).min_price
+_______________ TestPriceParsingRegression.test_price_70k_suffix _______________
+src/test/unit/test_regression.py:48: in test_price_70k_suffix
+    assert filters.max_price == 70000
+E   assert None == 70000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+_________________ TestPriceParsingRegression.test_price_60_mil _________________
+src/test/unit/test_regression.py:53: in test_price_60_mil
+    assert filters.max_price == 60000
+E   assert None == 60000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+________ TestZoneExtractionRegression.test_extract_zone_porlamar_centro ________
+src/test/unit/test_regression.py:76: in test_extract_zone_porlamar_centro
+    assert filters.zone == "Porlamar Centro"
+E   AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+E     
+E     - Porlamar Centro
+E     + Porlamar
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581
+  /home/andervrz5/chatbot-margarita-base/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581: PytestConfigWarning: No files were found in testpaths; consider removing or adjusting your testpaths configuration. Searching recursively from the current directory instead.
+    self.args, self.args_source = self._decide_args(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search - AssertionError: assert 'No tengo pr... registradas' not in 'No tengo pr...s...
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_35k - AssertionError: assert None == 35000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_51_k - assert None == 51000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_85_mil - AssertionError: assert None == 85000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_96_mil_dolares - AssertionError: assert None == 96000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_135k_usd - assert None == 135000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_170k_pampatar - AssertionError: assert None == 170000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_192k_terreno - AssertionError: assert None == 192000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_210k_playa_el_angel - AssertionError: assert None == 210000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_275k_penthouse - AssertionError: assert None == 275000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_400k_lujo - AssertionError: assert None == 400000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_600k_hotel - assert None == 600000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_50_80_mil - assert None == 80000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_100_150k - assert None == 100000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_200_300_mil - assert None == 200000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_500k_1m - assert None == 500000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_hasta_40k - assert None == 40000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_maximo_150_mil - assert None == 150000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_menos_de_100k - assert None == 100000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_punto_y_k_135_5k - assert None == 135500
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_solo_numero_pequeno_contexto_inmobiliario - assert None == 40000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_numero_con_mil_explicito - assert None == 30000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_solo_k - assert None == 80000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_con_simbolo_dolar - AssertionError: assert None == 120000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_con_usd - AssertionError: assert None == 95000
+FAILED src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_porlamar_centro - AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+FAILED src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_san_lorenzo - AssertionError: assert None == 'San Lorenzo'
+FAILED src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_apostadero - AssertionError: assert None == 'Apostadero'
+FAILED src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_altos_de_maneiro - AssertionError: assert 'Pampatar' == 'Altos de Maneiro'
+FAILED src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_guatamare - AssertionError: assert None == 'Guatamare'
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_pampatar_casa_150k_3hab - AssertionError: assert None == 150000
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_el_agua_apartamento_80_120k_2hab - AssertionError: assert None == 120000
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_porlamar_local_70k - AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_sabanamar_apartamento_90k_3hab_2banos - AssertionError: assert None == 90000
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_guacuco_terreno_25k - AssertionError: assert None == 25000
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_costa_azul_penthouse_400k - AssertionError: assert None == 400000
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_la_caranta_condo_not_supported - AssertionError: assert None == 60000
+FAILED src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_parguito_villa_not_supported - AssertionError: assert None == 500000
+FAILED src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._f...
+FAILED src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_visa - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._f...
+FAILED src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_from_usa - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._f...
+FAILED src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_rental_roi_airbnb - AssertionError: assert <IntentType.F...q_rental_roi'> == <IntentType.U...WN...
+FAILED src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_generator - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_fiber - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_pool - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_parking - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_furnished - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_white_work - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_ocean_view - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_phone_with_country_code - AssertionError: assert None == '584149876543'
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_phone_only - AssertionError: assert None == '04169990000'
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_whatsapp - AssertionError: assert None == '584241112233'
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_interest_in_property - AssertionError: assert None == '04127778888'
+FAILED src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_price_with_extra_spaces - AssertionError: assert None == 100000
+FAILED src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_mixed_spanish_english - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_with_k_suffix - assert None == 70000
+FAILED src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_with_mil - assert None == 60000
+FAILED src/test/test_intent_detector.py::TestFilterExtraction::test_detect_m2_ascii - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F...fa...
+FAILED src/test/test_regression.py::TestPriceParsingRegression::test_price_40k_without_prefix - AssertionError: Expected 40000, got None
+FAILED src/test/test_regression.py::TestPriceParsingRegression::test_price_40_k_with_space - AssertionError: Expected 40000, got None
+FAILED src/test/test_regression.py::TestPriceParsingRegression::test_price_40_mil - AssertionError: Expected 40000, got None
+FAILED src/test/test_regression.py::TestPriceParsingRegression::test_price_range_30_y_40_mil - AssertionError: Expected max=40000, got None
+FAILED src/test/test_regression.py::TestPriceParsingRegression::test_price_range_both_with_mil - assert None == 30000
+FAILED src/test/test_regression.py::TestPriceParsingRegression::test_price_70k_suffix - assert None == 70000
+FAILED src/test/test_regression.py::TestPriceParsingRegression::test_price_60_mil - assert None == 60000
+FAILED src/test/test_regression.py::TestZoneExtractionRegression::test_extract_zone_porlamar_centro - AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+FAILED src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere - AssertionError: Expected 'mock' to not have been called. Called 1 times.
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_35k - AssertionError: assert None == 35000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_51_k - assert None == 51000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_85_mil - AssertionError: assert None == 85000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_96_mil_dolares - AssertionError: assert None == 96000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_135k_usd - assert None == 135000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_170k_pampatar - AssertionError: assert None == 170000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_192k_terreno - AssertionError: assert None == 192000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_210k_playa_el_angel - AssertionError: assert None == 210000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_275k_penthouse - AssertionError: assert None == 275000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_400k_lujo - AssertionError: assert None == 400000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_600k_hotel - assert None == 600000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_50_80_mil - assert None == 80000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_100_150k - assert None == 100000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_200_300_mil - assert None == 200000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_500k_1m - assert None == 500000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_hasta_40k - assert None == 40000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_maximo_150_mil - assert None == 150000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_menos_de_100k - assert None == 100000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_punto_y_k_135_5k - assert None == 135500
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_solo_numero_pequeno_contexto_inmobiliario - assert None == 40000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_numero_con_mil_explicito - assert None == 30000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_solo_k - assert None == 80000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_con_simbolo_dolar - AssertionError: assert None == 120000
+FAILED src/test/unit/test_comprehensive.py::TestPriceParsingRealMarket::test_price_con_usd - AssertionError: assert None == 95000
+FAILED src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_porlamar_centro - AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+FAILED src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_san_lorenzo - AssertionError: assert None == 'San Lorenzo'
+FAILED src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_apostadero - AssertionError: assert None == 'Apostadero'
+FAILED src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_altos_de_maneiro - AssertionError: assert 'Pampatar' == 'Altos de Maneiro'
+FAILED src/test/unit/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_guatamare - AssertionError: assert None == 'Guatamare'
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_pampatar_casa_150k_3hab - AssertionError: assert None == 150000
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_el_agua_apartamento_80_120k_2hab - AssertionError: assert None == 120000
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_porlamar_local_70k - AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_sabanamar_apartamento_90k_3hab_2banos - AssertionError: assert None == 90000
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_guacuco_terreno_25k - AssertionError: assert None == 25000
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_costa_azul_penthouse_400k - AssertionError: assert None == 400000
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_la_caranta_condo_not_supported - AssertionError: assert None == 60000
+FAILED src/test/unit/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_parguito_villa_not_supported - AssertionError: assert None == 500000
+FAILED src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._f...
+FAILED src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_visa - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._f...
+FAILED src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_from_usa - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._f...
+FAILED src/test/unit/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_rental_roi_airbnb - AssertionError: assert <IntentType.F...q_rental_roi'> == <IntentType.U...WN...
+FAILED src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_generator - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_fiber - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_pool - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_parking - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_furnished - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_white_work - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_ocean_view - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_phone_with_country_code - AssertionError: assert None == '584149876543'
+FAILED src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_phone_only - AssertionError: assert None == '04169990000'
+FAILED src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_whatsapp - AssertionError: assert None == '584241112233'
+FAILED src/test/unit/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_interest_in_property - AssertionError: assert None == '04127778888'
+FAILED src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_price_with_extra_spaces - AssertionError: assert None == 100000
+FAILED src/test/unit/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_mixed_spanish_english - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_40k_without_prefix - AssertionError: Expected 40000, got None
+FAILED src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_40_k_with_space - AssertionError: Expected 40000, got None
+FAILED src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_40_mil - AssertionError: Expected 40000, got None
+FAILED src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_range_30_y_40_mil - AssertionError: Expected max=40000, got None
+FAILED src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_range_both_with_mil - assert None == 30000
+FAILED src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_70k_suffix - assert None == 70000
+FAILED src/test/unit/test_regression.py::TestPriceParsingRegression::test_price_60_mil - assert None == 60000
+FAILED src/test/unit/test_regression.py::TestZoneExtractionRegression::test_extract_zone_porlamar_centro - AssertionError: assert 'Porlamar' == 'Porlamar Centro'
+
+test 4:
+andervrz5@cloudshell:~/chatbot-margarita-base$ uv run pytest -v --tb=short
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0 -- /home/andervrz5/chatbot-margarita-base/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/andervrz5/chatbot-margarita-base
+configfile: pyproject.toml
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 210 items                                                            
+
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_greeting PASSED [  0%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_property_search PASSED [  0%]
+src/test/integration/test_api.py::TestChatEndpoint::test_chat_fallback PASSED [  1%]
+src/test/integration/test_api.py::TestChatEndpoint::test_health_check PASSED [  1%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_35k PASSED [  2%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_51_k PASSED [  2%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_85_mil PASSED [  3%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_96_mil_dolares PASSED [  3%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_135k_usd PASSED [  4%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_170k_pampatar PASSED [  4%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_192k_terreno PASSED [  5%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_210k_playa_el_angel PASSED [  5%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_275k_penthouse PASSED [  6%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_400k_lujo PASSED [  6%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_600k_hotel PASSED [  7%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_50_80_mil PASSED [  7%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_100_150k PASSED [  8%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_200_300_mil FAILED [  8%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_500k_1m PASSED [  9%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_hasta_40k PASSED [  9%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_maximo_150_mil PASSED [ 10%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_menos_de_100k PASSED [ 10%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_punto_miles_95_000 PASSED [ 10%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_coma_miles_60_000 FAILED [ 11%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_punto_y_k_135_5k FAILED [ 11%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_solo_numero_pequeno_contexto_inmobiliario PASSED [ 12%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_numero_con_mil_explicito PASSED [ 12%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_solo_k PASSED [ 13%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_con_simbolo_dolar PASSED [ 13%]
+src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_con_usd PASSED [ 14%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_pampatar PASSED [ 14%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_playa_el_angel PASSED [ 15%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_porlamar PASSED [ 15%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_porlamar_centro PASSED [ 16%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_playa_el_agua PASSED [ 16%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_la_mira PASSED [ 17%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_playa_parguito PASSED [ 17%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_la_caranta PASSED [ 18%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_guacuco PASSED [ 18%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_sabanamar PASSED [ 19%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_costa_azul PASSED [ 19%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_playa_moreno PASSED [ 20%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_juan_griego PASSED [ 20%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_la_asuncion PASSED [ 20%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_el_tirano PASSED [ 21%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_la_guardia PASSED [ 21%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_san_lorenzo PASSED [ 22%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_apostadero PASSED [ 22%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_altos_de_maneiro PASSED [ 23%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_guatamare PASSED [ 23%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_macanao PASSED [ 24%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_playa_el_yaque PASSED [ 24%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_typo_pampatar PASSED [ 25%]
+src/test/test_comprehensive.py::TestZoneExtractionRealMarket::test_zone_typo_porlamar PASSED [ 25%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_casa PASSED [ 26%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_apartamento PASSED [ 26%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_apto_abbreviation PASSED [ 27%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_penthouse PASSED [ 27%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_terreno PASSED [ 28%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_local PASSED [ 28%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_townhouse_not_supported PASSED [ 29%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_condo_not_supported PASSED [ 29%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_villa_not_supported PASSED [ 30%]
+src/test/test_comprehensive.py::TestPropertyTypeRealMarket::test_type_hotel_not_supported PASSED [ 30%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_pampatar_casa_150k_3hab PASSED [ 30%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_el_agua_apartamento_80_120k_2hab PASSED [ 31%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_porlamar_local_70k PASSED [ 31%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_sabanamar_apartamento_90k_3hab_2banos PASSED [ 32%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_guacuco_terreno_25k PASSED [ 32%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_costa_azul_penthouse_400k PASSED [ 33%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_la_caranta_condo_not_supported PASSED [ 33%]
+src/test/test_comprehensive.py::TestCombinedFiltersRealMarket::test_combined_playa_parguito_villa_not_supported PASSED [ 34%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy FAILED [ 34%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_visa PASSED [ 35%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_from_usa PASSED [ 35%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy_passport PASSED [ 36%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_power_of_attorney PASSED [ 36%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_documents PASSED [ 37%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_escritura PASSED [ 37%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_procedure_registry PASSED [ 38%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_price_m2 PASSED [ 38%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_rental_roi PASSED [ 39%]
+src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_rental_roi_airbnb FAILED [ 39%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_water PASSED [ 40%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_generator PASSED [ 40%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_infrastructure_fiber PASSED [ 40%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_pool PASSED [ 41%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_with_parking PASSED [ 41%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_furnished PASSED [ 42%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_white_work PASSED [ 42%]
+src/test/test_comprehensive.py::TestInfrastructureQueriesRealMarket::test_detect_search_ocean_view PASSED [ 43%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_full_name PASSED [ 43%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_venezuelan_phone_mobile PASSED [ 44%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_venezuelan_phone_landline PASSED [ 44%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_phone_with_country_code FAILED [ 45%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_email_gmail PASSED [ 45%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_email_corporate PASSED [ 46%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_complete_message PASSED [ 46%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_name_only PASSED [ 47%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_phone_only FAILED [ 47%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_email_only PASSED [ 48%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_colloquial_contact FAILED [ 48%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_whatsapp PASSED [ 49%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_interest_in_property FAILED [ 49%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_request_callback PASSED [ 50%]
+src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_request_contact PASSED [ 50%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_empty_message PASSED [ 50%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_whitespace_only PASSED [ 51%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_greeting_with_question PASSED [ 51%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_goodbye_with_thanks PASSED [ 52%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_price_with_extra_spaces PASSED [ 52%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_price_mixed_separators FAILED [ 53%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_zone_case_insensitive PASSED [ 53%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_zone_with_accents PASSED [ 54%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_multiple_zones_mentioned PASSED [ 54%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_mixed_spanish_english FAILED [ 55%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_abbreviated_question PASSED [ 55%]
+src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_number_as_word PASSED [ 56%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[hola, buenos d\xedas-greeting] PASSED [ 56%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[HOLA!-greeting] PASSED [ 57%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[busco una casa en pampatar-search_property] PASSED [ 57%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 58%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 58%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] PASSED [ 59%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 59%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 60%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[gracias por la info-goodbye] PASSED [ 60%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[adi\xf3s-goodbye] PASSED [ 60%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 61%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 61%]
+src/test/test_comprehensive.py::TestOriginalRegression::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [ 62%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[hola, buenos d\xedas-greeting] PASSED [ 62%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[HOLA!-greeting] PASSED [ 63%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[busco una casa en pampatar-search_property] PASSED [ 63%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 64%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 64%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] PASSED [ 65%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 65%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 66%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[gracias por la info-goodbye] PASSED [ 66%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[adi\xf3s-goodbye] PASSED [ 67%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 67%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 68%]
+src/test/test_intent_detector.py::TestIntentDetection::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [ 68%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_returns_text PASSED [ 69%]
+src/test/test_intent_detector.py::TestIntentDetection::test_faq_response_none_for_unknown PASSED [ 69%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_pampatar PASSED [ 70%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_municipality_porlamar PASSED [ 70%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_property_type PASSED [ 70%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_range PASSED [ 71%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_bedrooms PASSED [ 71%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_multiple_filters PASSED [ 72%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_no_filters PASSED [ 72%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_with_k_suffix PASSED [ 73%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_with_mil PASSED [ 73%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_extract_price_venezuelan_separator PASSED [ 74%]
+src/test/test_intent_detector.py::TestFilterExtraction::test_detect_m2_ascii FAILED [ 74%]
+src/test/test_intent_detector.py::TestPriceParsingFixes::test_price_40k PASSED [ 75%]
+src/test/test_intent_detector.py::TestPriceParsingFixes::test_price_40_k_with_space PASSED [ 75%]
+src/test/test_intent_detector.py::TestPriceParsingFixes::test_price_range_30_y_40_mil PASSED [ 76%]
+src/test/test_intent_detector.py::TestPriceParsingFixes::test_price_range_both_with_mil PASSED [ 76%]
+src/test/test_intent_detector.py::TestZoneExtractionFixes::test_zone_porlamar_centro PASSED [ 77%]
+src/test/test_intent_detector.py::TestZoneExtractionFixes::test_zone_san_lorenzo PASSED [ 77%]
+src/test/test_intent_detector.py::TestZoneExtractionFixes::test_zone_apostadero PASSED [ 78%]
+src/test/test_intent_detector.py::TestZoneExtractionFixes::test_zone_altos_de_maneiro PASSED [ 78%]
+src/test/test_intent_detector.py::TestZoneExtractionFixes::test_zone_guatamare PASSED [ 79%]
+src/test/test_intent_detector.py::TestLeadExtractionFixes::test_lead_whatsapp PASSED [ 79%]
+src/test/test_intent_detector.py::TestLeadExtractionFixes::test_lead_phone_country_code PASSED [ 80%]
+src/test/test_intent_detector.py::TestLeadExtractionFixes::test_lead_phone_standalone PASSED [ 80%]
+src/test/test_intent_detector.py::TestLeadExtractionFixes::test_lead_complete_with_whatsapp PASSED [ 80%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_40k_without_prefix PASSED [ 81%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_40_k_with_space PASSED [ 81%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_40_mil PASSED [ 82%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_range_30_y_40_mil PASSED [ 82%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_range_both_with_mil PASSED [ 83%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_70k_suffix PASSED [ 83%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_60_mil PASSED [ 84%]
+src/test/test_regression.py::TestPriceParsingRegression::test_price_venezuelan_separator PASSED [ 84%]
+src/test/test_regression.py::TestZoneExtractionRegression::test_extract_zone_pampatar PASSED [ 85%]
+src/test/test_regression.py::TestZoneExtractionRegression::test_extract_zone_porlamar_centro PASSED [ 85%]
+src/test/test_regression.py::TestZoneExtractionRegression::test_extract_zone_playa_el_agua PASSED [ 86%]
+src/test/test_regression.py::TestZoneExtractionRegression::test_extract_zone_sabanamar PASSED [ 86%]
+src/test/test_regression.py::TestZoneExtractionRegression::test_multiple_filters_with_zone PASSED [ 87%]
+src/test/test_regression.py::TestLeadExtractionRegression::test_detect_capture_lead_intent PASSED [ 87%]
+src/test/test_regression.py::TestLeadExtractionRegression::test_extract_lead_name PASSED [ 88%]
+src/test/test_regression.py::TestLeadExtractionRegression::test_extract_lead_name_me_llamo PASSED [ 88%]
+src/test/test_regression.py::TestLeadExtractionRegression::test_extract_lead_phone PASSED [ 89%]
+src/test/test_regression.py::TestLeadExtractionRegression::test_extract_lead_email PASSED [ 89%]
+src/test/test_regression.py::TestLeadExtractionRegression::test_extract_lead_complete PASSED [ 90%]
+src/test/test_regression.py::TestLeadExtractionRegression::test_extract_lead_partial PASSED [ 90%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[hola, buenos d\xedas-greeting] PASSED [ 90%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[HOLA!-greeting] PASSED [ 91%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[busco una casa en pampatar-search_property] PASSED [ 91%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[quiero apartamento en porlamar-search_property] PASSED [ 92%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[precio por metro cuadrado-faq_price_m2] PASSED [ 92%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[cu\xe1nto cuesta el m\xb2 en playa el agua-faq_price_m2] PASSED [ 93%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[extranjero puede comprar-faq_foreign_buy] PASSED [ 93%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[no soy venezolano, puedo comprar-faq_foreign_buy] PASSED [ 94%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[gracias por la info-goodbye] PASSED [ 94%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[adi\xf3s-goodbye] PASSED [ 95%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[mi nombre es Carlos-capture_lead] PASSED [ 95%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[rentabilidad de alquiler vacacional-faq_rental_roi] PASSED [ 96%]
+src/test/test_regression.py::TestIntentDetectionRegression::test_detect[documentos necesarios para comprar-faq_procedure] PASSED [ 96%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_faq_returns_zero_llm_calls PASSED [ 97%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_greeting_returns_zero_llm_calls PASSED [ 97%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_cache_avoids_llm_on_repeat PASSED [ 98%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_sql_exact_triggers_llm_when_results_exist PASSED [ 98%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_fallback_when_no_data_anywhere PASSED [ 99%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_session_memory_persists PASSED [ 99%]
+src/test/unit/test_chat_service.py::TestChatServiceFlow::test_vector_fallback_used_when_sql_empty PASSED [100%]
+
+=================================== FAILURES ===================================
+___________ TestPriceParsingRealMarket.test_price_range_200_300_mil ____________
+src/test/test_comprehensive.py:118: in test_price_range_200_300_mil
+    assert filters.min_price == 200000
+E   assert None == 200000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=300000.0, min_bedrooms=None).min_price
+___________ TestPriceParsingRealMarket.test_price_coma_miles_60_000 ____________
+src/test/test_comprehensive.py:145: in test_price_coma_miles_60_000
+    assert filters.max_price == 60000
+E   assert None == 60000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=None, min_bedrooms=None).max_price
+____________ TestPriceParsingRealMarket.test_price_punto_y_k_135_5k ____________
+src/test/test_comprehensive.py:149: in test_price_punto_y_k_135_5k
+    assert filters.max_price == 135500
+E   assert 1355000.0 == 135500
+E    +  where 1355000.0 = ExtractedFilters(municipality=None, zone=None, property_type=None, min_price=None, max_price=1355000.0, min_bedrooms=None).max_price
+__________ TestDiasporaQueriesRealMarket.test_detect_faq_foreign_buy ___________
+src/test/test_comprehensive.py:475: in test_detect_faq_foreign_buy
+    assert intent == IntentType.FAQ_FOREIGN_BUY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._foreign_buy'>
+E     
+E     - faq_foreign_buy
+E     + unknown
+_______ TestDiasporaQueriesRealMarket.test_detect_faq_rental_roi_airbnb ________
+src/test/test_comprehensive.py:523: in test_detect_faq_rental_roi_airbnb
+    assert intent == IntentType.UNKNOWN
+E   AssertionError: assert <IntentType.F...q_rental_roi'> == <IntentType.U...WN: 'unknown'>
+E     
+E     - unknown
+E     + faq_rental_roi
+_____ TestLeadCaptureRealMarket.test_extract_lead_phone_with_country_code ______
+src/test/test_comprehensive.py:604: in test_extract_lead_phone_with_country_code
+    assert lead.phone == "584149876543"
+E   AssertionError: assert None == '584149876543'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+________ TestLeadCaptureRealMarket.test_extract_lead_partial_phone_only ________
+src/test/test_comprehensive.py:633: in test_extract_lead_partial_phone_only
+    assert lead.phone == "04169990000"
+E   AssertionError: assert None == '04169990000'
+E    +  where None = PartialLead(name=None, phone=None, email=None).phone
+________ TestLeadCaptureRealMarket.test_extract_lead_colloquial_contact ________
+src/test/test_comprehensive.py:643: in test_extract_lead_colloquial_contact
+    assert lead.phone is None  # o None si no matchea
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: assert '4141234567' is None
+E    +  where '4141234567' = PartialLead(name=None, phone='4141234567', email=None).phone
+_______ TestLeadCaptureRealMarket.test_extract_lead_interest_in_property _______
+src/test/test_comprehensive.py:657: in test_extract_lead_interest_in_property
+    assert lead.phone == "04127778888"
+E   AssertionError: assert None == '04127778888'
+E    +  where None = PartialLead(name='Luis Martínez', phone=None, email=None).phone
+_________ TestEdgeCasesAndTyposRealMarket.test_price_mixed_separators __________
+src/test/test_comprehensive.py:702: in test_price_mixed_separators
+    assert filters.max_price == 1200000
+E   AssertionError: assert None == 1200000
+E    +  where None = ExtractedFilters(municipality=None, zone=None, property_type=<PropertyType.APARTAMENTO: 'apartamento'>, min_price=None, max_price=None, min_bedrooms=None).max_price
+__________ TestEdgeCasesAndTyposRealMarket.test_mixed_spanish_english __________
+src/test/test_comprehensive.py:723: in test_mixed_spanish_english
+    assert intent == IntentType.SEARCH_PROPERTY
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rch_property'>
+E     
+E     - search_property
+E     + unknown
+__________________ TestFilterExtraction.test_detect_m2_ascii ___________________
+src/test/test_intent_detector.py:97: in test_detect_m2_ascii
+    assert self.detector.detect("cuanto cuesta el m2 en pampatar") == IntentType.FAQ_PRICE_M2
+E   AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F...faq_price_m2'>
+E     
+E     - faq_price_m2
+E     + unknown
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581
+  /home/andervrz5/chatbot-margarita-base/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1581: PytestConfigWarning: No files were found in testpaths; consider removing or adjusting your testpaths configuration. Searching recursively from the current directory instead.
+    self.args, self.args_source = self._decide_args(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_range_200_300_mil - assert None == 200000
+FAILED src/test/test_comprehensive.py::TestPriceParsingRealMarket::test_price_coma_miles_60_000 - assert None == 60000
+FAILED src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_foreign_buy - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F..._f...
+FAILED src/test/test_comprehensive.py::TestDiasporaQueriesRealMarket::test_detect_faq_rental_roi_airbnb - AssertionError: assert <IntentType.F...q_rental_roi'> == <IntentType.U...WN...
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_phone_with_country_code - AssertionError: assert None == '584149876543'
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_partial_phone_only - AssertionError: assert None == '04169990000'
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_colloquial_contact - AssertionError: assert '4141234567' is None
+FAILED src/test/test_comprehensive.py::TestLeadCaptureRealMarket::test_extract_lead_interest_in_property - AssertionError: assert None == '04127778888'
+FAILED src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_price_mixed_separators - AssertionError: assert None == 1200000
+FAILED src/test/test_comprehensive.py::TestEdgeCasesAndTyposRealMarket::test_mixed_spanish_english - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.S...rc...
+FAILED src/test/test_intent_detector.py::TestFilterExtraction::test_detect_m2_ascii - AssertionError: assert <IntentType.U...WN: 'unknown'> == <IntentType.F...fa...
+================== 12 failed, 198 passed, 1 warning in 14.61s ==================

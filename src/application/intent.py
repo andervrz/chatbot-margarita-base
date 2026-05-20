@@ -67,6 +67,8 @@ class IntentDetector:
         IntentType.GOODBYE: [
             r"^gracias(\s+.*)?$",
             r"^adiós",
+            r"^(muchas\s+)?gracias",
+            r"^adiós\b",
             r"^hasta\s+luego",
             r"^nos\s+vemos",
             r"^chao",
@@ -86,18 +88,24 @@ class IntentDetector:
             r"extranjero\s+(puede\s+)?comprar",
             r"no\s+soy\s+venezolano",
             r"visado\s+de\s+inversionista",
+            r"visa\s+de\s+inversionista",
             r"pasaporte\s+extranjero",
             r"comprar\s+desde\s+(el\s+)?exterior",
+            r"comprar\s+sin\s+estar\s+en\s+venezuela",
+            r"comprar\s+desde\s+(usa|españa|miami|madrid|estados\s+unidos)",
         ],
         IntentType.FAQ_RENTAL_ROI: [
             r"rentabilidad",
             r"retorno\s+de\s+inversión",
+            r"retorno\s+(de\s+)?inversión",
             r"roi",
             r"alquiler\s+vacacional\s+rentable",
             r"cuánto\s+(se\s+)?(gana|renta|produce)",
+            r"airbnb",
         ],
         IntentType.FAQ_PROCEDURE: [
             r"trámites?\s+(de\s+)?compra",
+            r"proceso\s+(de\s+)?compra",
             r"documentos?\s+necesarios?",
             r"pasos?\s+para\s+comprar",
             r"escritura",
@@ -108,33 +116,39 @@ class IntentDetector:
         IntentType.CAPTURE_LEAD: [
             r"mi\s+nombre\s+es\s+([a-záéíóúñ\s]+)",
             r"me\s+llamo\s+([a-záéíóúñ\s]+)",
-            r"mi\s+(teléfono|celular|correo|email)\s+es",
+            r"me\s+llamo\s+([a-záéíóúñ\s]+?)(?:\s+y\s+|$)",
+            r"mi\s+(teléfono|celular|correo|email|whatsapp|contacto)\s+es",
             r"contactenme",
             r"quiero\s+que\s+me\s+llamen",
+            r"quiero\s+que\s+(un\s+asesor\s+)?me\s+llamen?",
+            r"mi\s+(cel|tlf|wp)\s+es",
         ],
 
         # 4. Búsqueda de propiedad (más general, va al final)
-        # Requiere presencia de VERBO de búsqueda + sustantivo de propiedad,
-        # o verbo de búsqueda + preposición de ubicación.
         IntentType.SEARCH_PROPERTY: [
-            r"(busco|quiero|necesito|estoy buscando|me interesa)\s+(?:una\s+)?(casa|apartamento|apto|terreno|local|penthouse)",
-            r"(busco|quiero|necesito|estoy buscando|me interesa)\s+(?:algo\s+)?en\s+\w+",
+            r"(busco|quiero|necesito|estoy\s+buscando|me\s+interesa)\s+(?:una\s+)?(casa|apartamento|apto|terreno|local|penthouse)",
+            r"(busco|quiero|necesito|estoy\s+buscando|me\s+interesa)\s+(?:algo\s+)?en\s+\w+",
             r"(dónde\s+hay|hay\s+algún|hay\s+alguna)\s+(casa|apartamento|apto|terreno|local|penthouse)",
+            r"(apartamento|casa|terreno|local|penthouse)\s+(?:en\s+)?\w+",
+            r"(busco|quiero|necesito)\s+(?:una\s+)?(propiedad|inmueble|vivienda)",
         ],
     }
 
-    # ---------- Mapa de zona → municipio (fuente única de verdad) ----------
-    # Cada zona mapea a (municipality_enum, zone_display_name)
+    # ---------- Mapa de zona → municipio ----------
+    # Ordenado por longitud descendente para que matches largos ganen
     _ZONE_MAP: dict[str, tuple[Municipality, str]] = {
         # Maneiro
-        "pampatar": (Municipality.MANEIRO, "Pampatar"),
+        "altos de maneiro": (Municipality.MANEIRO, "Altos de Maneiro"),
         "playa el ángel": (Municipality.MANEIRO, "Playa El Ángel"),
+        "pampatar": (Municipality.MANEIRO, "Pampatar"),
         # Mariño
-        "porlamar": (Municipality.MARINO, "Porlamar"),
         "porlamar centro": (Municipality.MARINO, "Porlamar Centro"),
-        "sabanamar": (Municipality.MARINO, "Sabanamar"),
         "costa azul": (Municipality.MARINO, "Costa Azul"),
         "playa moreno": (Municipality.MARINO, "Playa Moreno"),
+        "sabanamar": (Municipality.MARINO, "Sabanamar"),
+        "san lorenzo": (Municipality.MARINO, "San Lorenzo"),
+        "guatamare": (Municipality.MARINO, "Guatamare"),
+        "porlamar": (Municipality.MARINO, "Porlamar"),
         # Antolín del Campo
         "playa el agua": (Municipality.ANTOLIN_DEL_CAMPO, "Playa El Agua"),
         "la mira": (Municipality.ANTOLIN_DEL_CAMPO, "La Mira"),
@@ -149,7 +163,7 @@ class IntentDetector:
         # Marcano
         "playa parguito": (Municipality.MARCANO, "Playa Parguito"),
         "la caranta": (Municipality.MARCANO, "La Caranta"),
-        # Municipios sin zona específica en seed
+        # Municipios sin zona específica (fallbacks)
         "maneiro": (Municipality.MANEIRO, "Pampatar"),
         "mariño": (Municipality.MARINO, "Porlamar"),
         "arismendi": (Municipality.ARISMENDI, "La Asunción"),
@@ -158,9 +172,21 @@ class IntentDetector:
         "gómez": (Municipality.GOMEZ, "Playa Caribe"),
         "gomez": (Municipality.GOMEZ, "Playa Caribe"),
         "marcano": (Municipality.MARCANO, "Playa Parguito"),
+        # Zonas adicionales del mercado real
+        "apostadero": (Municipality.MANEIRO, "Apostadero"),
+        "jorge coll": (Municipality.MARINO, "Jorge Coll"),
+        "paraíso": (Municipality.MARINO, "Paraíso"),
+        "los geranios": (Municipality.MARINO, "Los Geranios"),
+        "los peregrinos": (Municipality.MARINO, "Los Peregrinos"),
+        "vincenzo": (Municipality.MARINO, "Vincenzo"),
+        "lomas de encanto": (Municipality.MARINO, "Lomas de Encanto"),
+        "el horcón": (Municipality.MARINO, "El Horcón"),
+        "macanao": (Municipality.PENINSULA_DE_MACANAO, "Macanao"),
+        "robledal": (Municipality.PENINSULA_DE_MACANAO, "Robledal"),
+        "playa el yaque": (Municipality.PENINSULA_DE_MACANAO, "Playa El Yaque"),
     }
 
-    # ---------- Respuestas predefinidas (0 LLM calls) ----------
+    # ---------- Respuestas predefinidas ----------
 
     FAQ_RESPONSES: dict[IntentType, str] = {
         IntentType.FAQ_PRICE_M2: (
@@ -213,11 +239,9 @@ class IntentDetector:
     def detect(self, message: str) -> IntentType:
         """Clasifica la intención del mensaje."""
         text_lower = message.lower().strip()
-
         for intent, patterns in self._INTENT_PATTERNS.items():
             if any(re.search(p, text_lower) for p in patterns):
                 return intent
-
         return IntentType.UNKNOWN
 
     def get_faq_response(self, intent: IntentType) -> str | None:
@@ -230,16 +254,40 @@ class IntentDetector:
         lead = PartialLead()
 
         # Nombre
-        name_match = re.search(r"mi\s+nombre\s+es\s+([a-záéíóúñ\s]+?)(?:$|\.|,|mi\s|y\s|tel|correo)", text_lower)
+        name_match = re.search(
+            r"mi\s+nombre\s+es\s+([a-záéíóúñ\s]+?)(?:$|\.|,|mi\s|y\s|tel|correo|contacto|whatsapp|wp)",
+            text_lower,
+        )
         if not name_match:
-            name_match = re.search(r"me\s+llamo\s+([a-záéíóúñ\s]+?)(?:$|\.|,|mi\s|y\s|tel|correo)", text_lower)
+            name_match = re.search(
+                r"me\s+llamo\s+([a-záéíóúñ\s]+?)(?:$|\.|,|mi\s|y\s|tel|correo|contacto|whatsapp|wp)",
+                text_lower,
+            )
         if name_match:
             lead.name = name_match.group(1).strip().title()
 
-        # Teléfono
-        phone_match = re.search(r"(?:teléfono|celular|tlf|phone)\s*(?:es|:)?\s*([\d\s\-+()]{7,})", text_lower)
+        # Teléfono con trigger words
+        phone_match = re.search(
+            r"(?:teléfono|celular|tlf|phone|cel|contacto|whatsapp|wp)\s*(?:es|:)?\s*([\d\s\-+()]{7,})",
+            text_lower,
+        )
         if phone_match:
             lead.phone = re.sub(r"[^\d]", "", phone_match.group(1))[:15]
+        else:
+            # Teléfono venezolano standalone (sin trigger word)
+            standalone = re.search(
+                r"(?:\+?58)?\s*(?:0)?(4(?:12|14|16|24|26)\d{7}|\d{3}[-\s]?\d{7})",
+                message,
+            )
+            if standalone:
+                raw = standalone.group(0)
+                digits = re.sub(r"[^\d]", "", raw)
+                if digits.startswith("58") and len(digits) >= 10:
+                    lead.phone = digits
+                elif digits.startswith("0") and len(digits) == 11:
+                    lead.phone = digits[1:]
+                elif digits.startswith("4") and len(digits) == 10:
+                    lead.phone = digits
 
         # Email
         email_match = re.search(r"[\w\.-]+@[\w\.-]+\.\w{2,}", message)
@@ -249,21 +297,19 @@ class IntentDetector:
         return lead
 
     def extract_filters(self, message: str) -> ExtractedFilters:
-        """
-        Extrae filtros estructurados del mensaje del usuario.
-        Esto permite hacer búsquedas SQL exactas sin depender del LLM.
-        """
+        """Extrae filtros estructurados del mensaje del usuario."""
         text_lower = message.lower()
         filters = ExtractedFilters()
 
-        # --- Zona y Municipio (fuente única: _ZONE_MAP) ---
-        for key, (municipality, zone) in self._ZONE_MAP.items():
+        # Zona y Municipio
+        sorted_zones = sorted(self._ZONE_MAP.items(), key=lambda x: -len(x[0]))
+        for key, (municipality, zone) in sorted_zones:
             if key in text_lower:
                 filters.municipality = municipality
                 filters.zone = zone
                 break
 
-        # --- Tipo de propiedad ---
+        # Tipo de propiedad
         type_map = {
             "casa": PropertyType.CASA,
             "apartamento": PropertyType.APARTAMENTO,
@@ -277,14 +323,12 @@ class IntentDetector:
                 filters.property_type = value
                 break
 
-        # --- Precio (regex robusto con contexto completo para _parse_price) ---
+        # Precio
         price_patterns = [
-            # Rango: "entre X y Y", "de X a Y"
             r"(?:entre|de)\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s+y\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
-            # Hasta/máximo
             r"(?:hasta|menos\s+de|máximo|maximo)\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
-            # Precio suelto (cuando hay contexto de búsqueda implícito)
-            r"[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
+            r"(?:precio|presupuesto|valor)\s+(?:de\s+)?[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
+            r"[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil)))\s*(?:usd|dólares|dolares)?",
         ]
         for pattern in price_patterns:
             match = re.search(pattern, text_lower)
@@ -294,12 +338,10 @@ class IntentDetector:
                     filters.min_price = self._parse_price(groups[0], text_lower)
                     filters.max_price = self._parse_price(groups[1], text_lower)
                 else:
-                    # Heurística: si hay "entre/de" o "hasta", interpretar como max
-                    # Si solo hay número suelto con verbo de búsqueda, también max (presupuesto)
                     filters.max_price = self._parse_price(groups[0], text_lower)
                 break
 
-        # --- Habitaciones ---
+        # Habitaciones
         bed_match = re.search(r"(\d+)\s*(?:habitaciones|hab|cuartos|recámaras)", text_lower)
         if bed_match:
             filters.min_bedrooms = int(bed_match.group(1))
@@ -310,44 +352,24 @@ class IntentDetector:
 
     @staticmethod
     def _parse_price(text: str, full_context: str = "") -> float | None:
-        """Limpia y convierte un string de precio a float.
-
-        Soporta:
-        - Separadores de miles: 95.000, 95,000
-        - Sufijo 'k' o 'mil' pegados o separados: 70k → 70000, 60 mil → 60000, 40 k → 40000
-        - Moneda: $, usd, dólares
-        - Contexto inmobiliario: números < 1000 en contexto con 'mil'/'k' se multiplican por 1000
-
-        Args:
-            text: El grupo capturado por regex (puede no incluir 'mil'/'k')
-            full_context: El mensaje completo para detectar contexto de miles
-
-        Limitación: asume que no hay centavos (precios inmobiliarios en Margarita).
-        """
+        """Limpia y convierte un string de precio a float."""
         try:
             original = text.lower().strip()
             clean = original.replace("$", "").replace("usd", "").replace("dólares", "").replace("dolares", "")
 
-            # Detectar si hay 'k' o 'mil' en el texto original o en el contexto completo
             context = (original + " " + full_context).lower()
             has_k_or_mil = "k" in context or "mil" in context
 
-            # Normalizar 'k' y 'mil' (pegados o separados por espacio)
-            clean = re.sub(r'(\d)\s*k\b', r'\1000', clean)
-            clean = re.sub(r'(\d)\s*mil\b', r'\1000', clean)
+            # FIX CRÍTICO: usar lambda en vez de r'\1000' para evitar ambigüedad
+            clean = re.sub(r"(\d)\s*k\b", lambda m: m.group(1) + "000", clean)
+            clean = re.sub(r"(\d)\s*mil\b", lambda m: m.group(1) + "000", clean)
 
-            # Eliminar separadores de miles (punto o coma)
             clean = clean.replace(".", "").replace(",", "").strip()
-
             val = float(clean)
 
-            # Heurística inmobiliaria: en Margarita no hay propiedades < $1,000.
-            # Si el valor es < 1000 y el contexto sugiere miles (por 'k'/'mil' o por ser 
-            # número redondo típico de presupuesto), multiplicar por 1000.
             if val < 1000 and has_k_or_mil:
                 val *= 1000
             elif val < 100:
-                # Números < 100 en contexto inmobiliario son siempre miles
                 val *= 1000
 
             return val

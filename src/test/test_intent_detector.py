@@ -95,3 +95,93 @@ class TestFilterExtraction:
     def test_detect_m2_ascii(self):
         """Variante ASCII de m² debe clasificar como FAQ de precios."""
         assert self.detector.detect("cuanto cuesta el m2 en pampatar") == IntentType.FAQ_PRICE_M2
+
+
+# =============================================================================
+# TESTS NUEVOS — Cubren bugs corregidos en fase 0.5
+# =============================================================================
+
+class TestPriceParsingFixes:
+    """Bug crítico: re.sub con r'\1000' era ambiguo en Python."""
+
+    def setup_method(self):
+        self.detector = IntentDetector()
+
+    def test_price_40k(self):
+        filters = self.detector.extract_filters("busco propiedad en 40k")
+        assert filters.max_price == 40000
+
+    def test_price_40_k_with_space(self):
+        filters = self.detector.extract_filters("quiero decir 40 k")
+        assert filters.max_price == 40000
+
+    def test_price_range_30_y_40_mil(self):
+        filters = self.detector.extract_filters("entre 30 y 40 mil")
+        assert filters.min_price == 30000
+        assert filters.max_price == 40000
+
+    def test_price_range_both_with_mil(self):
+        filters = self.detector.extract_filters("entre 30 mil y 40 mil")
+        assert filters.min_price == 30000
+        assert filters.max_price == 40000
+
+
+class TestZoneExtractionFixes:
+    """Bug: matches cortos ganaban sobre largos (ej: 'Porlamar' vs 'Porlamar Centro')."""
+
+    def setup_method(self):
+        self.detector = IntentDetector()
+
+    def test_zone_porlamar_centro(self):
+        filters = self.detector.extract_filters("apartamento en Porlamar Centro")
+        assert filters.zone == "Porlamar Centro"
+        assert filters.municipality == Municipality.MARINO
+
+    def test_zone_san_lorenzo(self):
+        filters = self.detector.extract_filters("terreno en San Lorenzo")
+        assert filters.zone == "San Lorenzo"
+        assert filters.municipality == Municipality.MARINO
+
+    def test_zone_apostadero(self):
+        filters = self.detector.extract_filters("local en Apostadero")
+        assert filters.zone == "Apostadero"
+        assert filters.municipality == Municipality.MANEIRO
+
+    def test_zone_altos_de_maneiro(self):
+        filters = self.detector.extract_filters("apartamento en Altos de Maneiro")
+        assert filters.zone == "Altos de Maneiro"
+        assert filters.municipality == Municipality.MANEIRO
+
+    def test_zone_guatamare(self):
+        filters = self.detector.extract_filters("casa en Guatamare")
+        assert filters.zone == "Guatamare"
+        assert filters.municipality == Municipality.MARINO
+
+
+class TestLeadExtractionFixes:
+    """Bug: regex de teléfono no cubría WhatsApp, +58 con espacios, números standalone."""
+
+    def setup_method(self):
+        self.detector = IntentDetector()
+
+    def test_lead_whatsapp(self):
+        lead = self.detector.extract_lead_info("mi WhatsApp es +58 424 1112233")
+        assert lead.phone == "584241112233"
+
+    def test_lead_phone_country_code(self):
+        lead = self.detector.extract_lead_info("mi número es +58 414 9876543")
+        assert lead.phone == "584149876543"
+
+    def test_lead_phone_standalone(self):
+        lead = self.detector.extract_lead_info("0416-9990000")
+        assert lead.phone == "4169990000"
+
+    def test_lead_complete_with_whatsapp(self):
+        msg = (
+            "Hola, me llamo María Elena Rodríguez, "
+            "mi WhatsApp es +58 424 1112233 y mi email es maria.r@gmail.com"
+        )
+        lead = self.detector.extract_lead_info(msg)
+        assert lead.name == "María Elena Rodríguez"
+        assert lead.phone == "584241112233"
+        assert lead.email == "maria.r@gmail.com"

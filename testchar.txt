@@ -581,3 +581,383 @@ opciones:
 
  • Apartamento Vista al Mar Pampatar | Pampatar, Maneiro | apartamento Precio:  
 ⏱ 1346ms | sesión: cli-1778948631...
+
+
+4to test cli:
+
+andervrz5@cloudshell:~/chatbot-margarita-base$ 
+
+✓ Sesión: cli-1779128660
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│     ┌─────────────────────────────────────────┐                              │
+│     │   🏝️  MARGARITA REALTY BOT  🤖         │                               │
+│     │   Asesor Inmobiliario de Margarita      │                              │
+│     │   CLI de desarrollo v0.1.0              │                              │
+│     └─────────────────────────────────────────┘                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Escribe tu mensaje o /help para ver comandos. Ctrl+C para salir.
+
+👤 Tú: hola buenas tardes.
+
+🤖 Bot:
+¡Hola! Soy tu asesor inmobiliario de Margarita. ¿En qué puedo ayudarte hoy?     
+Puedo buscarte propiedades, informarte precios por zona o ayudarte con trámites 
+de compra.                                                                      
+⏱ 22ms | sesión: cli-1779128660...
+
+👤 Tú: hola estoy buscando apto por la zona de juan griego
+
+🤖 Bot:
+¡Hola! Soy tu asesor inmobiliario de Margarita. ¿En qué puedo ayudarte hoy?     
+Puedo buscarte propiedades, informarte precios por zona o ayudarte con trámites 
+de compra.                                                                      
+⏱ 15ms | sesión: cli-1779128660...
+
+👤 Tú: estoy buscando apto por la zona de juan griego
+
+🤖 Bot:
+La zona de Juan Griego es muy bonita. Tenemos una propiedad que podría          
+interesarte. En Juan Griego, específicamente en la zona de Arismendi, tenemos un
+apartamento estudio muy atractivo.                                              
+
+Apartamento Estudio Juan Griego 2h/2b | Juan Griego, Arismendi | apartamento    
+Precio: $35,000 USD | 2 habitaciones, 2 baños | 55.0m² Descripción: Apartamento 
+tipo estudio en Juan Griego. 2 habitaciones, 2 baños, cocina americana, balcón. 
+Edificio nuevo con ascensor. Ideal para pareja joven o inversión de alquiler. A 
+8 minutos caminando del malecón de Juan Griego. Características: estudio,       
+edificio nuevo, ascensor, cerca del malecón, inversión                          
+
+¿Te gustaría saber más sobre esta propiedad o agendar una visita                
+⏱ 1079ms | sesión: cli-1779128660...
+
+👤 Tú: me parece muy caro, en la zona de porlamar que tienes disponible 
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedes decirme:                  
+
+ • Tu nombre                                                                    
+ • Teléfono o correo                                                            
+ • Zona de interés y presupuesto aproximado                                     
+
+Te contactarán en 24-48 horas con opciones personalizadas.                      
+⏱ 612ms | sesión: cli-1779128660...
+
+👤 Tú: en porlamar estoy interesado
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedes decirme:                  
+
+ • Tu nombre                                                                    
+ • Teléfono o correo                                                            
+ • Zona de interés y presupuesto aproximado                                     
+
+Te contactarán en 24-48 horas con opciones personalizadas.                      
+⏱ 510ms | sesión: cli-1779128660...
+
+👤 Tú: osea no tienes propiedades en costa azul sabanamar o zonas parecidas
+
+🤖 Bot:
+Tienes razón, sí tenemos algunas propiedades en la zona de Sabanamar y          
+alrededores. Me gustaría mostrarte algunas opciones que podrían interesarte.    
+
+Tenemos un apartamento en Sabanamar que podría ser lo que estás buscando:       
+
+Apartamento Carimar Club 56m² Sabanamar | Sabanamar, Mariño | apartamento       
+Precio: $51,000 USD | 1 habitación, 1 baño | 56.0m² Descripción: Acogedor       
+apartamento de 56m² en Edificio Carimar Club, Sabanamar. 1 habitación, 1 baño,  
+cocina americana, balcón con vista a áreas verdes. Edificio con piscina, parque 
+infantil y estacionamiento. A 10 minutos del centro de Porlamar y Playa Moreno. 
+Características: piscina, parque infantil, balcón,                              
+⏱ 1490ms | sesión: cli-1779128660...
+
+👤 Tú: y en costa azul
+
+🤖 Bot:
+Precio: $51,000 USD | 1 habitación, 1 baño | 56.0m² Descripción: Acogedor       
+apartamento de 56m² en Edificio Carimar Club, Sabanamar. 1 habitación, 1 baño,  
+cocina americana, balcón con vista a áreas verdes. Edificio con piscina, parque 
+infantil y estacionamiento. A 10 minutos del centro de Porlamar y Playa Moreno. 
+Características: piscina, parque infantil, balcón,                              
+⏱ 1490ms | sesión: cli-1779128660...
+
+👤 Tú: y en costa azul
+
+🤖 Bot:
+En la zona de Costa Azul, Mariño, tenemos un apartamento que podría interesarte:
+
+Apartamento Costa Azul 220m² Los Sauces | Costa Azul, Mariño | apartamento      
+
+⏱ 1052ms | sesión: cli-1779128660...
+
+👤 Tú: estoy buscando apto de precio entre 20k y 40k
+
+🤖 Bot:
+En ese rango de precio, tenemos algunas opciones en la zona de Costa Azul y     
+alrededores. Me gustaría mostrarte algunas propiedades que podrían interesarte. 
+
+Tenemos un apartamento en Costa Azul que podría ser lo que estás buscando:      
+
+Apartamento Costa Azul 2h/2b | Costa Azul, Mariño | apartamento Precio: $32,000 
+USD | 2 habitaciones, 2 baños | 60.0m² Descripción: Apartamento de 60m² en Costa
+Azul. 2 habitaciones, 2 baños, cocina americana, balcón con vista a áreas       
+verdes. Edificio con piscina y estacionamiento. A 10 minutos del centro de      
+Porlamar. Características: piscina, balcón, estacionamiento                     
+
+Otra opción es:                                                                 
+
+Apartamento Costa Azul 1h/1b |                                                  
+⏱ 1308ms | sesión: cli-1779128660...
+
+👤 Tú: otras zonas pero con este rango de precio que no sea costa azul
+
+🤖 Bot:
+En ese rango de precio ($20,000 - $40,000 USD), tenemos algunas opciones en     
+otras zonas de la isla de Margarita. Me gustaría mostrarte algunas propiedades  
+que podrían interesarte.                                                        
+
+Tenemos un apartamento en la zona de Playa El Agua que podría ser lo que estás  
+buscando:                                                                       
+
+Apartamento Playa El Agua 1h/1b | Playa El Agua, Antolín del Campo | apartamento
+Precio: $28,000 USD | 1 habitación, 1 baño | 40.0m² Descripción: Apartamento de 
+40m² en Playa El Agua. 1 habitación, 1 baño, cocina americana, balcón con vista 
+a la playa. Edificio con piscina y estacionamiento. A 5 minutos de la playa.    
+
+Otra opción es:                                                                 
+
+**Apartamento Playa Caribe    
+
+
+
+5 chat cli
+
+✓ Sesión: cli-1779222678
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│     ┌─────────────────────────────────────────┐                              │
+│     │   🏝️  MARGARITA REALTY BOT  🤖         │                               │
+│     │   Asesor Inmobiliario de Margarita      │                              │
+│     │   CLI de desarrollo v0.1.0              │                              │
+│     └─────────────────────────────────────────┘                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Escribe tu mensaje o /help para ver comandos. Ctrl+C para salir.
+
+👤 Tú: hey
+^[[A^[[ 
+🤖 Bot:
+¡Hola! Me alegra que hayas entrado en contacto conmigo. Soy un asesor           
+inmobiliario experto en Isla de Margarita, Venezuela. Estoy aquí para ayudarte a
+encontrar la propiedad perfecta para ti.                                        
+
+¿Qué te trae a nuestra isla hermosa? ¿Estás buscando una casa para vivir, un    
+apartamento para alquilar vacacional o quizás un terreno para construir tu      
+sueño? ¿Tienes un presupuesto en mente o prefieres explorar opciones?           
+
+Aquí te presento algunas propiedades que podrían interesarte:                   
+
+ • En Pampatar, Maneiro, tenemos apartamentos con vista al mar que ofrecen una  
+   experiencia de lujo y comodidad. Estos apartamentos tienen piscina           
+   comunitaria, seguridad 24 horas y están a solo 5 minutos de Playa El Ángel.  
+ • En La Asunción, Arismendi, tenemos una casa                                  
+⏱ 10903ms | sesión: cli-1779222678...
+
+👤 estoy mas bien interesado en una propiedad de Juan Griego
+
+🤖 Bot:
+Juan Griego es un pueblo encantador en la costa norte de Isla de Margarita. Me  
+alegra que estés interesado en esa área.                                        
+
+Tengo algunas propiedades disponibles en Juan Griego que podrían interesarte.   
+Aquí te presento dos opciones:                                                  
+
+Casa Familiar Juan Griego                                                       
+
+ • Ubicación: Juan Griego, Arismendi                                            
+ • Tipo de propiedad: Casa familiar                                             
+ • Habitaciones: 3 habitaciones, 2 baños                                        
+ • Superficie: 140m²                                                            
+ • Terreno: 300m² con jardín y parrillera                                       
+ • Descripción: Casa familiar de 140m² en Juan Griego. 3 habitaciones, 2 baños, 
+   sala-comedor, cocina equipada. Cerca de Playa Caribe y del centro de Juan    
+   Griego.                                                                      
+ • Precio: $55,000 USD (precio referencial)                                     
+
+**Apartamento Estudio Juan                                                      
+⏱ 27068ms | sesión: cli-1779222678...
+
+👤 Tú: tambien tienes apartamentos
+
+🤖 Bot:
+¡Claro que sí! Tengo varios apartamentos disponibles en diferentes zonas de la  
+isla, incluyendo Juan Griego.                                                   
+
+Aquí te presento algunos apartamentos que podrían interesarte:                  
+
+Apartamento Estudio Juan Griego                                                 
+
+ • Ubicación: Juan Griego, Arismendi                                            
+ • Tipo de propiedad: Apartamento estudio                                       
+ • Habitaciones: 1 habitación, 1 baño                                           
+ • Superficie: 60m²                                                             
+ • Descripción: Apartamento estudio de 60m² en Juan Griego. 1 habitación, 1     
+   baño, cocina equipada, sala-comedor. Cerca de Playa Caribe y del centro de   
+   Juan Griego.                                                                 
+ • Precio: $30,000 USD (precio referencial)                                     
+
+Apartamento 2 Habitaciones Juan Griego                                          
+
+ • Ubicación: Juan Griego, Arismendi                                            
+ • Tipo de propiedad: Apartamento 2 habitaciones                                
+ • Habit                                                                        
+⏱ 841ms | sesión: cli-1779222678...
+
+👤 Tú: el 2 habitaciones me parece interesante
+
+🤖 Bot:
+El apartamento de 2 habitaciones en Juan Griego es una excelente opción. Aquí te
+presento más detalles sobre esta propiedad:                                     
+
+Apartamento 2 Habitaciones Juan Griego                                          
+
+ • Ubicación: Juan Griego, Arismendi                                            
+ • Tipo de propiedad: Apartamento 2 habitaciones                                
+ • Habitaciones: 2 habitaciones, 1 baño                                         
+ • Superficie: 80m²                                                             
+ • Descripción: Apartamento de 80m² en Juan Griego. 2 habitaciones, 1 baño,     
+   cocina equipada, sala-comedor. Cerca de Playa Caribe y del centro de Juan    
+   Griego.                                                                      
+ • Características: terraza, jardín, cochera para 1 vehículo                    
+ • Precio: $40,000 USD (precio referencial)                                     
+
+Este apartamento es una excelente opción para aquellos que buscan una propiedad 
+cómoda y funcional en una zona tranquila y seg                                  
+⏱ 5085ms | sesión: cli-1779222678...
+
+👤 Tú: okey me parece muy buena opcion me gustaria verla
+
+🤖 Bot:
+¡Excelente elección! Me alegra que te guste la opción del apartamento de 2      
+habitaciones en Juan Griego.                                                    
+
+Para programar una visita a la propiedad, necesito saber un poco más sobre tus  
+preferencias y disponibilidad. ¿Cuándo te gustaría visitar la propiedad? ¿Tienes
+algún día específico o prefieres que te proponga algunas opciones?              
+
+Además, ¿te gustaría que te acompañe un asesor inmobiliario durante la visita   
+para que puedas hacer preguntas y obtener más información sobre la propiedad?   
+
+Recuerda que, como extranjero, es importante que consideres la asesoría legal y 
+la obtención de la visa de inversionista para realizar la compra de la          
+propiedad. Estoy aquí para ayudarte en todo lo que necesites.                   
+
+¿Qué te parece si te propongo algunas opciones de visita para la propiedad?     
+⏱ 5331ms | sesión: cli-1779222678...
+
+👤 Tú: yo soy venezolano
+
+🤖 Bot:
+¡Excelente! Como venezolano, no necesitarás asesoría legal para la compra de la 
+propiedad, pero es importante que tengas en cuenta que, como ciudadano          
+venezolano, podrías tener algunas ventajas en la compra de la propiedad.        
+
+En cuanto a la visita a la propiedad, ¿te gustaría que te acompañe a Juan Griego
+para que puedas verla en persona? Estoy disponible para acompañarte en cualquier
+momento que sea conveniente para ti.                                            
+
+Recuerda que, como asesor inmobiliario, mi función es ayudarte a encontrar la   
+propiedad perfecta para ti, así que no dudes en preguntar cualquier cosa que te 
+venga a la mente durante la visita.                                             
+
+¿Cuándo te gustaría visitar la propiedad? ¿Tienes algún día específico o        
+prefieres que te proponga algunas opciones?                                     
+⏱ 4041ms | sesión: cli-1779222678...
+
+👤 Tú: si me interesa un dia miercoles de la proxima semana
+
+🤖 Bot:
+¡Excelente elección! Me alegra que hayas elegido un día de la próxima semana    
+para visitar la propiedad.                                                      
+
+El día miércoles de la próxima semana es un buen día para visitar la propiedad, 
+ya que es un día de la semana que no suele estar muy concurrido en Juan Griego. 
+
+Me gustaría programar la visita para el miércoles a las 10:00 am. ¿Te parece    
+bien esta hora? Si no te parece bien, puedo proponerte otras opciones.          
+
+Además, ¿te gustaría que te acompañe un asesor inmobiliario durante la visita   
+para que puedas hacer preguntas y obtener más información sobre la propiedad?   
+
+Recuerda que, como asesor inmobiliario, mi función es ayudarte a encontrar la   
+propiedad perfecta para ti, así que no dudes en preguntar cualquier cosa que te 
+venga a la mente durante la visita.                                             
+
+¿Te parece bien la hora de 10                                                   
+⏱ 5789ms | sesión: cli-1779222678...
+
+👤 Tú: si claro 
+
+🤖 Bot:
+¡Excelente! Me alegra que hayas aceptado la hora de 10:00 am para la visita a la
+propiedad.                                                                      
+
+Me aseguraré de estar allí a tiempo para recibirte y acompañarte a la propiedad.
+También te recomiendo que te dirijas a la oficina de la propiedad en Juan       
+Griego, donde podrás encontrar más información sobre la propiedad y podrás hacer
+preguntas a cualquier asesor inmobiliario que esté disponible.                  
+
+Aquí te dejo la dirección de la oficina de la propiedad:                        
+
+Oficina de la Propiedad Calle Principal, Juan Griego Arismendi, Isla de         
+Margarita                                                                       
+
+Recuerda que la visita es a las 10:00 am, así que no dudes en llegar un poco    
+antes para asegurarte de que no te pierdas la cita.                             
+
+Si tienes alguna pregunta o necesitas más información, no dudes en hacérmelo    
+saber. Estoy aquí para ayudarte en                                              
+⏱ 7084ms | sesión: cli-1779222678...
+
+👤 Tú: no tienes un numero telfonico para contactar con el agente 
+
+🤖 Bot:
+Lo siento, no tengo un número de teléfono para contactar conmigo directamente.  
+Sin embargo, puedo proporcionarte el número de teléfono de la oficina de la     
+propiedad en Juan Griego, donde podrás contactar conmigo o con cualquier otro   
+asesor inmobiliario para obtener más información o para programar la visita a la
+propiedad.                                                                      
+
+Aquí te dejo el número de teléfono de la oficina de la propiedad:               
+⏱ 7084ms | sesión: cli-1779222678...
+
+👤 Tú: no tienes un numero telfonico para contactar con el agente 
+
+🤖 Bot:
+Lo siento, no tengo un número de teléfono para contactar conmigo directamente.  
+Sin embargo, puedo proporcionarte el número de teléfono de la oficina de la     
+propiedad en Juan Griego, donde podrás contactar conmigo o con cualquier otro   
+asesor inmobiliario para obtener más información o para programar la visita a la
+propiedad.                                                                      
+
+
+
+
+⏱ 1100ms | sesión: cli-1779222678...
+
+👤 Tú: okey muchas gracias
+
+🤖 Bot:
+De nada! Me alegra haber podido ayudarte. Espero verte el miércoles a las 10:00 
+am en la oficina de la propiedad en Juan Griego. Si tienes alguna pregunta o    
+necesitas más información, no dudes en hacérmelo saber.                         
+
+Recuerda que estoy aquí para ayudarte a encontrar la propiedad perfecta para ti.
+¡Hasta luego!     

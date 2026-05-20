@@ -1,7 +1,7 @@
 """
 Orquestador principal del chat.
 Flujo de defensa en profundidad para minimizar llamadas al LLM:
-Intent → FAQ directa → Cache → SQL exacta → Vectorial (solo si hay filtros) → LLM (solo si hay datos) → Fallback controlado.
+Intent → FAQ directa → Cache → SQL exacta → Vectorial (solo si hay filtros) → LLM → Fallback controlado.
 """
 
 import structlog
@@ -60,10 +60,26 @@ class ChatService:
             await self._persist(session_id, user_message, response)
             return response
 
-        # 4. Cache lookup (exacta + semántica)
-        if cached := await self.cache.get(user_message):
-            await self._persist(session_id, user_message, cached)
-            return cached
+        # 4. Cache lookup (exacta + semántica solo si query tiene suficiente contexto)
+        # No buscar cache semántica para queries muy cortas (< 4 palabras) para evitar
+        # gastar embeddings en mensajes sin sentido como "castillo en la luna"
+        if len(user_message.split()) >= 4:
+            if cached := await self.cache.get(user_message):
+                await self._persist(session_id, user_message, cached)
+                return cached
+        else:
+            # Solo cache exacta para queries cortas
+            from src.infrastructure.cache import _normalize
+            import hashlib
+            normalized = _normalize(user_message)
+            hash_key = hashlib.sha256(normalized.encode()).hexdigest()
+            row = await self.property_repo.db.fetchone(
+                "SELECT response FROM cache_exact WHERE query_hash = ?",
+                (hash_key,),
+            )
+            if row:
+                await self._persist(session_id, user_message, row["response"])
+                return row["response"]
 
         # 5. Recuperar historial de la sesión
         history = await self.conv_store.get_history(session_id, limit=10)
@@ -230,12 +246,7 @@ class ChatService:
         await self.conv_store.append(session_id, MessageRole.ASSISTANT, assistant_msg)
 
     async def _persist_lead(self, session_id: str, lead_info: PartialLead) -> None:
-        """Guarda datos de lead en la tabla leads.
-
-        Nota: En fase 0 se inserta un nuevo registro por mensaje.
-        En fase 1 se puede implementar upsert por session_id.
-        """
-        # Construir INSERT dinámico según datos disponibles
+        """Guarda datos de lead en la tabla leads."""
         columns = ["session_id"]
         values = [session_id]
         placeholders = ["?"]

@@ -13,7 +13,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 # Default: project_root/data/margarita_bot.db
-# Path(__file__) está en src/config.py → subir dos niveles → raíz del proyecto
 _DEFAULT_DB_PATH = Path(__file__).parent.parent / "data" / "margarita_bot.db"
 
 
@@ -26,8 +25,9 @@ class Settings(BaseSettings):
 
     # --- LLM (LiteLLM + Groq) ---
     llm_model: str = Field(default="groq/llama-3.1-8b-instant", alias="LLM_MODEL")
-    llm_temperature: float = Field(default=0.7, alias="LLM_TEMPERATURE")
-    llm_max_tokens: int = Field(default=500, alias="LLM_MAX_TOKENS")
+    llm_temperature: float = Field(default=0, alias="LLM_TEMPERATURE")
+    # Aumentado a 1200 para mostrar 2-3 propiedades completas sin corte
+    llm_max_tokens: int = Field(default=1200, alias="LLM_MAX_TOKENS")
     # Obligatorio. La app falla al arrancar si no está definida.
     groq_api_key: str = Field(alias="GROQ_API_KEY")
 
@@ -36,13 +36,10 @@ class Settings(BaseSettings):
         default="huggingface/sentence-transformers/all-MiniLM-L6-v2",
         alias="EMBEDDING_MODEL",
     )
-    # Requerido cuando embedding_model empieza con 'huggingface/'
     hf_api_key: str | None = Field(default=None, alias="HF_API_KEY")
-    # Debe coincidir con las dimensiones del modelo de embeddings.
-    # all-MiniLM-L6-v2 = 384, text-embedding-ada-002 = 1536, bge-large = 1024
     embedding_dimensions: int = Field(default=384, alias="EMBEDDING_DIMENSIONS")
 
-    # Fallback para embeddings vía OpenAI (si se usa LiteLLM con openai/)
+    # Fallback para embeddings vía OpenAI
     openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
 
     # --- Database ---
@@ -57,9 +54,6 @@ class Settings(BaseSettings):
         return self.app_env == "development"
 
 
-# Singleton global. Importar desde cualquier módulo.
-# Nota: en tests, setear env vars antes de importar este módulo.
-# Preferir get_settings() en nuevo código para permitir lazy init en el futuro.
 _settings_instance: Settings | None = None
 
 def get_settings() -> Settings:
@@ -70,5 +64,4 @@ def get_settings() -> Settings:
     return _settings_instance
 
 
-# Variable global para compatibilidad con código existente.
 settings = get_settings()
