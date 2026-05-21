@@ -153,6 +153,40 @@ class PropertyRepository:
         property.id = cursor.lastrowid
         return property
 
+    # ---------- Fuente Única de Verdad para Zonas ----------
+
+    async def get_zone_index(self) -> dict[str, tuple[Municipality, str]]:
+        """
+        Construye el índice de zonas desde la base de datos.
+        Retorna: {"pampatar": (Municipality.MANEIRO, "Pampatar"), ...}
+
+        Esto elimina la necesidad de hardcodear _ZONE_MAP en IntentDetector.
+        La fuente de verdad es la tabla properties.
+        """
+        rows = await self.db.fetchall(
+            "SELECT DISTINCT zone, municipality FROM properties WHERE status = ?",
+            (PropertyStatus.AVAILABLE.value,)
+        )
+
+        zone_index: dict[str, tuple[Municipality, str]] = {}
+        for row in rows:
+            try:
+                municipality = Municipality(row["municipality"])
+                zone_name = row["zone"]
+                # Clave normalizada para matching case-insensitive
+                key = zone_name.lower()
+                zone_index[key] = (municipality, zone_name)
+            except ValueError:
+                logger.warning(
+                    "zone_index_skip_invalid_municipality",
+                    municipality=row["municipality"],
+                    zone=row["zone"],
+                )
+                continue
+
+        logger.info("zone_index_built", zones=len(zone_index))
+        return zone_index
+
     # ---------- Helpers ----------
 
     def _row_to_property(self, row) -> Property | None:
@@ -170,7 +204,7 @@ class PropertyRepository:
         try:
             # sqlite3.Row no tiene .get(), usar acceso directo con verificación
             keys = list(row.keys())
-            
+
             return Property(
                 id=row["id"],
                 title=row["title"],
