@@ -961,3 +961,188 @@ necesitas más información, no dudes en hacérmelo saber.
 
 Recuerda que estoy aquí para ayudarte a encontrar la propiedad perfecta para ti.
 ¡Hasta luego!     
+
+
+6to chat con el cli:
+
+✓ Sesión: cli-1779394256
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│     ┌─────────────────────────────────────────┐                              │
+│     │   🏝️  MARGARITA REALTY BOT  🤖         │                               │
+│     │   Asesor Inmobiliario de Margarita      │                              │
+│     │   CLI de desarrollo v0.1.0              │                              │
+│     └─────────────────────────────────────────┘                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Escribe tu mensaje o /help para ver comandos. Ctrl+C para salir.
+
+👤 Tú: hola buenos dias 
+
+🤖 Bot:
+¡Hola! Soy tu asesor inmobiliario de Margarita. ¿En qué puedo ayudarte hoy?     
+Puedo buscarte propiedades, informarte precios por zona o ayudarte con trámites 
+de compra.                                                                      
+⏱ 19ms | sesión: cli-1779394256...
+
+👤 Tú: estoy interasdo en comprar un apartamento
+
+🤖 Bot:
+¡Excelente decisión! Tenemos varias opciones de apartamentos en la Isla de      
+Margarita que podrían interesarte. Aquí te presento algunas de nuestras         
+propiedades disponibles:                                                        
+
+Apartamentos en Pampatar                                                        
+
+ • Apartamento Vista al Mar Pampatar: Un moderno apartamento con vista directa  
+   al mar, piscina comunitaria, seguridad 24h, a 5 min de Playa El Ángel. Ideal 
+   para alquiler vacacional. Precio: $95,000 USD (2h/2b, 85.0m²)                
+ • Apartamento Vista al Mar Pampatar: Otro apartamento con vista panorámica al  
+   mar en Pampatar, con cocina equipada, sala con balcón, 2 habitaciones con    
+   aire acondicionado. Edificio con piscina, gimnasio y seguridad 24h. A 5      
+   minutos de Playa El Ángel y centro                                           
+⏱ 1179ms | sesión: cli-1779394256...
+
+👤 Tú: mi presupuesto abarca entre 200 a 300 mil usd
+
+🤖 Bot:
+Con un presupuesto de $200,000 a $300,000 USD, tienes varias opciones de        
+apartamentos en la Isla de Margarita. Aquí te presento algunas de nuestras      
+propiedades disponibles:                                                        
+
+Apartamentos en Pampatar                                                        
+
+ • Apartamento Vista al Mar Pampatar: Un moderno apartamento con vista directa  
+⏱ 1179ms | sesión: cli-1779394256...
+
+👤 Tú: mi presupuesto abarca entre 200 a 300 mil usd
+
+🤖 Bot:
+Con un presupuesto de $200,000 a $300,000 USD, tienes varias opciones de        
+apartamentos en la Isla de Margarita. Aquí te presento algunas de nuestras      
+propiedades disponibles:                                                        
+
+Apartamentos en Pampatar                                                        
+
+
+
+⏱ 1691ms | sesión: cli-1779394256...
+
+👤 Tú: me gusta ese apartamento
+
+🤖 Bot:
+¡Excelente elección! El Apartamento Vista al Mar Pampatar es un apartamento muy 
+atractivo con una vista impresionante del mar. Sin embargo, como mencioné       
+anteriormente, el precio de $95,000 USD está un poco por debajo de tu           
+presupuesto.                                                                    
+
+Si estás interesado en este apartamento, te recomiendo que consideres algunas   
+opciones para ajustar tu presupuesto. Por ejemplo, podrías considerar un        
+préstamo hipotecario o una inversión en un apartamento que esté un poco más allá
+de tu presupuesto actual.                                                       
+
+Si prefieres explorar otras opciones, te puedo mostrar algunos apartamentos que 
+se ajusten a tu presupuesto de $200,000 a $300,000 USD. ¿Te gustaría que te     
+muestre algunas opciones adicionales?                                           
+
+Paso 1: Captura de lead                                                         
+
+Antes de seguir adelante, necesito saber un poco más sobre ti. ¿                
+⏱ 1159ms | sesión: cli-1779394256...
+
+👤 Tú: okey entendido soy venezolano y vivo en carcacas quiero un apartamento para vacacionar en margarita
+
+🤖 Bot:
+¡Excelente elección! Un apartamento en Margarita es un gran lugar para          
+vacacionar.                                                                     
+
+Paso 2: Captura de lead                                                         
+
+Para confirmar la visita al apartamento, necesito saber un poco más sobre ti.   
+¿Me puedes decir tu nombre completo y un teléfono de contacto? Un asesor te     
+llamará para confirmar la visita y responder a cualquier pregunta que tengas.   
+
+Recuerda que, como venezolano, un asesor te guiará en los trámites de escritura,
+registro y cualquier otro proceso que sea necesario para la compra del          
+apartamento. ¡Estamos aquí para ayudarte!                                       
+⏱ 877ms | sesión: cli-1779394256...
+
+👤 Tú: Mi nombres ismale rodriguez 4167781212
+
+🤖 Bot:
+¡Genial! Ya tengo tu información. Un asesor te llamará en breve para confirmar  
+la visita al apartamento y responder a cualquier pregunta que tengas.           
+
+Paso 3: Confirmación de visita                                                  
+
+¿Qué día y horario te funcionaría para la visita al apartamento? Te confirmaré  
+en las próximas horas si el asesor tiene disponibilidad.                        
+
+Recuerda que, como venezolano, un asesor te guiará en los trámites de escritura,
+registro y cualquier otro proceso que sea necesario para la compra del          
+apartamento. ¡Estamos aquí para ayudarte!                                       
+⏱ 1015ms | sesión: cli-1779394256...
+
+👤 Tú: podrias verificar si copiaste bien mis datos para que me contacten
+
+🤖 Bot:
+¡Claro! Vamos a verificar tus datos.                                            
+
+Nombre: Ismale Rodríguez Teléfono: 4167781212                                   
+
+Recuerda que, como venezolano, un asesor te guiará en los trámites de escritura,
+registro y cualquier otro proceso que sea necesario para la compra del          
+apartamento. ¡Estamos aquí para ayudarte!                                       
+⏱ 1015ms | sesión: cli-1779394256...
+
+👤 Tú: podrias verificar si copiaste bien mis datos para que me contacten
+
+🤖 Bot:
+¡Claro! Vamos a verificar tus datos.                                            
+
+
+
+
+⏱ 1786ms | sesión: cli-1779394256...
+
+👤 Tú: me equivoque en el numero es 04167871212
+
+🤖 Bot:
+¡No hay problema! Ya tengo el número correcto.                                  
+
+Nombre: Ismale Rodríguez Teléfono: 0416-787-1212                                
+
+Un asesor te llamará en breve para confirmar la visita al apartamento y         
+responder a cualquier pregunta que tengas.                                      
+
+¿Qué día y horario te funcionaría para la visita al apartamento? Te confirmaré  
+en las próximas horas si el asesor tiene disponibilidad.                        
+⏱ 1041ms | sesión: cli-1779394256...
+
+👤 Tú: si me gutaria el dia domigo de la semana proxima no esta que esta corriendo me podrias dar la fecha de hoy
+
+🤖 Bot:
+Hoy es jueves, 18 de mayo de 2024.                                              
+
+Si el domingo de la semana próxima es el día que te gustaría visitar el         
+apartamento, te recomiendo que te confirmes con el asesor para asegurarte de que
+tenga disponibilidad en ese día.                                                
+
+¿Qué día y horario te funcionaría para la visita al apartamento? Te confirmaré  
+en las próximas horas si el asesor tiene disponibilidad.                        
+
+Recuerda que, como venezolano, un asesor te guiará en los trámites de escritura,
+registro y cualquier otro proceso que sea necesario para la compra del          
+apartamento. ¡Estamos aquí para ayudarte!                                       
+⏱ 1001ms | sesión: cli-1779394256...
+
+👤 Tú: okey gracias feliz dia
+
+🤖 Bot:
+¡De nada! ¡Feliz día a ti también! Un asesor te llamará pronto para confirmar la
+visita al apartamento y responder a cualquier pregunta que tengas.              
+
+Te confirmo la cita en cuanto el asesor valide la disponibilidad                
+
+¡Estamos emocionados de verte en Margarita
