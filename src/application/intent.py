@@ -76,16 +76,21 @@ class IntentDetector:
 
         # 2. FAQs (patrones muy definidos; prioridad sobre SEARCH_PROPERTY)
         # Incluimos variantes ASCII (m2) y Unicode (m²) para precios
+        # FIX Bug 11: Agregar variantes sin tilde
         IntentType.FAQ_PRICE_M2: [
             r"precio\s+(por\s+)?m[2²]",
             r"precio\s+(por\s+)?metro\s+cuadrado",
             r"cuánto\s+cuesta\s+(el\s+)?m[2²]",
             r"cuánto\s+cuesta\s+(el\s+)?metro\s+cuadrado",
+            r"cuanto\s+cuesta\s+(el\s+)?m[2²]",
+            r"cuanto\s+cuesta\s+(el\s+)?metro\s+cuadrado",
             r"valor\s+(del\s+)?metro\s+cuadrado",
             r"costo\s+por\s+m[2²]",
         ],
+        # FIX Bug 3: Agregar "soy extranjero" y variante más permisiva
         IntentType.FAQ_FOREIGN_BUY: [
             r"extranjero\s+(puede\s+)?comprar",
+            r"soy\s+extranjero",
             r"no\s+soy\s+venezolano",
             r"visado\s+de\s+inversionista",
             r"visa\s+de\s+inversionista",
@@ -135,8 +140,9 @@ class IntentDetector:
     }
 
     # ---------- Mapa de zona → municipio ----------
-    # Ordenado por longitud descendente para que matches largos ganen
-    _ZONE_MAP: dict[str, tuple[Municipality, str]] = {
+    # FIX: Ahora se carga desde la base de datos por inyección
+    # Si no se provee zone_map, usa este default para compatibilidad hacia atrás
+    _DEFAULT_ZONE_MAP: dict[str, tuple[Municipality, str]] = {
         # Maneiro
         "altos de maneiro": (Municipality.MANEIRO, "Altos de Maneiro"),
         "playa el ángel": (Municipality.MANEIRO, "Playa El Ángel"),
@@ -201,8 +207,9 @@ class IntentDetector:
         IntentType.FAQ_FOREIGN_BUY: (
             "Sí, los extranjeros pueden comprar propiedades en Margarita. "
             "Se requiere principalmente:\n\n"
-            "• **Visa de inversionista** o residencia temporal\n"
+            "• **Visa de transeúnte** (negocios, rentista o familiar)\n"
             "• **RIF venezolano** (se tramita con pasaporte)\n"
+            "• **ZODI-71** (trámite personal en la Isla, no delegable)\n"
             "• **Asesoría legal local** para la escritura y registro\n\n"
             "Los costos adicionales suelen ser del 5-10% sobre el precio de venta. "
             "¿Te gustaría que un asesor especializado te contacte para guiarte paso a paso?"
@@ -220,7 +227,7 @@ class IntentDetector:
             "2. **Revisión de documentos** (solvencia, certificado de tradición)\n"
             "3. **Firma de escritura pública** ante notario\n"
             "4. **Registro en la Oficina Subalterna** correspondiente\n"
-            "5. **Pago de impuestos** (ISLR, registro)\n\n"
+            "5. **Pago de impuestos** (timbres fiscales, registro)\n\n"
             "Tiempo estimado: 30-60 días. ¿Necesitas ayuda con algún paso específico?"
         ),
         IntentType.GREETING: (
@@ -235,6 +242,13 @@ class IntentDetector:
     }
 
     # ---------- Métodos públicos ----------
+
+    def __init__(self, zone_map: dict[str, tuple[Municipality, str]] | None = None) -> None:
+        """
+        Inicializa el detector con un mapa de zonas opcional.
+        Si no se provee, usa el mapa por defecto (compatibilidad hacia atrás).
+        """
+        self._zone_map = zone_map or self._DEFAULT_ZONE_MAP
 
     def detect(self, message: str) -> IntentType:
         """Clasifica la intención del mensaje."""
@@ -266,28 +280,31 @@ class IntentDetector:
         if name_match:
             lead.name = name_match.group(1).strip().title()
 
+        # FIX Bugs 5, 6, 8: Teléfono - normalizar espacios y guiones primero
+        # Normalizar el mensaje para teléfono: quitar espacios entre dígitos
+        phone_text = re.sub(r"(?<=\d)\s+(?=\d)", "", message)  # "+58 414 987 6543" → "+584149876543"
+        phone_text_lower = phone_text.lower()
+
         # Teléfono con trigger words
         phone_match = re.search(
-            r"(?:teléfono|celular|tlf|phone|cel|contacto|whatsapp|wp)\s*(?:es|:)?\s*([\d\s\-+()]{7,})",
-            text_lower,
+            r"(?:teléfono|celular|tlf|phone|cel|contacto|whatsapp|wp|llámenme|llameme)\s*(?:es|:|al)?\s*([\d\-+()]{7,})",
+            phone_text_lower,
         )
         if phone_match:
-            lead.phone = re.sub(r"[^\d]", "", phone_match.group(1))[:15]
+            raw = phone_match.group(1)
+            digits = re.sub(r"[^\d]", "", raw)
+            lead.phone = self._normalize_phone(digits)
         else:
             # Teléfono venezolano standalone (sin trigger word)
+            # FIX: Soportar múltiples guiones y formatos
             standalone = re.search(
-                r"(?:\+?58)?\s*(?:0)?(4(?:12|14|16|24|26)\d{7}|\d{3}[-\s]?\d{7})",
-                message,
+                r"(?:\+?58)?\s*(?:0)?(4(?:12|14|16|24|26)[\d\-]{7,})",
+                phone_text,
             )
             if standalone:
                 raw = standalone.group(0)
                 digits = re.sub(r"[^\d]", "", raw)
-                if digits.startswith("58") and len(digits) >= 10:
-                    lead.phone = digits
-                elif digits.startswith("0") and len(digits) == 11:
-                    lead.phone = digits[1:]
-                elif digits.startswith("4") and len(digits) == 10:
-                    lead.phone = digits
+                lead.phone = self._normalize_phone(digits)
 
         # Email
         email_match = re.search(r"[\w\.-]+@[\w\.-]+\.\w{2,}", message)
@@ -296,13 +313,39 @@ class IntentDetector:
 
         return lead
 
+    def _normalize_phone(self, digits: str) -> str | None:
+        """
+        Normaliza un número telefónico venezolano.
+        Retorna None si no parece un número válido.
+        """
+        if not digits or len(digits) < 10:
+            return None
+
+        # +58XXXXXXXXXX → 58XXXXXXXXXX
+        if digits.startswith("58") and len(digits) >= 12:
+            return digits
+
+        # 0XXXXXXXXXX (11 dígitos con 0 inicial) → conservar formato
+        if digits.startswith("0") and len(digits) == 11:
+            return digits
+
+        # XXXXXXXXXX (10 dígitos, formato móvil venezolano) → agregar 0
+        if len(digits) == 10 and digits.startswith("4"):
+            return "0" + digits
+
+        # Si tiene 11 dígitos pero no empieza con 0 ni 58, retornar como está
+        if len(digits) == 11:
+            return digits
+
+        return digits
+
     def extract_filters(self, message: str) -> ExtractedFilters:
         """Extrae filtros estructurados del mensaje del usuario."""
         text_lower = message.lower()
         filters = ExtractedFilters()
 
         # Zona y Municipio
-        sorted_zones = sorted(self._ZONE_MAP.items(), key=lambda x: -len(x[0]))
+        sorted_zones = sorted(self._zone_map.items(), key=lambda x: -len(x[0]))
         for key, (municipality, zone) in sorted_zones:
             if key in text_lower:
                 filters.municipality = municipality
@@ -324,11 +367,17 @@ class IntentDetector:
                 break
 
         # Precio
+        # FIX Bugs 1, 2, 9, 12: Mejorar regex de precios
         price_patterns = [
+            # Rango: "entre 30 y 40 mil", "de 200 a 300 mil"
+            # FIX Bug 1: Permitir texto antes del trigger
             r"(?:entre|de)\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s+y\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
+            # Hasta/máximo/menos de
             r"(?:hasta|menos\s+de|máximo|maximo)\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
+            # Precio/presupuesto/valor
             r"(?:precio|presupuesto|valor)\s+(?:de\s+)?[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
-            r"[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil)))\s*(?:usd|dólares|dolares)?",
+            # FIX Bug 2: Patrón genérico con k/mil OPCIONAL
+            r"[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
         ]
         for pattern in price_patterns:
             match = re.search(pattern, text_lower)
@@ -352,22 +401,63 @@ class IntentDetector:
 
     @staticmethod
     def _parse_price(text: str, full_context: str = "") -> float | None:
-        """Limpia y convierte un string de precio a float."""
+        """
+        Limpia y convierte un string de precio a float.
+
+        FIX Bugs 1, 9, 12: Procesar k/mil ANTES de eliminar puntos decimales.
+        Soporta: 40k, 40 k, 40 mil, 135.5k, 1.200.000, 95.000
+        """
         try:
             original = text.lower().strip()
-            clean = original.replace("$", "").replace("usd", "").replace("dólares", "").replace("dolares", "")
+            if not original:
+                return None
 
+            # Detectar si hay 'k' o 'mil' en el contexto completo
             context = (original + " " + full_context).lower()
             has_k_or_mil = "k" in context or "mil" in context
 
-            # FIX CRÍTICO: usar lambda en vez de r'\1000' para evitar ambigüedad
-            clean = re.sub(r"(\d)\s*k\b", lambda m: m.group(1) + "000", clean)
-            clean = re.sub(r"(\d)\s*mil\b", lambda m: m.group(1) + "000", clean)
+            # FIX Bug 12: Procesar k/mil ANTES de tocar puntos decimales
+            # "135.5k" → "135.5" + flag_k = True
+            # "40 k" → "40" + flag_k = True
+            # "40 mil" → "40" + flag_k = True
+            clean = original
+            has_k_suffix = False
 
-            clean = clean.replace(".", "").replace(",", "").strip()
+            # Detectar y remover k/mil (pegados o separados)
+            if re.search(r"\d\s*k\b", clean):
+                has_k_suffix = True
+                clean = re.sub(r"(\d)\s*k\b", r"\1", clean)
+            elif re.search(r"\d\s*mil\b", clean):
+                has_k_suffix = True
+                clean = re.sub(r"(\d)\s*mil\b", r"\1", clean)
+
+            # Remover símbolos y palabras
+            clean = clean.replace("$", "").replace("usd", "").replace("dólares", "").replace("dolares", "")
+
+            # FIX Bug 9: Manejar múltiples puntos como separadores de miles
+            # "1.200.000" → "1200000" (todos los puntos son separadores)
+            # "135.5" → "135.5" (punto decimal, se preserva)
+            # Estrategia: si hay más de un punto, todos son separadores de miles
+            if clean.count(".") > 1:
+                clean = clean.replace(".", "")
+            elif clean.count(".") == 1:
+                # Podría ser decimal o separador de miles
+                # Si después del punto hay exactamente 3 dígitos y no hay más texto → separador de miles
+                parts = clean.split(".")
+                if len(parts) == 2 and len(parts[1]) == 3 and parts[1].isdigit():
+                    clean = clean.replace(".", "")
+                # Si no, es decimal (ej: 135.5), se preserva
+
+            # Remover comas (siempre separadores de miles)
+            clean = clean.replace(",", "").strip()
+
             val = float(clean)
 
-            if val < 1000 and has_k_or_mil:
+            # Aplicar multiplicador si hay k/mil
+            if has_k_suffix:
+                val *= 1000
+            elif val < 1000 and has_k_or_mil and val >= 10:
+                # Heurística: número pequeño con contexto de miles
                 val *= 1000
             elif val < 100:
                 val *= 1000
