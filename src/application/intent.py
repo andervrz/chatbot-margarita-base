@@ -75,7 +75,6 @@ class IntentDetector:
         ],
 
         # 2. FAQs (patrones muy definidos; prioridad sobre SEARCH_PROPERTY)
-        # Incluimos variantes ASCII (m2) y Unicode (m²) para precios
         # FIX Bug 11: Agregar variantes sin tilde
         IntentType.FAQ_PRICE_M2: [
             r"precio\s+(por\s+)?m[2²]",
@@ -286,8 +285,9 @@ class IntentDetector:
         phone_text_lower = phone_text.lower()
 
         # Teléfono con trigger words
+        # NOTA: "llámenme" NO es trigger para evitar ambigüedad (KISS)
         phone_match = re.search(
-            r"(?:teléfono|celular|tlf|phone|cel|contacto|whatsapp|wp|llámenme|llameme)\s*(?:es|:|al)?\s*([\d\-+()]{7,})",
+            r"(?:teléfono|celular|tlf|phone|cel|contacto|whatsapp|wp)\s*(?:es|:|al)?\s*([\d\-+()]{7,})",
             phone_text_lower,
         )
         if phone_match:
@@ -325,13 +325,15 @@ class IntentDetector:
         if digits.startswith("58") and len(digits) >= 12:
             return digits
 
-        # 0XXXXXXXXXX (11 dígitos con 0 inicial) → conservar formato
-        if digits.startswith("0") and len(digits) == 11:
-            return digits
+        # 0XXXXXXXXXX (11 dígitos con 0 inicial, formato venezolano estándar)
+        # FIX: Conservar el 0 cuando es formato móvil venezolano 04XX-XXXXXXX
+        if digits.startswith("0") and len(digits) == 11 and digits[1] == "4":
+            return digits  # "04169990000"
 
-        # XXXXXXXXXX (10 dígitos, formato móvil venezolano) → agregar 0
+        # XXXXXXXXXX (10 dígitos, formato móvil venezolano sin 0)
+        # Agregar 0 para formato completo
         if len(digits) == 10 and digits.startswith("4"):
-            return "0" + digits
+            return "0" + digits  # "04169990000"
 
         # Si tiene 11 dígitos pero no empieza con 0 ni 58, retornar como está
         if len(digits) == 11:
@@ -369,9 +371,9 @@ class IntentDetector:
         # Precio
         # FIX Bugs 1, 2, 9, 12: Mejorar regex de precios
         price_patterns = [
-            # Rango: "entre 30 y 40 mil", "de 200 a 300 mil"
-            # FIX Bug 1: Permitir texto antes del trigger
-            r"(?:entre|de)\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s+y\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
+            # Rango: "entre 30 y 40 mil", "de 200 a 300 mil", "inversión de 200 a 300 mil"
+            # FIX Bug 1: Permitir texto antes del trigger con .*?\b
+            r".*?\b(?:entre|de)\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s+y\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
             # Hasta/máximo/menos de
             r"(?:hasta|menos\s+de|máximo|maximo)\s+[\$]?\s*(\d[\d\.,]*(?:\s*(?:k|mil))?)\s*(?:usd|dólares|dolares)?",
             # Precio/presupuesto/valor
