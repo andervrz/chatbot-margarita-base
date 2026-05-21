@@ -68,11 +68,24 @@ async def init_dependencies() -> None:
     # 5. Almacenamiento de conversaciones (depende de DB)
     app_state.conv_store = ConversationStore(app_state.db)
 
-    # 6. Componentes sin dependencias externas
-    app_state.enricher = PromptEnricher()
-    app_state.intent_detector = IntentDetector()
+    # 6. IntentDetector con zone_map desde la base de datos (Fuente Única de Verdad)
+    # Si la BD no tiene datos aún, usa el default para no romper el arranque
+    try:
+        zone_index = await app_state.property_repo.get_zone_index()
+        if zone_index:
+            app_state.intent_detector = IntentDetector(zone_map=zone_index)
+            logger.info("intent_detector_zone_map_from_db", zones=len(zone_index))
+        else:
+            app_state.intent_detector = IntentDetector()  # Usa default
+            logger.info("intent_detector_zone_map_default", reason="db_empty")
+    except Exception as exc:
+        logger.warning("intent_detector_zone_map_fallback", error=str(exc))
+        app_state.intent_detector = IntentDetector()  # Fallback seguro
 
-    # 7. Servicio de aplicación (orquesta todo)
+    # 7. Enricher (sin dependencias externas)
+    app_state.enricher = PromptEnricher()
+
+    # 8. Servicio de aplicación (orquesta todo)
     app_state.chat_service = ChatService(
         llm=app_state.llm,
         property_repo=app_state.property_repo,
