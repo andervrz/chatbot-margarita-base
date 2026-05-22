@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margarita Realty Bot - Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f2f5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Botón flotante para abrir/cerrar */
+        .chat-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #0084ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 1000;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .chat-toggle.hidden {
+            display: none;
+        }
+
+        /* Contenedor principal del chat */
+        .chat-container {
+            width: 380px;
+            height: 600px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .chat-container.hidden {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .chat-container {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+
+        /* Header */
+        .chat-header {
+            background: #0084ff;
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .chat-header .info h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .chat-header .info p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .chat-header .close-btn {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .chat-header .close-btn:hover {
+            opacity: 1;
+        }
+
+        /* Área de mensajes */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: #0084ff;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: #f0f0f0;
+            color: #333;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.bot strong {
+            color: #0084ff;
+        }
+
+        .message.bot ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .message.bot li {
+            margin: 4px 0;
+        }
+
+        .message .timestamp {
+            font-size: 11px;
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+
+        /* Indicador de escritura */
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: #f0f0f0;
+            padding: 16px 20px;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Dropdown de comandos */
+        .commands-dropdown {
+            position: absolute;
+            bottom: 80px;
+            left: 16px;
+            right: 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            padding: 8px 0;
+            display: none;
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .commands-dropdown.active {
+            display: block;
+        }
+
+        .command-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.15s;
+        }
+
+        .command-item:hover {
+            background: #f0f2f5;
+        }
+
+        .command-item .cmd {
+            font-family: 'Courier New', monospace;
+            background: #e4e6eb;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #0084ff;
+            font-weight: 600;
+        }
+
+        .command-item .desc {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Área de input */
+        .chat-input-area {
+            padding: 12px 16px;
+            border-top: 1px solid #e4e6eb;
+            background: white;
+            position: relative;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: 1px solid #e4e6eb;
+            border-radius: 20px;
+            padding: 10px 16px;
+            font-size: 14px;
+            outline: none;
+            resize: none;
+            max-height: 100px;
+            font-family: inherit;
+        }
+
+        .chat-input:focus {
+            border-color: #0084ff;
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #0084ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .send-btn:hover {
+            background: #0073e6;
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Estado de conexión */
+        .connection-status {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 1001;
+            transition: opacity 0.3s;
+        }
+
+        .connection-status.online {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .connection-status.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        /* Animación de entrada */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message {
+            animation: slideIn 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Indicador de conexión -->
+    <div id="connectionStatus" class="connection-status offline">
+        🔴 Desconectado
+    </div>
+
+    <!-- Botón flotante -->
+    <button id="chatToggle" class="chat-toggle" onclick="toggleChat()">
+        💬
+    </button>
+
+    <!-- Contenedor del chat -->
+    <div id="chatContainer" class="chat-container hidden">
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="avatar">🏝️</div>
+            <div class="info">
+                <h3>Margarita Realty</h3>
+                <p>Asesor Virtual • En línea</p>
+            </div>
+            <button class="close-btn" onclick="toggleChat()">✕</button>
+        </div>
+
+        <!-- Mensajes -->
+        <div id="chatMessages" class="chat-messages">
+            <!-- Los mensajes se insertan aquí dinámicamente -->
+        </div>
+
+        <!-- Indicador de escritura -->
+        <div id="typingIndicator" class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Dropdown de comandos -->
+        <div id="commandsDropdown" class="commands-dropdown">
+            <div class="command-item" onclick="executeCommand('/help')">
+                <span class="cmd">/help</span>
+                <span class="desc">Ver comandos disponibles</span>
+            </div>
+            <div class="command-item" onclick="executeCommand('/history')">
+                <span class="cmd">/history</span>
+                <span class="desc">Ver historial de la sesión</span>
+            </div>
+            <div class="command-item" onclick="executeCommand('/new')">
+                <span class="cmd">/new</span>
+                <span class="desc">Nueva sesión (olvidar contexto)</span>
+            </div>
+            <div class="command-item" onclick="executeCommand('/session')">
+                <span class="cmd">/session</span>
+                <span class="desc">Ver ID de sesión actual</span>
+            </div>
+            <div class="command-item" onclick="executeCommand('/raw')">
+                <span class="cmd">/raw</span>
+                <span class="desc">Mostrar respuestas sin formatear</span>
+            </div>
+            <div class="command-item" onclick="executeCommand('/queue')">
+                <span class="cmd">/queue</span>
+                <span class="desc">Ver mensajes WhatsApp pendientes</span>
+            </div>
+            <div class="command-item" onclick="executeCommand('/quit')">
+                <span class="cmd">/quit</span>
+                <span class="desc">Cerrar chat</span>
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="chat-input-area">
+            <div class="input-wrapper">
+                <textarea 
+                    id="chatInput" 
+                    class="chat-input" 
+                    rows="1"
+                    placeholder="Escribe un mensaje o / para comandos..."
+                    onkeydown="handleKeyDown(event)"
+                    oninput="handleInput(event)"
+                ></textarea>
+                <button id="sendBtn" class="send-btn" onclick="sendMessage()">
+                    ➤
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURACIÓN
+        // ============================================
+        const API_BASE = 'http://localhost:8000';
+        const STORAGE_KEY = 'margarita_bot_session';
+
+        // ============================================
+        // ESTADO
+        // ============================================
+        let sessionId = null;
+        let rawMode = false;
+        let isTyping = false;
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSession();
+            checkHealth();
+            // Verificar conexión cada 30 segundos
+            setInterval(checkHealth, 30000);
+        });
+
+        // ============================================
+        // SESIÓN
+        // ============================================
+        function loadSession() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    sessionId = data.sessionId;
+                    // Restaurar mensajes previos si existen
+                    if (data.messages && data.messages.length > 0) {
+                        data.messages.forEach(msg => appendMessage(msg.role, msg.content, false));
+                    } else {
+                        showWelcome();
+                    }
+                } catch (e) {
+                    createNewSession();
+                }
+            } else {
+                createNewSession();
+            }
+        }
+
+        function createNewSession() {
+            sessionId = 'web-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            saveSession();
+            clearMessages();
+            showWelcome();
+        }
+
+        function saveSession() {
+            const messages = Array.from(document.querySelectorAll('.message')).map(el => ({
+                role: el.classList.contains('user') ? 'user' : 'bot',
+                content: el.querySelector('.content')?.textContent || ''
+            }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                sessionId,
+                messages,
+                rawMode
+            }));
+        }
+
+        // ============================================
+        // UI - TOGGLE CHAT
+        // ============================================
+        function toggleChat() {
+            const container = document.getElementById('chatContainer');
+            const toggle = document.getElementById('chatToggle');
+            
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                toggle.classList.add('hidden');
+                document.getElementById('chatInput').focus();
+            } else {
+                container.classList.add('hidden');
+                toggle.classList.remove('hidden');
+            }
+        }
+
+        // ============================================
+        // UI - MENSAJES
+        // ============================================
+        function showWelcome() {
+            appendMessage('bot', 
+                '¡Hola! Soy tu asesor inmobiliario de Margarita. 🏝️\n\n' +
+                '¿En qué puedo ayudarte hoy? Puedo:\n' +
+                '• Buscar propiedades por zona, tipo y presupuesto\n' +
+                '• Informarte precios por m²\n' +
+                '• Ayudarte con trámites de compra\n' +
+                '• Agendar visitas presenciales\n\n' +
+                'Escribe **/help** para ver comandos disponibles.'
+            );
+        }
+
+        function appendMessage(role, content, save = true) {
+            const container = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${role}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'content';
+            
+            if (rawMode || role === 'user') {
+                contentDiv.textContent = content;
+            } else {
+                // Parse markdown simple: negritas y listas
+                let html = content
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/^• (.*$)/gm, '<li>$1</li>')
+                    .replace(/^(?!<li>)(.*$)/gm, '<p>$1</p>')
+                    .replace(/<p><\/p>/g, '');
+                
+                // Envolver listas sueltas
+                if (html.includes('<li>')) {
+                    html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+                }
+                
+                contentDiv.innerHTML = html;
+            }
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'timestamp';
+            timeDiv.textContent = new Date().toLocaleTimeString('es-VE', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            msgDiv.appendChild(contentDiv);
+            msgDiv.appendChild(timeDiv);
+            container.appendChild(msgDiv);
+            
+            // Scroll al final
+            container.scrollTop = container.scrollHeight;
+            
+            if (save) saveSession();
+        }
+
+        function clearMessages() {
+            document.getElementById('chatMessages').innerHTML = '';
+        }
+
+        // ============================================
+        // INDICADOR DE ESCRITURA
+        // ============================================
+        function showTyping() {
+            document.getElementById('typingIndicator').classList.add('active');
+            isTyping = true;
+        }
+
+        function hideTyping() {
+            document.getElementById('typingIndicator').classList.remove('active');
+            isTyping = false;
+        }
+
+        // ============================================
+        // COMANDOS
+        // ============================================
+        function handleInput(event) {
+            const input = event.target;
+            const value = input.value.trim();
+            
+            // Mostrar/ocultar dropdown de comandos
+            const dropdown = document.getElementById('commandsDropdown');
+            if (value === '/') {
+                dropdown.classList.add('active');
+            } else {
+                dropdown.classList.remove('active');
+            }
+            
+            // Auto-resize textarea
+            input.style.height = 'auto';
+            input.style.height = Math.min(input.scrollHeight, 100) + 'px';
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            } else if (event.key === 'Escape') {
+                document.getElementById('commandsDropdown').classList.remove('active');
+            }
+        }
+
+        function executeCommand(cmd) {
+            const input = document.getElementById('chatInput');
+            input.value = cmd;
+            document.getElementById('commandsDropdown').classList.remove('active');
+            
+            switch(cmd) {
+                case '/help':
+                    appendMessage('bot', 
+                        '**Comandos disponibles:**\n\n' +
+                        '• **/help** — Mostrar esta ayuda\n' +
+                        '• **/history** — Ver historial de la sesión\n' +
+                        '• **/new** — Nueva sesión (olvidar contexto)\n' +
+                        '• **/session** — Ver ID de sesión actual\n' +
+                        '• **/raw** — Mostrar respuestas sin formatear\n' +
+                        '• **/queue** — Ver mensajes WhatsApp pendientes\n' +
+                        '• **/quit** — Cerrar chat\n\n' +
+                        'Escribe cualquier mensaje para hablar con el asesor.'
+                    );
+                    input.value = '';
+                    break;
+                    
+                case '/history':
+                    appendMessage('bot', 
+                        '**Historial de esta sesión:**\n\n' +
+                        'ID: `' + sessionId + '`\n' +
+                        'Mensajes: ' + document.querySelectorAll('.message').length
+                    );
+                    input.value = '';
+                    break;
+                    
+                case '/new':
+                    appendMessage('bot', '🆕 Iniciando nueva sesión...');
+                    setTimeout(() => createNewSession(), 500);
+                    input.value = '';
+                    break;
+                    
+                case '/session':
+                    appendMessage('bot', '**Sesión actual:** `' + sessionId + '`');
+                    input.value = '';
+                    break;
+                    
+                case '/raw':
+                    rawMode = !rawMode;
+                    appendMessage('bot', 
+                        rawMode ? '✅ Modo raw ACTIVADO. Las respuestas se mostrarán sin formatear.' 
+                                : '❌ Modo raw DESACTIVADO. Respuestas formateadas.'
+                    );
+                    saveSession();
+                    input.value = '';
+                    break;
+                    
+                case '/queue':
+                    fetchQueue();
+                    input.value = '';
+                    break;
+                    
+                case '/quit':
+                    appendMessage('bot', '👋 ¡Hasta luego! Estoy aquí cuando me necesites.');
+                    setTimeout(() => toggleChat(), 1000);
+                    input.value = '';
+                    break;
+            }
+        }
+
+        // ============================================
+        // API - ENVÍO DE MENSAJES
+        // ============================================
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message || isTyping) return;
+            
+            // Si es comando, ejecutar
+            if (message.startsWith('/')) {
+                executeCommand(message);
+                return;
+            }
+            
+            // Mostrar mensaje del usuario
+            appendMessage('user', message);
+            input.value = '';
+            input.style.height = 'auto';
+            
+            // Mostrar indicador de escritura
+            showTyping();
+            
+            try {
+                const response = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        session_id: sessionId,
+                        message: message,
+                        user_id: null
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                hideTyping();
+                appendMessage('bot', data.response);
+                
+            } catch (error) {
+                hideTyping();
+                appendMessage('bot', 
+                    '❌ Error de conexión. Verifica que el servidor esté corriendo en ' + API_BASE + '\n\n' +
+                    'Ejecuta en terminal: `uv run uvicorn src.interface.api:app --reload`'
+                );
+                updateConnectionStatus(false);
+            }
+        }
+
+        // ============================================
+        // API - HEALTH CHECK
+        // ============================================
+        async function checkHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/health`, {
+                    method: 'GET',
+                    timeout: 5000
+                });
+                const data = await response.json();
+                updateConnectionStatus(data.status === 'ok');
+            } catch (error) {
+                updateConnectionStatus(false);
+            }
+        }
+
+        function updateConnectionStatus(isOnline) {
+            const status = document.getElementById('connectionStatus');
+            if (isOnline) {
+                status.className = 'connection-status online';
+                status.textContent = '🟢 Conectado';
+            } else {
+                status.className = 'connection-status offline';
+                status.textContent = '🔴 Desconectado';
+            }
+        }
+
+        // ============================================
+        // API - NOTIFICATIONS QUEUE (WhatsApp Stub)
+        // ============================================
+        async function fetchQueue() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/notifications-queue`);
+                if (!response.ok) throw new Error('Endpoint no disponible');
+                
+                const data = await response.json();
+                if (data.length === 0) {
+                    appendMessage('bot', '📭 No hay mensajes WhatsApp pendientes.');
+                    return;
+                }
+                
+                let msg = '📬 **Mensajes WhatsApp pendientes:**\n\n';
+                data.slice(0, 5).forEach((item, i) => {
+                    msg += `${i+1}. Para: ${item.recipient_phone}\n`;
+                    msg += `   ${item.message_text.substring(0, 60)}...\n`;
+                    msg += `   Estado: ${item.status} | ${item.created_at}\n\n`;
+                });
+                
+                appendMessage('bot', msg);
+                
+            } catch (error) {
+                appendMessage('bot', 
+                    '⚠️ No se pudo consultar la cola de notificaciones.\n' +
+                    'Asegúrate de que el endpoint `/admin/notifications-queue` esté implementado.'
+                );
+            }
+        }
+    </script>
+</body>
+</html>

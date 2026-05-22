@@ -1,0 +1,25 @@
+¡Perfecto{% if name %}, {{ name }}{% endif %}! 🎯
+
+He registrado tu interés en:
+{% if property %}
+• {{ property.title }} en {{ property.zone }}
+• Precio: ${{ "{:,.0f}".format(property.price_usd) }} USD
+• {{ property.bedrooms if property.bedrooms is not none else '?' }} habitaciones | {{ property.area_m2 }}m²
+{% else %}
+• Propiedad seleccionada de tu búsqueda anterior
+{% endif %}
+
+{% if requested_date and requested_time %}
+Horario solicitado: {{ requested_date }} a las {{ requested_time }}
+{% else %}
+¿Qué día y horario te funcionaría para la visita?
+{% endif %}
+
+{% if not phone %}
+Para agendar necesito tu teléfono de contacto. ¿Me lo puedes compartir?
+{% else %}
+Tu asesor te confirmará la disponibilidad exacta por WhatsApp en las próximas horas.
+{% endif %}
+
+—
+{{ agency_name }} | Asistente Virtual

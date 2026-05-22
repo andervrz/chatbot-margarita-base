@@ -1,7 +1,6 @@
 """
 Tests del ChatService.
-Verifica el flujo de defensa en profundidad:
-FAQ directa → Cache → SQL exacta → Vectorial (solo con filtros) → LLM → Fallback.
+Verifica el flujo de defensa en profundidad + agendamiento Fase 1.
 """
 
 import pytest
@@ -57,14 +56,12 @@ class TestChatServiceFlow:
 
         msg = "casa en pampatar"
 
-        # Primera llamada: debe llegar al LLM
         r1 = await chat_service.handle(session_id="test-003", user_message=msg)
         assert mock_llm.chat.call_count == 1
 
-        # Segunda llamada idéntica: debe usar cache, no LLM
         r2 = await chat_service.handle(session_id="test-004", user_message=msg)
         assert r1 == r2
-        assert mock_llm.chat.call_count == 1  # No aumentó
+        assert mock_llm.chat.call_count == 1
 
     async def test_sql_exact_triggers_llm_when_results_exist(
         self, chat_service, mock_llm, property_repo
@@ -94,18 +91,13 @@ class TestChatServiceFlow:
     async def test_fallback_when_no_data_anywhere(
         self, chat_service, mock_llm
     ):
-        """
-        Fallback cuando no hay datos ni filtros semánticos.
-        NOTA: "castillo en la luna" tiene 4 palabras, pasa la guarda de cache.
-        Pero como no hay filtros significativos, no gasta embed para vectorial.
-        """
+        """Fallback cuando no hay datos ni filtros semánticos."""
         response = await chat_service.handle(
             session_id="test-006",
             user_message="castillo en la luna",
         )
         assert "No tengo propiedades registradas" in response
         mock_llm.chat.assert_not_called()
-        # embed puede ser llamado 1 vez para cache semántica, pero no para vectorial
 
     async def test_session_memory_persists(
         self, chat_service, conv_store
@@ -116,17 +108,14 @@ class TestChatServiceFlow:
             user_message="hola",
         )
         history = await conv_store.get_history("test-007")
-        assert len(history) == 2  # user + assistant
+        assert len(history) == 2
         assert history[0].role.value == "user"
         assert history[1].role.value == "assistant"
 
     async def test_vector_fallback_used_when_sql_empty(
         self, chat_service, mock_llm, property_repo, db
     ):
-        """
-        Si SQL no retorna nada pero hay embeddings vectoriales,
-        debe usar búsqueda vectorial y luego 1 LLM call.
-        """
+        """Si SQL no retorna nada pero hay embeddings vectoriales, usa fallback."""
         prop = Property(
             title="Cerca de Playa",
             municipality=Municipality.GOMEZ,
@@ -141,7 +130,6 @@ class TestChatServiceFlow:
         )
         created = await property_repo.create(prop)
 
-        # Insertar embedding manualmente para que el fallback vectorial funcione
         embedding = await mock_llm.embed("cerca de la playa con vista al mar")
         await db.vec_insert(
             table="property_embeddings",
@@ -157,3 +145,156 @@ class TestChatServiceFlow:
         )
         assert mock_llm.chat.call_count == 1
         assert "Respuesta mockeada" in response
+
+
+class TestChatServiceBookingFlow:
+    """Tests del flujo de agendamiento Fase 1 (2 turnos)."""
+
+    async def test_book_appointment_without_lead_asks_for_data(
+        self, chat_service, mock_llm
+    ):
+        """
+        Turno 1: Usuario dice "quiero verla" sin haber dado datos.
+        Bot debe pedir nombre + teléfono.
+        """
+        response = await chat_service.handle(
+            session_id="test-book-001",
+            user_message="quiero verla",
+        )
+        assert "nombre completo" in response.lower() or "teléfono" in response.lower()
+        mock_llm.chat.assert_not_called()
+
+    async def test_book_appointment_with_lead_asks_for_schedule(
+        self, chat_service, mock_llm, db
+    ):
+        """
+        Turno 2: Usuario ya dio datos previamente.
+        Bot debe pedir horario.
+        """
+        # Pre-crear lead
+        await db.execute(
+            "INSERT INTO leads (session_id, name, phone) VALUES (?, ?, ?)",
+            ("test-book-002", "Juan Pérez", "0412-1234567")
+        )
+        await db.commit()
+
+        response = await chat_service.handle(
+            session_id="test-book-002",
+            user_message="quiero verla",
+        )
+        assert "horario" in response.lower() or "día" in response.lower()
+        mock_llm.chat.assert_not_called()
+
+    async def test_book_appointment_creates_pending_appointment(
+        self, chat_service, mock_llm, db, property_repo
+    ):
+        """
+        Turno 2 completo: Usuario con lead pide horario.
+        Se crea cita con status='pending'.
+        """
+        # Pre-crear lead y propiedad
+        await db.execute(
+            "INSERT INTO leads (session_id, name, phone) VALUES (?, ?, ?)",
+            ("test-book-003", "María García", "0414-9876543")
+        )
+        lead_cursor = await db.execute("SELECT last_insert_rowid()")
+        lead_row = await lead_cursor.fetchone()
+        lead_id = lead_row[0]
+
+        prop = Property(
+            title="Casa Test Booking",
+            municipality=Municipality.MANEIRO,
+            zone="Pampatar",
+            type=PropertyType.CASA,
+            price_usd=95000,
+            bedrooms=3,
+            bathrooms=2,
+            area_m2=120,
+            description="Casa para test de agendamiento",
+            status=PropertyStatus.AVAILABLE,
+        )
+        created = await property_repo.create(prop)
+
+        # Guardar propiedad como "última mostrada"
+        await db.execute(
+            "INSERT INTO conversations (session_id, role, content, metadata) VALUES (?, ?, ?, ?)",
+            ("test-book-003", "system", "", '{"last_shown_properties": [' + str(created.id) + ']}')
+        )
+        await db.commit()
+
+        response = await chat_service.handle(
+            session_id="test-book-003",
+            user_message="mañana a las 3pm",
+        )
+        # Verificar que se creó la cita
+        row = await db.fetchone(
+            "SELECT * FROM appointments WHERE session_id = ?",
+            ("test-book-003",)
+        )
+        assert row is not None
+        assert row["status"] == "pending"
+        assert "confirmará" in response.lower()
+
+    async def test_capture_lead_persists_data(
+        self, chat_service, db
+    ):
+        """CAPTURE_LEAD persiste nombre y teléfono en tabla leads."""
+        response = await chat_service.handle(
+            session_id="test-lead-001",
+            user_message="me llamo Carlos Rodríguez, mi teléfono es 0412-555-8877",
+        )
+        row = await db.fetchone(
+            "SELECT * FROM leads WHERE session_id = ?",
+            ("test-lead-001",)
+        )
+        assert row is not None
+        assert row["name"] == "Carlos Rodríguez"
+        assert row["phone"] == "04125558877"
+
+    async def test_booking_with_property_reference(
+        self, chat_service, mock_llm, db, property_repo
+    ):
+        """Agendamiento guarda referencia a propiedad específica."""
+        # Crear propiedad
+        prop = Property(
+            title="Penthouse Test",
+            municipality=Municipality.MANEIRO,
+            zone="Playa El Ángel",
+            type=PropertyType.PENTHOUSE,
+            price_usd=290000,
+            bedrooms=5,
+            bathrooms=7,
+            area_m2=435,
+            description="Penthouse de lujo",
+            status=PropertyStatus.AVAILABLE,
+        )
+        created = await property_repo.create(prop)
+
+        # Crear lead
+        await db.execute(
+            "INSERT INTO leads (session_id, name, phone) VALUES (?, ?, ?)",
+            ("test-book-004", "Ana López", "0416-9990000")
+        )
+        lead_cursor = await db.execute("SELECT last_insert_rowid()")
+        lead_row = await lead_cursor.fetchone()
+        lead_id = lead_row[0]
+
+        # Simular que se mostró la propiedad
+        await db.execute(
+            "INSERT INTO conversations (session_id, role, content, metadata) VALUES (?, ?, ?, ?)",
+            ("test-book-004", "system", "", '{"last_shown_properties": [' + str(created.id) + ']}')
+        )
+        await db.commit()
+
+        response = await chat_service.handle(
+            session_id="test-book-004",
+            user_message="quiero verla",
+        )
+        
+        # La cita debe tener property_id
+        row = await db.fetchone(
+            "SELECT property_id FROM appointments WHERE session_id = ?",
+            ("test-book-004",)
+        )
+        assert row is not None
+        assert row["property_id"] == created.id

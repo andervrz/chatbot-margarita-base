@@ -1,18 +1,20 @@
 """
 API REST del bot inmobiliario.
-Endpoints mínimos: chat y health. Manejo de errores limpio.
+Endpoints: chat, health, webhook, admin. Manejo de errores limpio.
 """
 
 import uuid
 
 import structlog
 from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.staticfiles import StaticFiles
 from structlog.contextvars import bind_contextvars, clear_contextvars
 
 from src.application.chat import ChatService
 from src.domain.exceptions import DomainError, LLMError
-from src.interface.dependencies import lifespan, get_chat_service, app_state
+from src.interface.dependencies import lifespan, get_chat_service, app_state, get_db
 from src.interface.schemas import ChatRequest, ChatResponse, HealthResponse
+from src.interface.webhook import router as webhook_router
 
 logger = structlog.get_logger()
 
@@ -23,10 +25,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# NUEVO: Servir archivos estáticos (interfaz web)
+# Acceso: http://localhost:8000/static/chat_web.html
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Incluir router de webhook (Fase 1)
+app.include_router(webhook_router)
+
 
 @app.middleware("http")
 async def add_request_id(request: Request, call_next):
-    """Añade request_id a cada log para trazabilidad. Limpia contextvars al final."""
     clear_contextvars()
     request_id = str(uuid.uuid4())[:8]
     bind_contextvars(request_id=request_id)
@@ -42,12 +50,6 @@ async def chat(
     request: ChatRequest,
     service: ChatService = Depends(get_chat_service),
 ) -> ChatResponse:
-    """
-    Endpoint principal de conversación.
-    
-    Nota: fase 0 no retorna intent_type, properties_found ni cached.
-    Se activarán en fase 1 cuando ChatService retorne metadatos.
-    """
     try:
         logger.info(
             "chat_request",
@@ -82,7 +84,6 @@ async def chat(
 
 @app.get("/health", response_model=HealthResponse)
 async def health() -> HealthResponse:
-    """Health check. Verifica que la base de datos está realmente conectada."""
     db_status = "connected" if (app_state.db and app_state.db._connection) else "disconnected"
     
     return HealthResponse(
@@ -90,3 +91,108 @@ async def health() -> HealthResponse:
         database=db_status,
         llm_provider="groq",
     )
+
+
+# ============================================
+# ADMIN ENDPOINTS (NUEVO Fase 1)
+# ============================================
+
+@app.get("/admin/notifications-queue")
+async def get_notifications_queue(
+    db = Depends(get_db),
+    limit: int = 20,
+):
+    """
+    Retorna mensajes WhatsApp pendientes de la cola.
+    Usado por el comando /queue en la interfaz web.
+    """
+    rows = await db.fetchall(
+        """
+        SELECT id, recipient_phone, message_text, message_type, status, created_at
+        FROM notifications_queue
+        ORDER BY created_at DESC
+        LIMIT ?
+        """,
+        (limit,),
+    )
+    return [
+        {
+            "id": r["id"],
+            "recipient_phone": r["recipient_phone"],
+            "message_text": r["message_text"],
+            "message_type": r["message_type"],
+            "status": r["status"],
+            "created_at": r["created_at"],
+        }
+        for r in rows
+    ]
+
+
+@app.get("/admin/appointments")
+async def get_appointments(
+    db = Depends(get_db),
+    status: str | None = None,
+    limit: int = 50,
+):
+    """
+    Dashboard de citas. Filtrable por status.
+    """
+    if status:
+        rows = await db.fetchall(
+            "SELECT * FROM appointments WHERE status = ? ORDER BY created_at DESC LIMIT ?",
+            (status, limit),
+        )
+    else:
+        rows = await db.fetchall(
+            "SELECT * FROM appointments ORDER BY created_at DESC LIMIT ?",
+            (limit,),
+        )
+    
+    return [
+        {
+            "id": r["id"],
+            "session_id": r["session_id"],
+            "property_id": r["property_id"],
+            "lead_id": r["lead_id"],
+            "requested_date": r["requested_date"],
+            "requested_time": r["requested_time"],
+            "status": r["status"],
+            "notes": r["notes"],
+            "created_at": r["created_at"],
+        }
+        for r in rows
+    ]
+
+
+@app.post("/admin/appointments/{appointment_id}/confirm")
+async def confirm_appointment(
+    appointment_id: int,
+    db = Depends(get_db),
+):
+    """
+    Confirmar una cita manualmente (solo humanos).
+    """
+    await db.execute(
+        "UPDATE appointments SET status = 'confirmed', updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+        (appointment_id,),
+    )
+    await db.commit()
+    logger.info("appointment_confirmed_admin", appointment_id=appointment_id)
+    return {"status": "confirmed", "appointment_id": appointment_id}
+
+
+@app.post("/admin/appointments/{appointment_id}/cancel")
+async def cancel_appointment(
+    appointment_id: int,
+    db = Depends(get_db),
+):
+    """
+    Cancelar una cita manualmente.
+    """
+    await db.execute(
+        "UPDATE appointments SET status = 'cancelled', updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+        (appointment_id,),
+    )
+    await db.commit()
+    logger.info("appointment_cancelled_admin", appointment_id=appointment_id)
+    return {"status": "cancelled", "appointment_id": appointment_id}

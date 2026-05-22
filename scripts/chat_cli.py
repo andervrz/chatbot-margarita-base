@@ -24,12 +24,14 @@ from rich.rule import Rule
 from src.application.chat import ChatService
 from src.application.enrichment import PromptEnricher
 from src.application.intent import IntentDetector
+from src.application.booking import BookingService
 from src.config import settings
 from src.infrastructure.cache import CacheManager
 from src.infrastructure.conversation_store import ConversationStore
 from src.infrastructure.db import Database
 from src.infrastructure.llm import LLMClient
 from src.infrastructure.repositories import PropertyRepository
+from src.infrastructure.whatsapp import WhatsAppClient
 from src.logging_config import configure_logging
 
 configure_logging(env="development", log_level="WARNING")
@@ -58,6 +60,10 @@ async def init_services(db_path: Path) -> ChatService:
     enricher = PromptEnricher()
     intent_detector = IntentDetector()
 
+    # NUEVO Fase 1: WhatsApp y Booking
+    whatsapp = WhatsAppClient(db)
+    booking_service = BookingService(db, whatsapp)
+
     return ChatService(
         llm=llm,
         property_repo=property_repo,
@@ -65,6 +71,7 @@ async def init_services(db_path: Path) -> ChatService:
         conv_store=conv_store,
         enricher=enricher,
         intent_detector=intent_detector,
+        booking_service=booking_service,
     )
 
 def print_banner() -> None:
@@ -88,6 +95,7 @@ def print_help() -> None:
 • `/new`       — Iniciar nueva sesión (olvidar contexto)
 • `/session`   — Mostrar ID de sesión actual
 • `/raw`       — Mostrar respuesta cruda sin formatear
+• `/queue`     — Ver mensajes WhatsApp stub pendientes  ← NUEVO Fase 1
 • `/quit`      — Salir
     """
     console.print(Markdown(help_text))
@@ -106,6 +114,29 @@ async def show_history(service: ChatService, session_id: str, conv_store: Conver
         role_color = Colors.USER if msg.role.value == "user" else Colors.BOT
         icon = "👤" if msg.role.value == "user" else "🤖"
         console.print(f"[{role_color}]{icon} {msg.role.value}:[/{role_color}] {msg.content[:200]}")
+    console.print(Rule(style=Colors.SYSTEM))
+
+
+async def show_queue(service: ChatService) -> None:
+    """
+    NUEVO Fase 1: Muestra mensajes WhatsApp stub pendientes.
+    Consulta la tabla notifications_queue directamente.
+    """
+    rows = await service.booking.db.fetchall(
+        "SELECT * FROM notifications_queue WHERE status = 'pending' ORDER BY created_at DESC LIMIT 20"
+    )
+
+    if not rows:
+        console.print("[dim]📭 No hay mensajes WhatsApp pendientes.[/dim]")
+        return
+
+    console.print(Rule("Mensajes WhatsApp Stub (Pendientes)", style=Colors.SYSTEM))
+    for i, row in enumerate(rows, 1):
+        console.print(f"[{Colors.METRIC}]#{i}[/{Colors.METRIC}] Para: {row['recipient_phone']}")
+        console.print(f"   Tipo: {row['message_type']} | Estado: {row['status']}")
+        console.print(f"   Preview: {row['message_text'][:100]}...")
+        console.print(f"   Creado: {row['created_at']}")
+        console.print()
     console.print(Rule(style=Colors.SYSTEM))
 
 
@@ -183,6 +214,10 @@ async def main() -> None:
                     show_raw = not show_raw
                     state = "activado" if show_raw else "desactivado"
                     console.print(f"[{Colors.SYSTEM}]Modo raw {state}[/{Colors.SYSTEM}]")
+                    continue
+                elif cmd == "/queue":
+                    # NUEVO Fase 1: Ver cola de WhatsApp
+                    await show_queue(service)
                     continue
                 else:
                     console.print(f"[{Colors.ERROR}]Comando desconocido: {cmd}[/{Colors.ERROR}]")

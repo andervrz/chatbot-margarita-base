@@ -14,6 +14,13 @@ class PropertyType(str, Enum):
     TERRENO = "terreno"
     LOCAL = "local"
     PENTHOUSE = "penthouse"
+    # NUEVO Fase 1
+    BIENHECHURIA = "bienhechuria"
+    EDIFICIO = "edificio"
+    OFICINA = "oficina"
+    TOWNHOUSE = "townhouse"
+    QUINTA = "quinta"
+    LOCAL_COMERCIAL = "local_comercial"
 
 
 class PropertyStatus(str, Enum):
@@ -51,7 +58,19 @@ class Property(BaseModel):
     status: PropertyStatus = PropertyStatus.AVAILABLE
     contact_phone: str | None = None
     contact_email: str | None = None
-    # Campos de auditoría; SQLite los setea automáticamente
+    # NUEVO Fase 1: Columnas booleanas para filtros de búsqueda
+    has_ocean_view: bool = False
+    is_furnished: bool = False
+    has_pool: bool = False
+    has_parking: bool = False
+    has_security: bool = False
+    has_generator: bool = False
+    has_water_tank: bool = False
+    has_ac: bool = False
+    is_new_construction: bool = False
+    has_balcony: bool = False
+    is_gated_community: bool = False
+    # Campos de auditoría
     created_at: datetime | None = None
     updated_at: datetime | None = None
 
@@ -102,8 +121,29 @@ class Lead(BaseModel):
     preferred_zone: str | None = None
     preferred_type: PropertyType | None = None
     urgency: LeadUrgency | None = None
-    # Campos de calificación para diáspora / mercado actual
     has_rif: bool | None = None
     visit_planned: bool | None = None
-    funding_source: str | None = None  # ej: "transferencia", "usdt", "efectivo"
+    funding_source: str | None = None
     captured_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+# NUEVO Fase 1: Cita de visita
+class AppointmentStatus(str, Enum):
+    PENDING = "pending"
+    CONFIRMED = "confirmed"
+    CANCELLED = "cancelled"
+    COMPLETED = "completed"
+
+
+class Appointment(BaseModel):
+    """Cita de visita a propiedad."""
+    id: int | None = None
+    session_id: str
+    property_id: int | None = None
+    lead_id: int | None = None
+    requested_date: str | None = None  # Ej: "mañana", "2026-05-25"
+    requested_time: str | None = None  # Ej: "3pm", "15:00"
+    status: AppointmentStatus = AppointmentStatus.PENDING
+    notes: str = ""
+    created_at: datetime | None = None
+    updated_at: datetime | None = None

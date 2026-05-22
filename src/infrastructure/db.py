@@ -1,6 +1,5 @@
 """
 Conexión SQLite async con extensión sqlite-vec cargada.
-Única fuente de verdad: SQL estructurado + búsqueda vectorial en el mismo archivo .db
 """
 
 from pathlib import Path
@@ -13,7 +12,6 @@ logger = structlog.get_logger()
 
 
 def _build_schema(embedding_dim: int) -> str:
-    """Genera el schema SQL con la dimensión de embeddings configurada."""
     return f"""
 -- ============================================
 -- PROPIEDADES (Fuente de verdad absoluta)
@@ -33,6 +31,18 @@ CREATE TABLE IF NOT EXISTS properties (
     status TEXT NOT NULL DEFAULT 'available',
     contact_phone TEXT,
     contact_email TEXT,
+    -- NUEVO Fase 1: Columnas booleanas para filtros (0=false, 1=true)
+    has_ocean_view INTEGER DEFAULT 0,
+    is_furnished INTEGER DEFAULT 0,
+    has_pool INTEGER DEFAULT 0,
+    has_parking INTEGER DEFAULT 0,
+    has_security INTEGER DEFAULT 0,
+    has_generator INTEGER DEFAULT 0,
+    has_water_tank INTEGER DEFAULT 0,
+    has_ac INTEGER DEFAULT 0,
+    is_new_construction INTEGER DEFAULT 0,
+    has_balcony INTEGER DEFAULT 0,
+    is_gated_community INTEGER DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -42,9 +52,21 @@ CREATE INDEX IF NOT EXISTS idx_properties_zone ON properties(zone);
 CREATE INDEX IF NOT EXISTS idx_properties_type ON properties(type);
 CREATE INDEX IF NOT EXISTS idx_properties_status ON properties(status);
 CREATE INDEX IF NOT EXISTS idx_properties_price ON properties(price_usd);
+-- NUEVO Fase 1: Índices en columnas booleanas
+CREATE INDEX IF NOT EXISTS idx_properties_ocean_view ON properties(has_ocean_view);
+CREATE INDEX IF NOT EXISTS idx_properties_furnished ON properties(is_furnished);
+CREATE INDEX IF NOT EXISTS idx_properties_pool ON properties(has_pool);
+CREATE INDEX IF NOT EXISTS idx_properties_parking ON properties(has_parking);
+CREATE INDEX IF NOT EXISTS idx_properties_security ON properties(has_security);
+CREATE INDEX IF NOT EXISTS idx_properties_generator ON properties(has_generator);
+CREATE INDEX IF NOT EXISTS idx_properties_water_tank ON properties(has_water_tank);
+CREATE INDEX IF NOT EXISTS idx_properties_ac ON properties(has_ac);
+CREATE INDEX IF NOT EXISTS idx_properties_new_construction ON properties(is_new_construction);
+CREATE INDEX IF NOT EXISTS idx_properties_balcony ON properties(has_balcony);
+CREATE INDEX IF NOT EXISTS idx_properties_gated ON properties(is_gated_community);
 
 -- ============================================
--- CONVERSACIONES (Memoria persistente entre sesiones)
+-- CONVERSACIONES
 -- ============================================
 CREATE TABLE IF NOT EXISTS conversations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -72,10 +94,49 @@ CREATE TABLE IF NOT EXISTS leads (
     preferred_zone TEXT,
     preferred_type TEXT,
     urgency TEXT,
+    has_rif INTEGER,
+    visit_planned INTEGER,
+    funding_source TEXT,
     captured_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX IF NOT EXISTS idx_leads_session ON leads(session_id);
+
+-- ============================================
+-- CITAS (NUEVO Fase 1)
+-- ============================================
+CREATE TABLE IF NOT EXISTS appointments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_id TEXT NOT NULL,
+    property_id INTEGER,
+    lead_id INTEGER,
+    requested_date TEXT,
+    requested_time TEXT,
+    status TEXT NOT NULL DEFAULT 'pending',
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_appointments_session ON appointments(session_id);
+CREATE INDEX IF NOT EXISTS idx_appointments_status ON appointments(status);
+
+-- ============================================
+-- NOTIFICATIONS QUEUE (NUEVO Fase 1)
+-- ============================================
+CREATE TABLE IF NOT EXISTS notifications_queue (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    recipient_phone TEXT NOT NULL,
+    message_text TEXT NOT NULL,
+    message_type TEXT DEFAULT 'lead_notification',
+    status TEXT DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    sent_at TIMESTAMP,
+    error TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_status ON notifications_queue(status);
+CREATE INDEX IF NOT EXISTS idx_notifications_created ON notifications_queue(created_at);
 
 -- ============================================
 -- CACHE EXACTA
@@ -94,7 +155,7 @@ CREATE TABLE IF NOT EXISTS cache_exact (
 CREATE INDEX IF NOT EXISTS idx_cache_hash ON cache_exact(query_hash);
 
 -- ============================================
--- TABLAS VECTORIALES (sqlite-vec) - {embedding_dim} dims
+-- TABLAS VECTORIALES
 -- ============================================
 CREATE VIRTUAL TABLE IF NOT EXISTS cache_semantic USING vec0(
     query_embedding float[{embedding_dim}],
@@ -122,7 +183,6 @@ class Database:
         self._connection = await aiosqlite.connect(self.db_path)
         self._connection.row_factory = aiosqlite.Row
 
-        # Cargar extensión sqlite-vec usando el método async de aiosqlite
         await self._connection.enable_load_extension(True)
         await self._connection.load_extension(str(sqlite_vec.loadable_path()))
         await self._connection.enable_load_extension(False)
@@ -164,11 +224,6 @@ class Database:
         vector_column: str = "embedding",
         **metadata,
     ) -> None:
-        """Inserta un vector + metadatos en una tabla vec0.
-        
-        NOTA: No hace commit. El llamador debe llamar a commit() para
-        mantener atomicidad en transacciones de nivel superior.
-        """
         vec_blob = sqlite_vec.serialize_float32(vector)
         cols = [vector_column] + list(metadata.keys())
         placeholders = ", ".join("?" for _ in cols)
@@ -184,10 +239,6 @@ class Database:
         limit: int = 5,
         max_distance: float | None = None,
     ) -> list[dict]:
-        """
-        KNN search. Retorna filas con 'distance' (L2).
-        Filtra por max_distance si se proporciona.
-        """
         vec_blob = sqlite_vec.serialize_float32(vector)
         sql = f"""
         SELECT rowid, distance, *

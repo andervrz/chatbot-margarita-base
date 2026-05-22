@@ -13,12 +13,13 @@ import pytest_asyncio
 from src.application.chat import ChatService
 from src.application.enrichment import PromptEnricher
 from src.application.intent import IntentDetector
+from src.application.booking import BookingService
 from src.infrastructure.cache import CacheManager
 from src.infrastructure.conversation_store import ConversationStore
 from src.infrastructure.db import Database
 from src.infrastructure.llm import LLMClient
 from src.infrastructure.repositories import PropertyRepository
-
+from src.infrastructure.whatsapp import WhatsAppClient
 
 @pytest.fixture(scope="session")
 def event_loop():
@@ -30,10 +31,7 @@ def event_loop():
 
 @pytest_asyncio.fixture
 async def db(mock_llm: LLMClient) -> Database:
-    """Base de datos SQLite en memoria, limpia para cada test.
-    
-    Usa embedding_dim del LLM mockeado para evitar mismatch de dimensiones.
-    """
+    """Base de datos SQLite en memoria, limpia para cada test."""
     db = Database(Path(":memory:"), embedding_dim=mock_llm.embedding_dim)
     await db.connect()
     yield db
@@ -53,13 +51,9 @@ def mock_llm() -> LLMClient:
     llm.embedding_model = "huggingface/sentence-transformers/all-MiniLM-L6-v2"
     llm.default_temperature = 0.7
     llm.default_max_tokens = 500
-    # Dimensión explícita, coherente con el mock de embed()
     llm.embedding_dim = 384
 
-    # Mock: chat siempre retorna una respuesta fija
     llm.chat = AsyncMock(return_value="Respuesta mockeada del asistente")
-
-    # Mock: embed retorna un vector de 384 dimensiones
     llm.embed = AsyncMock(return_value=[0.01] * 384)
 
     return llm
@@ -86,6 +80,18 @@ def intent_detector() -> IntentDetector:
 
 
 @pytest_asyncio.fixture
+async def whatsapp_client(db: Database) -> WhatsAppClient:
+    """WhatsAppClient en modo stub (sin tokens configurados)."""
+    return WhatsAppClient(db)
+
+
+@pytest_asyncio.fixture
+async def booking_service(db: Database, whatsapp_client: WhatsAppClient) -> BookingService:
+    """BookingService con WhatsApp stub."""
+    return BookingService(db, whatsapp_client)
+
+
+@pytest_asyncio.fixture
 async def chat_service(
     mock_llm: LLMClient,
     property_repo: PropertyRepository,
@@ -93,8 +99,9 @@ async def chat_service(
     conv_store: ConversationStore,
     enricher: PromptEnricher,
     intent_detector: IntentDetector,
+    booking_service: BookingService,
 ) -> ChatService:
-    """Servicio completo con LLM mockeado. Listo para testear flujos."""
+    """Servicio completo con LLM mockeado y BookingService."""
     return ChatService(
         llm=mock_llm,
         property_repo=property_repo,
@@ -102,4 +109,5 @@ async def chat_service(
         conv_store=conv_store,
         enricher=enricher,
         intent_detector=intent_detector,
+        booking_service=booking_service,
     )

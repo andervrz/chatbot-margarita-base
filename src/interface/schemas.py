@@ -1,10 +1,6 @@
 """
 Schemas Pydantic para la API REST.
 Separan la interfaz HTTP de la lógica de dominio.
-
-Nota: ChatResponse define campos enriquecidos (intent_type, properties_found, cached)
-que en fase 0 no se llenan desde el endpoint. Se activarán en fase 1 cuando
-ChatService retorne metadatos además de la respuesta de texto.
 """
 
 from pydantic import BaseModel, Field
@@ -30,12 +26,15 @@ class ChatRequest(BaseModel):
 
 
 class ChatResponse(BaseModel):
-    """Response: respuesta del asistente."""
+    """Response: respuesta del asistente con metadatos Fase 1."""
     session_id: str
     response: str
     intent_type: str | None = None
     properties_found: int = 0
     cached: bool = False
+    # NUEVO Fase 1:
+    lead_captured: bool = False
+    appointment_requested: bool = False
 
 
 class HealthResponse(BaseModel):
@@ -43,3 +42,10 @@ class HealthResponse(BaseModel):
     status: str
     database: str
     llm_provider: str
+
+
+# NUEVO Fase 1: Webhook de WhatsApp
+class WebhookRequest(BaseModel):
+    """Payload entrante de WhatsApp Business API webhook."""
+    object: str = "whatsapp_business_account"
+    entry: list[dict] = Field(default_factory=list)
