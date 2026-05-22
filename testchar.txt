@@ -1146,3 +1146,197 @@ visita al apartamento y responder a cualquier pregunta que tengas.
 Te confirmo la cita en cuanto el asesor valide la disponibilidad                
 
 ¡Estamos emocionados de verte en Margarita
+
+
+chat test 7:
+
+andervrz5@cloudshell:~/chatbot-margarita-base$ uv run scripts/chat_cli.py
+2026-05-22T18:54:09.226968Z [warning  ] whatsapp_stub_mode             
+queue_table=notifications_queue reason=missing_access_token_or_phone_id
+✓ Sesión: cli-1779476049
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│     ┌─────────────────────────────────────────┐                              │
+│     │   🏝️  MARGARITA REALTY BOT  🤖         │                               │
+│     │   Asesor Inmobiliario de Margarita      │                              │
+│     │   CLI de desarrollo v0.1.0              │                              │
+│     └─────────────────────────────────────────┘                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Escribe tu mensaje o /help para ver comandos. Ctrl+C para salir.
+
+👤 Tú: hey buen dia
+
+🤖 Bot:
+¡Buenos días! Me alegra poder ayudarte. Estamos en la Isla de Margarita,        
+Venezuela, y tenemos una variedad de propiedades increíbles para ofrecerte. ¿Qué
+tipo de propiedad estás buscando? ¿Un apartamento, una casa, un terreno o algo  
+más?                                                                            
+
+Tenemos propiedades en diferentes zonas de la isla, como Pampatar, La Asunción, 
+Porlamar, Juan Griego y más. ¿Te gustaría ver algunas opciones?                 
+⏱ 1467ms | sesión: cli-1779476049...
+
+👤 Tú: si estoy buscando un apartamento cerca de zona urbana
+
+🤖 Bot:
+Tenemos algunas opciones interesantes para ti. Aquí te presento algunas         
+propiedades de apartamentos cerca de la zona urbana:                            
+
+Tenemos propiedades en diferentes zonas de la isla, como Pampatar, La Asunción, 
+Porlamar, Juan Griego y más. ¿Te gustaría ver algunas opciones?                 
+⏱ 1467ms | sesión: cli-1779476049...
+
+👤 Tú: si estoy buscando un apartamento cerca de zona urbana
+
+🤖 Bot:
+Tenemos algunas opciones interesantes para ti. Aquí te presento algunas         
+propiedades de apartamentos cerca de la zona urbana:                            
+
+Apartamentos cerca de la zona urbana                                            
+
+⏱ 1266ms | sesión: cli-1779476049...
+
+👤 Tú: cual los son caracteriticas y el precio 
+
+🤖 Bot:
+Aquí te presento las características y precios de las propiedades de            
+apartamentos cerca de la zona urbana que te mencioné anteriormente:             
+
+Apartamento Ejecutivo Porlamar                                                  
+
+ • Precio: $65,000 USD                                                          
+ • Características:                                                             
+
+ • Ubicado en el corazón de Porlamar                                            
+ • A pocos minutos de Sambil Margarita, bancos y restaurantes                   
+ • Ideal para residencia o inversión de alquiler largo plazo                    
+ • Cerca de transporte público y centros comerciales                            
+ • Urbanización cerrada con seguridad 24/7                                      
+
+Apartamento Ejecutivo Porlamar Centro                                           
+
+ • Precio: $65,000 USD                                                          
+ • Características:                                                             
+
+ • Ubicado en el centro de Porlamar                                             
+ • Cerca de Sambil Margarita, bancos, restaurantes y centros comerciales        
+ • Ideal para residencia o inversión de alquiler largo plazo                    
+⏱ 997ms | sesión: cli-1779476049...
+
+  Tú: el apartamento de 65 mil como se llama el condominio y si tiene alguna inf de contacto
+
+🤖 Bot:
+El apartamento de $65,000 USD se llama Apartamento Ejecutivo Porlamar y también 
+hay otro apartamento con el mismo precio llamado Apartamento Ejecutivo Porlamar 
+Centro.                                                                         
+
+Ambos apartamentos están ubicados en la zona de Porlamar, en la isla de         
+Margarita, Venezuela.                                                           
+
+Si estás interesado en conocer más sobre estos apartamentos o en programar una  
+visita, te puedo proporcionar la siguiente información de contacto:             
+
+ • Nuestro número de teléfono es: (0414) 123-4567                               
+ • Nuestro correo electrónico es: info@inmobiliaria.com                         
+
+¿Te gustaría que te llamemos para discutir más sobre estos apartamentos o para  
+programar una visita?                                                           
+⏱ 1028ms | sesión: cli-1779476049...
+
+👤 Tú: me gustaria visitar la propieadad 
+
+🤖 Bot:
+¡Excelente elección! Me alegra que estés interesado en visitar la propiedad.    
+
+Antes de programar la visita, necesito saber un poco más sobre ti. ¿Podrías     
+decirme tu nombre completo y un número de teléfono de contacto? De esta manera, 
+podré asegurarme de que un asesor humano te llame para confirmar la visita y    
+proporcionarte más información sobre la propiedad.                              
+
+Recuerda que la propiedad que estás interesada es el Apartamento Ejecutivo      
+Porlamar o el Apartamento Ejecutivo Porlamar Centro, ambos ubicados en la zona  
+de Porlamar, en la isla de Margarita, Venezuela.                                
+
+¿Podrías proporcionarme tu información de contacto, por favor?                  
+⏱ 994ms | sesión: cli-1779476049...
+
+👤 Tú: el 65k
+
+🤖 Bot:
+El apartamento que estás interesado es el Apartamento Ejecutivo Porlamar o el   
+Apartamento Ejecutivo Porlamar Centro, ambos con un precio de $65,000 USD.      
+
+¿Qué día y horario te funcionaría para la visita? Te confirmaré en las próximas 
+horas si el asesor tiene disponibilidad.                                        
+
+Recuerda que es importante que un asesor humano te llame para confirmar la      
+visita y proporcionarte más información sobre la propiedad. ¿Podrías decirme tu 
+nombre completo y un número de teléfono de contacto?                            
+⏱ 1456ms | sesión: cli-1779476049...
+
+👤 Tú: el centro mi nombre es Alfredo Cortez 04123565656
+
+🤖 Bot:
+Gracias por tu interés. Para que un asesor te contacte, ¿podrías decirme tu     
+nombre y teléfono?                                                              
+⏱ 30ms | sesión: cli-1779476049...
+
+👤 Tú: nombre alfredo  cortez 04123563656
+
+🤖 Bot:
+¡Genial! Ya tengo tu información de contacto.                                   
+
+¿Qué día y horario te funcionaría para la visita al Apartamento Ejecutivo       
+Porlamar Centro? Te confirmaré en las próximas horas si el asesor tiene         
+disponibilidad.                                                                 
+
+Recuerda que es importante que un asesor humano te llame para confirmar la      
+visita y proporcionarte más información sobre la propiedad.                     
+
+Te confirmo la cita en cuanto el asesor valide la disponibilidad. ¡Estoy        
+emocionado de que puedas visitar la propiedad!                                  
+⏱ 935ms | sesión: cli-1779476049...
+
+👤 Tú: me gustaria el viernes proximo entre 11  o 12 del medio dua
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedes decirme:                  
+
+ • Tu nombre                                                                    
+ • Teléfono o correo                                                            
+ • Zona de interés y presupuesto aproximado                                     
+
+Te contactarán en 24-48 horas con opciones personalizadas.                      
+⏱ 531ms | sesión: cli-1779476049...
+
+👤 Tú: el viernes proximo para la fecha
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento. ¿Te  
+gustaría que un asesor humano te contacte? Puedes decirme:                      
+
+ • Tu nombre                                                                    
+ • Teléfono o correo                                                            
+ • Zona de interés y presupuesto aproximado                                     
+
+Te contactarán en 24-48 horas con opciones personalizadas.                      
+⏱ 836ms | sesión: cli-1779476049...
+
+👤 Tú: estoy interazado en la propiedad de 65 mil apartamento de porlamar
+
+🤖 Bot:
+No tengo propiedades registradas con esas características en este momento.      
+
+¿Te gustaría que un asesor humano te contacte? Puedes decirme:                  
+
+ • Tu nombre                                                                    
+ • Teléfono o correo                                                            
+ • Zona de interés y presupuesto aproximado                                     
+
+Te contactarán en 24-48 horas con opciones personalizadas.                      
+⏱ 414ms | sesión: cli-1779476049...
+
